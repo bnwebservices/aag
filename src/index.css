@@ -62,6 +62,15 @@
   .animate-float {
     animation: float-card 5.2s ease-in-out 1.2s infinite;
   }
+  .card-reveal {
+    opacity: 0;
+    transform: translateY(24px) scale(0.98);
+    transition: opacity 700ms ease, transform 700ms ease;
+  }
+  .card-reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .nav-link-hover {

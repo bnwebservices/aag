@@ -15,9 +15,8 @@ function App() {
   const [logosActive, setLogosActive] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [theme, setTheme] = useState('light');
-  const [loading, setLoading] = useState(() => (typeof window !== 'undefined' ? window.innerWidth >= 768 : true));
-  const [logoStart, setLogoStart] = useState(false);
   const [isMobile, setIsMobile] = useState(() => (typeof window !== 'undefined' ? window.innerWidth < 768 : false));
+  const [visibleCardIds, setVisibleCardIds] = useState([]);
 
   useEffect(() => {
     const storedTheme = window.localStorage.getItem('aag-theme');
@@ -41,24 +40,33 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const body = document.body;
-    if (loading) {
-      body.style.overflow = 'hidden';
-    } else {
-      body.style.overflow = '';
-    }
-    return () => {
-      body.style.overflow = '';
-    };
-  }, [loading]);
+    if (typeof window === 'undefined') return;
 
-  useEffect(() => {
-    const startTimeout = setTimeout(() => setLogoStart(true), 0);
-    const completeTimeout = setTimeout(() => setLoading(false), 1000);
-    return () => {
-      clearTimeout(startTimeout);
-      clearTimeout(completeTimeout);
-    };
+    const cardSections = Array.from(document.querySelectorAll('[data-animate-card]'));
+    if (!cardSections.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+
+          const cardId = entry.target.getAttribute('data-card-id');
+          if (cardId) {
+            setVisibleCardIds((prev) => (prev.includes(cardId) ? prev : [...prev, cardId]));
+          }
+
+          observer.unobserve(entry.target);
+        });
+      },
+      {
+        threshold: 0.16,
+        rootMargin: '0px 0px -8% 0px',
+      }
+    );
+
+    cardSections.forEach((section) => observer.observe(section));
+
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
@@ -262,20 +270,10 @@ function App() {
     }
   ];
 
-  const shouldShowLoader = loading && !isMobile;
-
   return (
     <div className="relative min-w-full min-h-screen overflow-x-hidden overflow-y-hidden font-['Raleway','Manrope',sans-serif] bg-page text-theme transition-colors duration-500">
       {/* 3D Canvas */}
       <div ref={containerRef} className="fixed top-0 left-0 w-full h-full z-0"></div>
-
-      {shouldShowLoader && (
-        <div className="fixed inset-0 z-50 bg-white flex items-center justify-center">
-          <div className={`logo-loader rounded-[2rem] w-56 h-56 md:w-72 md:h-72 bg-white border border-card shadow-2xl flex items-center justify-center ${logoStart ? 'animate-logo-to-navbar' : ''}`}>
-            <img src="/logos/AAG.png" alt="AAG logo" className="w-3/4 h-3/4 object-contain" />
-          </div>
-        </div>
-      )}
 
       {/* Navbar */}
       <nav className="tablet-nav fixed top-0 left-0 right-0 z-20 bg-surface backdrop-blur-md border-b border-theme px-4 sm:px-6 md:px-12 py-3 md:py-4 transition-colors duration-500">
@@ -387,9 +385,19 @@ function App() {
         </section>
 
         {/* Company Sections */}
-        {companies.map((company, index) => (
-          <section key={company.id} id={company.id} className="min-h-auto w-full flex items-center justify-center pointer-events-none px-3 py-2 sm:px-6 sm:py-3 md:px-4 md:py-1 lg:px-4 lg:py-1 scroll-fade">
-            <div className="pointer-events-auto bg-surface backdrop-blur-lg rounded-[24px] sm:rounded-3xl p-4 sm:p-8 md:p-5 lg:p-8 max-w-full md:max-w-5xl w-full sm:w-[95%] border border-card shadow-2xl transform transition-all duration-500 hover:shadow-3xl hover:scale-[1.01] hover:border-theme">
+        {companies.map((company, index) => {
+          const isVisible = visibleCardIds.includes(company.id);
+
+          return (
+            <section
+              key={company.id}
+              id={company.id}
+              data-animate-card
+              data-card-id={company.id}
+              className={`min-h-auto w-full flex items-center justify-center pointer-events-none px-3 py-2 sm:px-6 sm:py-3 md:px-4 md:py-1 lg:px-4 lg:py-1 scroll-fade card-reveal ${isVisible ? 'is-visible' : ''}`}
+              style={{ transitionDelay: `${index * 120}ms` }}
+            >
+              <div className="pointer-events-auto bg-surface backdrop-blur-lg rounded-[24px] sm:rounded-3xl p-4 sm:p-8 md:p-5 lg:p-8 max-w-full md:max-w-5xl w-full sm:w-[95%] border border-card shadow-2xl transform transition-all duration-500 hover:shadow-3xl hover:scale-[1.01] hover:border-theme">
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 md:gap-4 mb-6 sm:mb-8 md:mb-4 border-b border-theme/20 pb-4 sm:pb-6 md:pb-3">
                 <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full p-1 shadow-2xl transform transition-all duration-300 hover:scale-110" style={{ background: `linear-gradient(135deg, ${company.logoColors.join(', ')})` }}>
                   <div className="w-full h-full rounded-full bg-surface flex items-center justify-center overflow-hidden shadow-inner transition-colors duration-500">
@@ -427,17 +435,18 @@ function App() {
                 </p>
               </div>
 
-              {/* Industry tags */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 md:gap-2">
-                {company.tags.map((tag, idx) => (
-                  <div key={idx} className="px-3 py-2.5 rounded-2xl bg-gradient-to-br from-[rgba(255,255,255,0.85)] via-[rgba(243,249,255,0.65)] to-[rgba(223,238,255,0.55)] text-center shadow-sm transition-all duration-300 hover:scale-105 hover:shadow-xl">
-                    <p className="text-xs font-semibold text-[var(--accent)] font-['Manrope']">{tag}</p>
-                  </div>
-                ))}
+                {/* Industry tags */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 md:gap-2">
+                  {company.tags.map((tag, idx) => (
+                    <div key={idx} className="px-3 py-2.5 rounded-2xl bg-gradient-to-br from-[rgba(255,255,255,0.85)] via-[rgba(243,249,255,0.65)] to-[rgba(223,238,255,0.55)] text-center shadow-sm transition-all duration-300 hover:scale-105 hover:shadow-xl">
+                      <p className="text-xs font-semibold text-[var(--accent)] font-['Manrope']">{tag}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
-          </section>
-        ))}
+            </section>
+          );
+        })}
 
         {/* Footer / Enterprise Section */}
         <footer className="w-full px-0 py-0 sm:px-8 sm:py-10 bg-panel-soft transition-colors duration-500">
