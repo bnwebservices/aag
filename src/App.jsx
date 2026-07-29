@@ -335,15 +335,20 @@ function App() {
       <div ref={contentRef} className="tablet-tight-content relative z-10 min-h-screen overflow-y-auto pointer-events-auto pt-12 md:pt-10 lg:pt-20">
         {/* Hero Section */}
         <section className="min-h-[calc(100vh-5rem)] lg:min-h-screen w-full flex items-center justify-center pointer-events-none p-3 sm:p-6 md:p-4 mt-0">
-          <div className="pointer-events-auto bg-surface backdrop-blur-lg rounded-[24px] sm:rounded-3xl p-5 sm:p-8 md:p-10 lg:p-16 max-w-full md:max-w-6xl w-full sm:w-[95%] border border-card shadow-2xl transform transition-all duration-300 hover:shadow-3xl hover:scale-[1.01] transition-colors duration-500">
+          <div className="pointer-events-auto bg-surface backdrop-blur-lg rounded-[24px] sm:rounded-3xl p-5 sm:p-8 md:p-10 lg:p-16 w-full max-w-none md:max-w-none border border-card shadow-2xl transform transition-all duration-300 hover:shadow-3xl hover:scale-[1.01] transition-colors duration-500">
             <div className="flex flex-col md:flex-row items-start md:items-center gap-5 sm:gap-8 mb-6 sm:mb-10">
               <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl bg-surface flex items-center justify-center shadow-xl flex-shrink-0 transform transition-transform duration-300 hover:scale-110 overflow-hidden border border-card">
                 <img src="/logos/AAG.png" alt="AAG logo" className="w-full h-full object-contain p-4" />
               </div>
-              <div>
-                <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-theme tracking-tight font-['Georgia','Times New Roman',serif]">
-                  Anubhav Agrawal Group
-                </h1>
+              <div className="w-full">
+                <div className="inline-block relative">
+                  <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-theme tracking-tight font-['Georgia','Times New Roman',serif]">
+                    Anubhav Agrawal Group
+                  </h1>
+                  <div className="mt-2 h-[3px] w-full overflow-hidden rounded-full bg-gradient-to-r from-black via-gray-500 to-gray-300 relative">
+                    <div className="absolute inset-0 w-[200%] bg-gradient-to-r from-transparent via-white/70 to-transparent animate-[hero-line-shimmer_2.4s_linear_infinite]" />
+                  </div>
+                </div>
                 <p className="text-muted-strong font-medium text-[11px] sm:text-sm tracking-[0.2em] uppercase mt-2 font-['Manrope']">
                   Building India's Industrial Future Through Innovation
                 </p>
@@ -397,7 +402,7 @@ function App() {
               className={`min-h-auto w-full flex items-center justify-center pointer-events-none px-3 py-2 sm:px-6 sm:py-3 md:px-4 md:py-1 lg:px-4 lg:py-1 scroll-fade card-reveal ${isVisible ? 'is-visible' : ''}`}
               style={{ transitionDelay: `${index * 120}ms` }}
             >
-              <div className="pointer-events-auto bg-surface backdrop-blur-lg rounded-[24px] sm:rounded-3xl p-4 sm:p-8 md:p-5 lg:p-8 max-w-full md:max-w-5xl w-full sm:w-[95%] border border-card shadow-2xl transform transition-all duration-500 hover:shadow-3xl hover:scale-[1.01] hover:border-theme">
+              <div className="pointer-events-auto bg-surface backdrop-blur-lg rounded-[24px] sm:rounded-3xl p-4 sm:p-8 md:p-5 lg:p-8 max-w-6xl w-full sm:w-[95%] border border-card shadow-2xl transform transition-all duration-500 hover:shadow-3xl hover:scale-[1.01] hover:border-theme">
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 md:gap-4 mb-6 sm:mb-8 md:mb-4 border-b border-theme/20 pb-4 sm:pb-6 md:pb-3">
                 <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full p-1 shadow-2xl transform transition-all duration-300 hover:scale-110" style={{ background: `linear-gradient(135deg, ${company.logoColors.join(', ')})` }}>
                   <div className="w-full h-full rounded-full bg-surface flex items-center justify-center overflow-hidden shadow-inner transition-colors duration-500">
