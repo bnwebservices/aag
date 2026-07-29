@@ -142,3 +142,29 @@
   60% { opacity: 1; transform: translateX(-12px) translateY(0) scale(1.02); }
   100% { opacity: 1; transform: translateX(0) translateY(0) scale(1); }
 }
+
+@media (min-width: 768px) and (max-width: 1366px) {
+  .scroll-fade {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .scroll-fade > div {
+    padding: 1rem 1.1rem;
+  }
+
+  .scroll-fade .grid.gap-2 {
+    gap: 0.5rem;
+  }
+}
+
+@media (min-width: 900px) and (max-width: 1400px) {
+  .tablet-nav {
+    padding-top: 0.8rem !important;
+    padding-bottom: 0.8rem !important;
+  }
+
+  .tablet-tight-content {
+    padding-top: 2.25rem !important;
+  }
+}
