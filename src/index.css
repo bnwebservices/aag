@@ -41,6 +41,7 @@
 .border-theme { border-color: var(--border); }
 .border-card { border-color: var(--cardborder); }
 .shadow-theme { box-shadow: 0 30px 80px -40px var(--shadow); }
+.text-white { color: #ffffff !important; }
 
 @layer utilities {
   .animate-vibrate-lr {

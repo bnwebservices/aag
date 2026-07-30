@@ -279,7 +279,7 @@ function App() {
       <nav className="tablet-nav fixed top-0 left-0 right-0 z-20 bg-surface backdrop-blur-md border-b border-theme px-4 sm:px-6 md:px-12 py-3 md:py-4 transition-colors duration-500">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-surface flex items-center justify-center shadow-md overflow-hidden border border-card">
+            <div className="w-10 h-10 rounded-lg bg-[#727270] flex items-center justify-center shadow-md overflow-hidden border border-card">
               <img src="/logos/AAg update logo.png" alt="AAG logo" className="w-full h-full object-contain p-1" />
             </div>
           </div>
@@ -337,7 +337,7 @@ function App() {
         <section className="min-h-[calc(100vh-5rem)] lg:min-h-screen w-full flex items-center justify-center pointer-events-none p-3 sm:p-6 md:p-4 mt-0">
           <div className="pointer-events-auto bg-surface backdrop-blur-lg rounded-[24px] sm:rounded-3xl p-5 sm:p-8 md:p-10 lg:p-16 w-full max-w-none md:max-w-none border border-card shadow-2xl transform transition-all duration-300 hover:shadow-3xl hover:scale-[1.01] transition-colors duration-500">
             <div className="flex flex-col md:flex-row items-start md:items-center gap-5 sm:gap-8 mb-6 sm:mb-10">
-              <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl bg-surface flex items-center justify-center shadow-xl flex-shrink-0 transform transition-transform duration-300 hover:scale-110 overflow-hidden border border-card">
+              <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl bg-[#727270] flex items-center justify-center shadow-xl flex-shrink-0 transform transition-transform duration-300 hover:scale-110 overflow-hidden border border-card">
                 <img src="/logos/AAg update logo.png" alt="AAG logo" className="w-full h-full object-contain p-4" />
               </div>
               <div className="w-full">
@@ -459,7 +459,7 @@ function App() {
             <div className="grid gap-5 sm:gap-10 lg:grid-cols-[2fr_1fr]">
               <div className="flex flex-col gap-3 sm:gap-6">
                 <div className="flex items-center gap-3 sm:gap-4">
-                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl sm:rounded-3xl bg-panel p-3 shadow-sm flex items-center justify-center border border-card">
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl sm:rounded-3xl bg-[#727270] p-3 shadow-sm flex items-center justify-center border border-card">
                     <img src="/logos/AAg update logo.png" alt="AAG logo" className="w-full h-full object-contain" />
                   </div>
                   <div className="sm:block">
