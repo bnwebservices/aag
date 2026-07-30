@@ -280,7 +280,7 @@ function App() {
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-lg bg-surface flex items-center justify-center shadow-md overflow-hidden border border-card">
-              <img src="/logos/AAG.png" alt="AAG logo" className="w-full h-full object-contain p-1" />
+              <img src="/logos/AAg update logo.png" alt="AAG logo" className="w-full h-full object-contain p-1" />
             </div>
           </div>
           <div className="hidden md:flex items-center gap-6 text-sm">
@@ -338,7 +338,7 @@ function App() {
           <div className="pointer-events-auto bg-surface backdrop-blur-lg rounded-[24px] sm:rounded-3xl p-5 sm:p-8 md:p-10 lg:p-16 w-full max-w-none md:max-w-none border border-card shadow-2xl transform transition-all duration-300 hover:shadow-3xl hover:scale-[1.01] transition-colors duration-500">
             <div className="flex flex-col md:flex-row items-start md:items-center gap-5 sm:gap-8 mb-6 sm:mb-10">
               <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl bg-surface flex items-center justify-center shadow-xl flex-shrink-0 transform transition-transform duration-300 hover:scale-110 overflow-hidden border border-card">
-                <img src="/logos/AAG.png" alt="AAG logo" className="w-full h-full object-contain p-4" />
+                <img src="/logos/AAg update logo.png" alt="AAG logo" className="w-full h-full object-contain p-4" />
               </div>
               <div className="w-full">
                 <div className="inline-block relative">
@@ -382,7 +382,7 @@ function App() {
                   rel="noreferrer"
                   className={`rounded-3xl bg-surface border border-card p-6 flex items-center justify-center shadow-lg ${logosActive ? (index % 2 === 0 ? 'logo-enter-lr animate-vibrate-lr animate-float' : 'logo-enter-rl animate-vibrate-rl animate-float') : 'opacity-0'} transition-colors duration-500 hover:ring-1 hover:ring-[var(--accent)]`}
                 >
-                  <img src={company.logoImage || '/logos/AAG.png'} alt={`${company.name} logo`} className="h-20 md:h-24 object-contain" />
+                  <img src={company.logoImage || '/logos/AAg update logo.png'} alt={`${company.name} logo`} className="h-20 md:h-24 object-contain" />
                 </a>
               ))}
             </div>
@@ -460,7 +460,7 @@ function App() {
               <div className="flex flex-col gap-3 sm:gap-6">
                 <div className="flex items-center gap-3 sm:gap-4">
                   <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl sm:rounded-3xl bg-panel p-3 shadow-sm flex items-center justify-center border border-card">
-                    <img src="/logos/AAG.png" alt="AAG logo" className="w-full h-full object-contain" />
+                    <img src="/logos/AAg update logo.png" alt="AAG logo" className="w-full h-full object-contain" />
                   </div>
                   <div className="sm:block">
                     <h3 className="hidden sm:block text-2xl sm:text-3xl font-bold tracking-tight text-theme">Anubhav Agrawal Group</h3>
