@@ -236,7 +236,7 @@ function App() {
       website: 'https://agastyaenergy.in/',
       description: '"Agastya" symbolises Balance & Harmony. Agastya is inspired by the timeless principles of balance and harmony—a philosophy that reflects our approach to responsible growth and environmental sustainability. Agastya is an innovation-led enterprise focused on next-generation green energy and environmental solutions. Our mission is to enable the world\'s transition to a circular, balanced economy powered by clean resources.',
       fullName: 'Agastya Energy Solutions',
-      stock: 'Power | Energy | Renewables',
+      stock: 'CIN: L24100GJ2005PLC047292 | ISIN: INE753W01010',
       tags: ['Solar Energy', 'Wind Power', 'Circular Economy', 'Global Solutions']
     },
     {
