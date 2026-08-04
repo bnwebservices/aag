@@ -14,21 +14,13 @@ function App() {
   const scrollAmountRef = useRef(0);
   const [logosActive, setLogosActive] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [theme, setTheme] = useState('light');
   const [isMobile, setIsMobile] = useState(() => (typeof window !== 'undefined' ? window.innerWidth < 768 : false));
   const [visibleCardIds, setVisibleCardIds] = useState([]);
 
   useEffect(() => {
-    const storedTheme = window.localStorage.getItem('aag-theme');
-    if (storedTheme) {
-      setTheme(storedTheme);
-    }
+    document.documentElement.classList.remove('dark');
+    window.localStorage.removeItem('aag-theme');
   }, []);
-
-  useEffect(() => {
-    document.documentElement.classList.toggle('dark', theme === 'dark');
-    window.localStorage.setItem('aag-theme', theme);
-  }, [theme]);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -69,14 +61,7 @@ function App() {
     return () => observer.disconnect();
   }, []);
 
-  useEffect(() => {
-    if (sceneRef.current) {
-      sceneRef.current.background = new THREE.Color(0xffffff);
-      if (rendererRef.current && cameraRef.current) {
-        rendererRef.current.render(sceneRef.current, cameraRef.current);
-      }
-    }
-  }, [theme]);
+
 
   useEffect(() => {
     const container = containerRef.current;
@@ -97,19 +82,19 @@ function App() {
     container.appendChild(renderer.domElement);
     rendererRef.current = renderer;
 
-    const ambient = new THREE.AmbientLight(0xfff8ea, 0.6);
+    const ambient = new THREE.AmbientLight(0xffffff, 0.85);
     scene.add(ambient);
 
-    const mainLight = new THREE.DirectionalLight(0xfff5e6, 0.85);
+    const mainLight = new THREE.DirectionalLight(0xffffff, 0.9);
     mainLight.position.set(4, 8, 5);
     mainLight.castShadow = false;
     scene.add(mainLight);
 
-    const backLight = new THREE.DirectionalLight(0x2563eb, 0.35);
+    const backLight = new THREE.DirectionalLight(0x3b82f6, 0.25);
     backLight.position.set(-5, 2, -6);
     scene.add(backLight);
 
-    const fillLight = new THREE.DirectionalLight(0xd4af37, 0.3);
+    const fillLight = new THREE.DirectionalLight(0xffffff, 0.3);
     fillLight.position.set(2, -2, 4);
     scene.add(fillLight);
 
@@ -133,9 +118,9 @@ function App() {
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
 
-      // Sober ambient glow shadow
-      ctx.shadowColor = 'rgba(212, 175, 55, 0.4)';
-      ctx.shadowBlur = 28;
+      // Sober ambient shadow
+      ctx.shadowColor = 'rgba(0, 0, 0, 0.15)';
+      ctx.shadowBlur = 20;
 
       ctx.fillStyle = fillColor;
       ctx.fillText('A   A   G', 600, 256);
@@ -165,7 +150,7 @@ function App() {
     const textMat = new THREE.MeshBasicMaterial({
       map: textTexture,
       transparent: true,
-      opacity: theme === 'dark' ? 0.65 : 0.5,
+      opacity: 0.55,
       side: THREE.FrontSide,
       depthWrite: false,
     });
@@ -185,9 +170,9 @@ function App() {
     };
     updateResponsiveTextScale();
 
-    // Multi-tone brand particle cloud (Gold, Sapphire Blue, Warm Amber, Violet)
+    // Clean neutral particle cloud (Pure White, Silver, Slate, Blue Accent)
     const particleGroup = new THREE.Group();
-    const colors = [0xc59b27, 0xd4af37, 0x2563eb, 0x3b82f6, 0xd95f03, 0x5548c8, 0xf3d068];
+    const colors = [0xffffff, 0xe2e8f0, 0xcbd5e1, 0x94a3b8, 0x3b82f6, 0xc59b27];
     for (let i = 0; i < 40; i++) {
       const geom = new THREE.SphereGeometry(0.038, 6);
       const mat = new THREE.MeshStandardMaterial({
@@ -363,15 +348,6 @@ function App() {
             ))}
           </div>
           <div className="flex items-center gap-3">
-            <button
-              type="button"
-              className="inline-flex items-center gap-2 rounded-full border border-theme bg-panel px-3 py-2 text-sm font-medium text-theme transition hover:bg-panel-soft"
-              onClick={() => setTheme((prev) => (prev === 'light' ? 'dark' : 'light'))}
-              aria-label="Toggle theme"
-            >
-              <i className={`fas ${theme === 'light' ? 'fa-moon' : 'fa-sun'} text-[var(--accent)]`}></i>
-              {theme === 'light' ? 'Dark' : 'Light'}
-            </button>
             <button
               className="md:hidden text-theme"
               onClick={() => setMenuOpen((open) => !open)}
