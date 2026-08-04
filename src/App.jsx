@@ -71,8 +71,7 @@ function App() {
 
   useEffect(() => {
     if (sceneRef.current) {
-      const bgColor = theme === 'dark' ? 0x283044 : 0xffffff;
-      sceneRef.current.background = new THREE.Color(bgColor);
+      sceneRef.current.background = new THREE.Color(0xffffff);
       if (rendererRef.current && cameraRef.current) {
         rendererRef.current.render(sceneRef.current, cameraRef.current);
       }
@@ -82,7 +81,7 @@ function App() {
   useEffect(() => {
     const container = containerRef.current;
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(theme === 'dark' ? 0x283044 : 0xffffff);
+    scene.background = new THREE.Color(0xffffff);
     sceneRef.current = scene;
 
     const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -523,7 +522,7 @@ function App() {
         })}
 
         {/* Footer / Enterprise Section */}
-        <footer className="w-full bg-gradient-to-br from-[#1c1917] via-[#2a2419] to-[#0c0e14] text-white border-t border-[var(--accent)]/30 shadow-2xl mt-12 md:mt-20">
+        <footer className="w-full bg-gradient-to-br from-[#2a231d] via-[#3a3023] to-[#191512] text-white border-t border-[var(--accent)]/40 shadow-2xl mt-12 md:mt-20">
           <div className="pointer-events-auto max-w-7xl mx-auto px-4 py-8 sm:px-8 md:px-12 md:py-16">
             <div className="grid gap-5 sm:gap-10 lg:grid-cols-[2fr_1fr]">
               <div className="flex flex-col gap-3 sm:gap-6">
@@ -552,7 +551,7 @@ function App() {
               </div>
             </div>
 
-            <div className="mt-8 sm:mt-12 border-t border-stone-800/80 pt-6 flex flex-col gap-3 sm:gap-4 md:flex-row md:items-center md:justify-between text-sm text-stone-400 font-['Manrope']">
+            <div className="mt-8 sm:mt-12 border-t border-stone-700/60 pt-6 flex flex-col gap-3 sm:gap-4 md:flex-row md:items-center md:justify-between text-sm text-stone-400 font-['Manrope']">
               <p className="text-center md:text-left">© 2026 Anubhav Agrawal Group. All Rights Reserved.</p>
               <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-stone-400 md:justify-end">
                 <span className="uppercase tracking-[0.3em] text-[11px] sm:text-xs">Innovation</span>

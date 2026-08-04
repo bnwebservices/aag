@@ -3,15 +3,15 @@
 :root {
   --bg: #ffffff;
   --surface: rgba(255, 255, 255, 0.98);
-  --surface-soft: #fafbfc;
-  --panel: #f8fafc;
+  --surface-soft: #f8fafc;
+  --panel: #ffffff;
   --panel-soft: #f1f5f9;
   --text: #0f172a;
-  --muted: #64748b;
+  --muted: #475569;
   --muted-strong: #b48518;
-  --border: rgba(197, 155, 39, 0.12);
-  --cardborder: rgba(197, 155, 39, 0.08);
-  --shadow: rgba(0, 0, 0, 0.03);
+  --border: rgba(197, 155, 39, 0.16);
+  --cardborder: rgba(226, 232, 240, 0.8);
+  --shadow: rgba(0, 0, 0, 0.04);
   --accent: #c59b27;
   --accent-gold: #d4af37;
   --accent-blue: #2563eb;
@@ -19,21 +19,21 @@
 }
 
 .dark {
-  --bg: #283044;
-  --surface: rgba(45, 54, 76, 0.94);
-  --surface-soft: #35425c;
-  --panel: rgba(50, 62, 86, 0.90);
-  --panel-soft: #3c4a66;
-  --text: #ffffff;
-  --muted: #e2e8f0;
-  --muted-strong: #fcd34d;
-  --border: rgba(229, 193, 88, 0.28);
-  --cardborder: rgba(229, 193, 88, 0.20);
-  --shadow: rgba(0, 0, 0, 0.18);
-  --accent: #f59e0b;
-  --accent-gold: #fbbf24;
-  --accent-blue: #60a5fa;
-  --accent-glow: rgba(251, 191, 36, 0.20);
+  --bg: #ffffff;
+  --surface: rgba(255, 255, 255, 0.98);
+  --surface-soft: #f8fafc;
+  --panel: #ffffff;
+  --panel-soft: #f1f5f9;
+  --text: #0f172a;
+  --muted: #475569;
+  --muted-strong: #b48518;
+  --border: rgba(197, 155, 39, 0.16);
+  --cardborder: rgba(226, 232, 240, 0.8);
+  --shadow: rgba(0, 0, 0, 0.04);
+  --accent: #c59b27;
+  --accent-gold: #d4af37;
+  --accent-blue: #2563eb;
+  --accent-glow: rgba(197, 155, 39, 0.08);
 }
 
 .bg-page {
