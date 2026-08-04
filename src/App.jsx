@@ -86,8 +86,8 @@ function App() {
     sceneRef.current = scene;
 
     const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.set(6, 4, 14);
-    camera.lookAt(0, 0, 0);
+    camera.position.set(0, 0.5, 14);
+    camera.lookAt(0, 0.5, 0);
     cameraRef.current = camera;
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
@@ -114,35 +114,67 @@ function App() {
     fillLight.position.set(2, -2, 4);
     scene.add(fillLight);
 
-    // Dual 3D Torus Rings: Outer Gold + Inner Sapphire Blue
-    const ringGeo = new THREE.TorusGeometry(2.0, 0.03, 32, 64);
-    const ringMat = new THREE.MeshStandardMaterial({
-      color: 0xc59b27,
-      emissive: 0x5c460d,
-      emissiveIntensity: 0.12,
-      transparent: true,
-      opacity: 0.3,
-    });
-    const ring = new THREE.Mesh(ringGeo, ringMat);
-    ring.position.set(0, 0.5, 0);
-    ring.rotation.x = Math.PI / 3;
-    ring.rotation.z = Math.PI / 6;
-    scene.add(ring);
-    ringRef.current = ring;
+    // 3D Floating "AAG" Text Mesh - Front-facing Poster Style
+    const createAAGTexture = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = 1200;
+      canvas.height = 512;
+      const ctx = canvas.getContext('2d');
 
-    const innerRingGeo = new THREE.TorusGeometry(1.4, 0.025, 32, 64);
-    const innerRingMat = new THREE.MeshStandardMaterial({
-      color: 0x3b82f6,
-      emissive: 0x0d205c,
-      emissiveIntensity: 0.15,
+      ctx.clearRect(0, 0, 1200, 512);
+
+      // Uniform champagne gold color
+      const fillColor = '#D4AF37';
+
+      // Font using Google Font Numans with wide poster tracking
+      ctx.font = '700 195px "Numans", "Raleway", "Manrope", sans-serif';
+      if ('letterSpacing' in ctx) {
+        ctx.letterSpacing = '42px';
+      }
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+
+      // Sober ambient glow shadow
+      ctx.shadowColor = 'rgba(212, 175, 55, 0.4)';
+      ctx.shadowBlur = 28;
+
+      ctx.fillStyle = fillColor;
+      ctx.fillText('A   A   G', 600, 256);
+
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.25)';
+      ctx.strokeText('A   A   G', 600, 256);
+
+      const texture = new THREE.CanvasTexture(canvas);
+      texture.needsUpdate = true;
+
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(() => {
+          ctx.clearRect(0, 0, 1200, 512);
+          ctx.fillStyle = fillColor;
+          ctx.fillText('A   A   G', 600, 256);
+          ctx.strokeText('A   A   G', 600, 256);
+          texture.needsUpdate = true;
+        });
+      }
+
+      return texture;
+    };
+
+    const textTexture = createAAGTexture();
+    const textGeo = new THREE.PlaneGeometry(9.5, 4.0);
+    const textMat = new THREE.MeshBasicMaterial({
+      map: textTexture,
       transparent: true,
-      opacity: 0.28,
+      opacity: theme === 'dark' ? 0.65 : 0.5,
+      side: THREE.FrontSide,
+      depthWrite: false,
     });
-    const innerRing = new THREE.Mesh(innerRingGeo, innerRingMat);
-    innerRing.position.set(0, 0.5, 0);
-    innerRing.rotation.x = -Math.PI / 4;
-    innerRing.rotation.y = Math.PI / 4;
-    scene.add(innerRing);
+    const aagTextMesh = new THREE.Mesh(textGeo, textMat);
+    aagTextMesh.position.set(0, 0.5, 0);
+    aagTextMesh.rotation.set(0, 0, 0);
+    scene.add(aagTextMesh);
+    ringRef.current = aagTextMesh;
 
     // Multi-tone brand particle cloud (Gold, Sapphire Blue, Warm Amber, Violet)
     const particleGroup = new THREE.Group();
@@ -169,6 +201,30 @@ function App() {
     scene.add(particleGroup);
     particleGroupRef.current = particleGroup;
 
+    // Animation Loop for Floating 3D Text & Particles
+    let animationFrameId;
+    const clock = new THREE.Clock();
+
+    const animate = () => {
+      animationFrameId = requestAnimationFrame(animate);
+      const elapsedTime = clock.getElapsedTime();
+
+      // Front-facing subtle floating (strictly no tilt)
+      if (aagTextMesh) {
+        aagTextMesh.position.y = 0.5 + Math.sin(elapsedTime * 0.7) * 0.1;
+        aagTextMesh.rotation.set(0, 0, 0);
+      }
+
+      // Gentle orbit for particle cloud
+      if (particleGroupRef.current) {
+        particleGroupRef.current.rotation.y = elapsedTime * 0.02;
+      }
+
+      renderer.render(scene, camera);
+    };
+
+    animate();
+
     const handleResize = () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
@@ -176,8 +232,6 @@ function App() {
       renderer.render(scene, camera);
     };
     window.addEventListener('resize', handleResize);
-
-    renderer.render(scene, camera);
 
     const logoSection = logoPreviewRef.current;
     let logoObserver;
@@ -199,6 +253,7 @@ function App() {
     }
 
     return () => {
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
       window.removeEventListener('resize', handleResize);
       if (logoObserver) {
         logoObserver.disconnect();
@@ -288,9 +343,9 @@ function App() {
           </div>
           <div className="hidden md:flex items-center gap-6 text-sm">
             {companies.map((company) => (
-              <a 
+              <a
                 key={company.id}
-                href={`#${company.id}`} 
+                href={`#${company.id}`}
                 className="nav-link-hover text-theme font-medium font-['Manrope'] text-xs uppercase tracking-wider"
               >
                 {company.name}
@@ -360,7 +415,7 @@ function App() {
 
             <div className="mb-0 sm:mb-8">
               <div className="rounded-[20px] sm:rounded-3xl bg-panel border border-card p-4 sm:p-8 shadow-lg transition-colors duration-500">
-                <h3 className="text-lg sm:text-xl font-semibold text-theme mb-3 sm:mb-4 font-['Raleway']">About Anubhav Agrawal Group</h3>
+                <h3 className="text-lg sm:text-xl font-semibold text-[var(--accent-blue)] mb-3 sm:mb-4 font-['Raleway']">About Anubhav Agrawal Group</h3>
                 <p className="text-sm sm:text-[15px] text-muted leading-7 sm:leading-8 font-['Manrope']">
                   <strong>Anubhav Agarwal Group </strong> is a diversified Indian business conglomerate committed to driving innovation, industrial excellence, and sustainable growth. With a strong presence across specialty chemicals, agrochemicals, renewable energy, advanced manufacturing, and semiconductor technology, AAG is building future-ready businesses that contribute to India's industrial progress and global competitiveness. Guided by a vision of innovation, integrity, and long-term value creation, the Group continues to empower industries, strengthen infrastructure, and deliver solutions that create a lasting impact.
                 </p>
@@ -374,7 +429,7 @@ function App() {
         <section ref={logoPreviewRef} className={`w-full flex items-center justify-center py-8 sm:py-12 md:py-6 pointer-events-none p-3 sm:p-6 md:px-4 transition-all duration-700 ${logosActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div className="pointer-events-auto max-w-6xl w-full">
             <div className="mb-6 sm:mb-8 text-center">
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-theme">AAG Companies</h2>
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-theme">AAG <span className="text-[var(--accent-blue)]">Companies</span></h2>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 md:gap-4">
               {companies.map((company, index) => (
@@ -406,42 +461,42 @@ function App() {
               style={{ transitionDelay: `${index * 120}ms` }}
             >
               <div className="pointer-events-auto bg-surface backdrop-blur-lg rounded-[24px] sm:rounded-3xl p-4 sm:p-8 md:p-5 lg:p-8 max-w-6xl w-full sm:w-[95%] border border-card shadow-2xl transform transition-all duration-500 hover:shadow-3xl hover:scale-[1.01] hover:border-[var(--accent)]/40 hover:ring-1 hover:ring-[var(--accent-blue)]/20">
-              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 md:gap-4 mb-6 sm:mb-8 md:mb-4 border-b border-theme/20 pb-4 sm:pb-6 md:pb-3">
-                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full p-1 shadow-2xl transform transition-all duration-300 hover:scale-110" style={{ background: `linear-gradient(135deg, ${company.logoColors.join(', ')})` }}>
-                  <div className="w-full h-full rounded-full bg-surface flex items-center justify-center overflow-hidden shadow-inner transition-colors duration-500">
-                    {company.logoImage ? (
-                      <img src={company.logoImage} alt={`${company.name} logo`} className="w-full h-full object-contain p-2" />
-                    ) : (
-                      <div className="flex flex-col items-center justify-center">
-                        <span className="text-xl font-black tracking-tight" style={{ color: company.color }}>{company.logoLabel}</span>
-                        <i className={`fas ${company.logoIcon} text-xs mt-1`} style={{ color: company.color }}></i>
-                      </div>
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 md:gap-4 mb-6 sm:mb-8 md:mb-4 border-b border-theme/20 pb-4 sm:pb-6 md:pb-3">
+                  <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full p-1 shadow-2xl transform transition-all duration-300 hover:scale-110" style={{ background: `linear-gradient(135deg, ${company.logoColors.join(', ')})` }}>
+                    <div className="w-full h-full rounded-full bg-surface flex items-center justify-center overflow-hidden shadow-inner transition-colors duration-500">
+                      {company.logoImage ? (
+                        <img src={company.logoImage} alt={`${company.name} logo`} className="w-full h-full object-contain p-2" />
+                      ) : (
+                        <div className="flex flex-col items-center justify-center">
+                          <span className="text-xl font-black tracking-tight" style={{ color: company.color }}>{company.logoLabel}</span>
+                          <i className={`fas ${company.logoIcon} text-xs mt-1`} style={{ color: company.color }}></i>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  <div>
+                    <h2 className="text-2xl sm:text-3xl font-bold text-theme font-['Raleway']">{company.name}</h2>
+                    <p className="text-sm text-muted-strong font-medium font-['Manrope']">
+                      {company.fullName}
+                    </p>
+                    {company.stock && (
+                      <p className="text-xs text-muted font-['Manrope'] mt-1">{company.stock}</p>
+                    )}
+                    {company.website && (
+                      <p className="text-xs mt-2">
+                        <a href={company.website} target="_blank" rel="noreferrer" className="text-[var(--accent-blue)] font-semibold hover:underline">
+                          Visit {company.name} website
+                        </a>
+                      </p>
                     )}
                   </div>
                 </div>
-                <div>
-                  <h2 className="text-2xl sm:text-3xl font-bold text-theme font-['Raleway']">{company.name}</h2>
-                  <p className="text-sm text-muted-strong font-medium font-['Manrope']">
-                    {company.fullName}
+
+                <div className={isMobile ? 'rounded-none border-0 bg-transparent p-0 shadow-none mb-5' : 'relative bg-panel-soft rounded-[20px] p-4 sm:p-6 md:p-3 mb-6 sm:mb-8 md:mb-4 border-l-4 border-l-[var(--accent)] border-t border-b border-r border-card shadow-sm transition-all duration-300 hover:shadow-inner'}>
+                  <p className={`text-theme leading-7 sm:leading-8 text-sm sm:text-[15px] font-['Manrope'] ${isMobile ? 'text-base' : ''}`}>
+                    {company.description}
                   </p>
-                  {company.stock && (
-                    <p className="text-xs text-muted font-['Manrope'] mt-1">{company.stock}</p>
-                  )}
-                  {company.website && (
-                    <p className="text-xs mt-2">
-                      <a href={company.website} target="_blank" rel="noreferrer" className="text-[var(--accent)] font-semibold hover:underline">
-                        Visit {company.name} website
-                      </a>
-                    </p>
-                  )}
                 </div>
-              </div>
-              
-              <div className={isMobile ? 'rounded-none border-0 bg-transparent p-0 shadow-none mb-5' : 'relative bg-panel-soft rounded-[20px] p-4 sm:p-6 md:p-3 mb-6 sm:mb-8 md:mb-4 border-l-4 border-l-[var(--accent)] border-t border-b border-r border-card shadow-sm transition-all duration-300 hover:shadow-inner'}>
-                <p className={`text-theme leading-7 sm:leading-8 text-sm sm:text-[15px] font-['Manrope'] ${isMobile ? 'text-base' : ''}`}>
-                  {company.description}
-                </p>
-              </div>
 
                 {/* Industry tags */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 md:gap-2">
