@@ -71,7 +71,7 @@ function App() {
 
   useEffect(() => {
     if (sceneRef.current) {
-      const bgColor = theme === 'dark' ? 0x0c0e14 : 0xfaf7f2;
+      const bgColor = theme === 'dark' ? 0x283044 : 0xffffff;
       sceneRef.current.background = new THREE.Color(bgColor);
       if (rendererRef.current && cameraRef.current) {
         rendererRef.current.render(sceneRef.current, cameraRef.current);
@@ -82,7 +82,7 @@ function App() {
   useEffect(() => {
     const container = containerRef.current;
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(theme === 'dark' ? 0x0c0e14 : 0xfaf7f2);
+    scene.background = new THREE.Color(theme === 'dark' ? 0x283044 : 0xffffff);
     sceneRef.current = scene;
 
     const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -523,42 +523,42 @@ function App() {
         })}
 
         {/* Footer / Enterprise Section */}
-        <footer className="w-full px-0 py-0 sm:px-8 sm:py-10 bg-panel-soft transition-colors duration-500">
-          <div className="pointer-events-auto w-full max-w-full bg-surface text-theme border-t border-card px-4 py-6 sm:px-8 md:px-16 md:py-16 transition-colors duration-500 shadow-none rounded-none sm:rounded-[32px] sm:border sm:shadow-theme">
+        <footer className="w-full bg-gradient-to-br from-[#1c1917] via-[#2a2419] to-[#0c0e14] text-white border-t border-[var(--accent)]/30 shadow-2xl mt-12 md:mt-20">
+          <div className="pointer-events-auto max-w-7xl mx-auto px-4 py-8 sm:px-8 md:px-12 md:py-16">
             <div className="grid gap-5 sm:gap-10 lg:grid-cols-[2fr_1fr]">
               <div className="flex flex-col gap-3 sm:gap-6">
                 <div className="flex items-center gap-3 sm:gap-4">
-                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl sm:rounded-3xl bg-gradient-to-br from-[#1c1917] via-[#2a2419] to-[#0c0e14] p-3 shadow-md flex items-center justify-center border border-[var(--accent)]/30">
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl sm:rounded-3xl bg-white/10 backdrop-blur-md p-3 shadow-md flex items-center justify-center border border-[var(--accent)]/40">
                     <img src="/logos/AAg update logo.png" alt="AAG logo" className="w-full h-full object-contain" />
                   </div>
                   <div className="sm:block">
-                    <h3 className="hidden sm:block text-2xl sm:text-3xl font-bold tracking-tight text-theme">Anubhav Agrawal Group</h3>
+                    <h3 className="hidden sm:block text-2xl sm:text-3xl font-bold tracking-tight text-white font-['Georgia','Times_New_Roman',serif]">Anubhav Agrawal Group</h3>
                   </div>
                 </div>
-                <p className="max-w-2xl text-sm leading-7 text-muted">Anubhav Agrawal Group is an enterprise platform uniting high-growth businesses across agrochemicals, renewable energy, bio-chemicals, and semiconductor manufacturing. We combine strategic partnerships, innovation, and a Make-in-India growth agenda to create sustainable value and world-class industrial capabilities.</p>
+                <p className="max-w-2xl text-sm leading-7 text-stone-300 font-['Manrope']">Anubhav Agrawal Group is an enterprise platform uniting high-growth businesses across agrochemicals, renewable energy, bio-chemicals, and semiconductor manufacturing. We combine strategic partnerships, innovation, and a Make-in-India growth agenda to create sustainable value and world-class industrial capabilities.</p>
                 <div className="flex flex-wrap gap-2 sm:gap-3">
-                  <span className="rounded-full border border-[var(--accent)]/30 bg-gradient-to-r from-panel-soft via-surface to-panel-soft px-3 py-2 text-[11px] sm:text-xs text-muted-strong font-medium shadow-sm">Enterprise Strategy</span>
-                  <span className="rounded-full border border-[var(--accent-blue)]/30 bg-gradient-to-r from-panel-soft via-surface to-panel-soft px-3 py-2 text-[11px] sm:text-xs text-muted-strong font-medium shadow-sm">Make in India</span>
-                  <span className="rounded-full border border-[var(--accent)]/30 bg-gradient-to-r from-panel-soft via-surface to-panel-soft px-3 py-2 text-[11px] sm:text-xs text-muted-strong font-medium shadow-sm">Sustainable Growth</span>
+                  <span className="rounded-full border border-[var(--accent)]/40 bg-white/5 backdrop-blur-md px-3 py-2 text-[11px] sm:text-xs text-[var(--accent-gold)] font-medium shadow-sm">Enterprise Strategy</span>
+                  <span className="rounded-full border border-[var(--accent-blue)]/40 bg-white/5 backdrop-blur-md px-3 py-2 text-[11px] sm:text-xs text-blue-300 font-medium shadow-sm">Make in India</span>
+                  <span className="rounded-full border border-[var(--accent)]/40 bg-white/5 backdrop-blur-md px-3 py-2 text-[11px] sm:text-xs text-[var(--accent-gold)] font-medium shadow-sm">Sustainable Growth</span>
                 </div>
               </div>
 
               <div className="grid gap-3 text-left sm:gap-4 md:ml-6 lg:ml-10">
-                <p className="text-sm font-semibold text-muted-strong uppercase tracking-[0.24em]">Quick Links</p>
-                <a href="#bn-agrochem" className="text-sm text-theme hover:text-[var(--accent)]">BN Agrochem</a>
-                <a href="#agastya" className="text-sm text-theme hover:text-[var(--accent)]">Agastya</a>
-                <a href="#epitome" className="text-sm text-theme hover:text-[var(--accent)]">Epitome</a>
-                <a href="#indichip" className="text-sm text-theme hover:text-[var(--accent)]">Indichip</a>
+                <p className="text-sm font-semibold text-[var(--accent-gold)] uppercase tracking-[0.24em] font-['Manrope']">Quick Links</p>
+                <a href="#bn-agrochem" className="text-sm text-stone-300 hover:text-[var(--accent-gold)] transition-colors font-['Manrope']">BN Agrochem</a>
+                <a href="#agastya" className="text-sm text-stone-300 hover:text-[var(--accent-gold)] transition-colors font-['Manrope']">Agastya</a>
+                <a href="#epitome" className="text-sm text-stone-300 hover:text-[var(--accent-gold)] transition-colors font-['Manrope']">Epitome</a>
+                <a href="#indichip" className="text-sm text-stone-300 hover:text-[var(--accent-gold)] transition-colors font-['Manrope']">Indichip</a>
               </div>
             </div>
 
-            <div className="mt-6 sm:mt-10 border-t border-card pt-4 sm:pt-6 flex flex-col gap-3 sm:gap-4 md:flex-row md:items-center md:justify-between text-sm text-muted">
+            <div className="mt-8 sm:mt-12 border-t border-stone-800/80 pt-6 flex flex-col gap-3 sm:gap-4 md:flex-row md:items-center md:justify-between text-sm text-stone-400 font-['Manrope']">
               <p className="text-center md:text-left">© 2026 Anubhav Agrawal Group. All Rights Reserved.</p>
-              <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-muted md:justify-end">
+              <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-stone-400 md:justify-end">
                 <span className="uppercase tracking-[0.3em] text-[11px] sm:text-xs">Innovation</span>
-                <span className="text-muted-strong">|</span>
+                <span className="text-[var(--accent)]">|</span>
                 <span className="uppercase tracking-[0.3em] text-[11px] sm:text-xs">Sustainability</span>
-                <span className="text-muted-strong">|</span>
+                <span className="text-[var(--accent)]">|</span>
                 <span className="uppercase tracking-[0.3em] text-[11px] sm:text-xs">Growth</span>
               </div>
             </div>

@@ -1,79 +1,128 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #faf7f2;
-  --surface: rgba(255, 253, 248, 0.95);
-  --surface-soft: #f4efe6;
-  --panel: #f6f2ea;
-  --panel-soft: #ede7db;
-  --text: #1c1917;
-  --muted: #57534e;
-  --muted-strong: #9e7715;
-  --border: rgba(197, 155, 39, 0.22);
-  --cardborder: rgba(197, 155, 39, 0.16);
-  --shadow: rgba(28, 25, 23, 0.08);
+  --bg: #ffffff;
+  --surface: rgba(255, 255, 255, 0.98);
+  --surface-soft: #fafbfc;
+  --panel: #f8fafc;
+  --panel-soft: #f1f5f9;
+  --text: #0f172a;
+  --muted: #64748b;
+  --muted-strong: #b48518;
+  --border: rgba(197, 155, 39, 0.12);
+  --cardborder: rgba(197, 155, 39, 0.08);
+  --shadow: rgba(0, 0, 0, 0.03);
   --accent: #c59b27;
   --accent-gold: #d4af37;
   --accent-blue: #2563eb;
-  --accent-glow: rgba(197, 155, 39, 0.15);
+  --accent-glow: rgba(197, 155, 39, 0.08);
 }
 
 .dark {
-  --bg: #0c0e14;
-  --surface: rgba(18, 22, 32, 0.96);
-  --surface-soft: #141a26;
-  --panel: rgba(20, 26, 38, 0.92);
-  --panel-soft: #171f2f;
-  --text: #f5f2eb;
-  --muted: #9ca3af;
-  --muted-strong: #e5c158;
-  --border: rgba(229, 193, 88, 0.2);
-  --cardborder: rgba(229, 193, 88, 0.12);
-  --shadow: rgba(0, 0, 0, 0.45);
-  --accent: #e5c158;
-  --accent-gold: #f3d068;
+  --bg: #283044;
+  --surface: rgba(45, 54, 76, 0.94);
+  --surface-soft: #35425c;
+  --panel: rgba(50, 62, 86, 0.90);
+  --panel-soft: #3c4a66;
+  --text: #ffffff;
+  --muted: #e2e8f0;
+  --muted-strong: #fcd34d;
+  --border: rgba(229, 193, 88, 0.28);
+  --cardborder: rgba(229, 193, 88, 0.20);
+  --shadow: rgba(0, 0, 0, 0.18);
+  --accent: #f59e0b;
+  --accent-gold: #fbbf24;
   --accent-blue: #60a5fa;
-  --accent-glow: rgba(229, 193, 88, 0.2);
+  --accent-glow: rgba(251, 191, 36, 0.20);
 }
-.bg-page { background-color: var(--bg); transition: background-color 0.35s ease; }                                                    
-.bg-surface { background-color: var(--surface); transition: background-color 0.35s ease, border-color 0.35s ease; }
-.bg-surface-soft { background-color: var(--surface-soft); }
-.bg-panel { background-color: var(--panel); }
-.bg-panel-soft { background-color: var(--panel-soft); }
-.text-theme { color: var(--text); transition: color 0.35s ease; }
-.text-muted { color: var(--muted); }
-.text-muted-strong { color: var(--muted-strong); }
-.border-theme { border-color: var(--border); }
-.border-card { border-color: var(--cardborder); }
-.shadow-theme { box-shadow: 0 30px 80px -40px var(--shadow); }
-.text-white { color: #ffffff !important; }
-.text-accent-blue { color: var(--accent-blue); }
+
+.bg-page {
+  background-color: var(--bg);
+  transition: background-color 0.35s ease;
+}
+
+.bg-surface {
+  background-color: var(--surface);
+  transition: background-color 0.35s ease, border-color 0.35s ease;
+}
+
+.bg-surface-soft {
+  background-color: var(--surface-soft);
+}
+
+.bg-panel {
+  background-color: var(--panel);
+}
+
+.bg-panel-soft {
+  background-color: var(--panel-soft);
+}
+
+.text-theme {
+  color: var(--text);
+  transition: color 0.35s ease;
+}
+
+.text-muted {
+  color: var(--muted);
+}
+
+.text-muted-strong {
+  color: var(--muted-strong);
+}
+
+.border-theme {
+  border-color: var(--border);
+}
+
+.border-card {
+  border-color: var(--cardborder);
+}
+
+.shadow-theme {
+  box-shadow: 0 30px 80px -40px var(--shadow);
+}
+
+.text-white {
+  color: #ffffff !important;
+}
+
+.text-accent-blue {
+  color: var(--accent-blue);
+}
 
 @layer utilities {
   .animate-vibrate-lr {
     animation: vibrate-lr 1s ease-in-out infinite;
   }
+
   .animate-vibrate-rl {
     animation: vibrate-rl 1s ease-in-out infinite;
   }
+
   .logo-enter-lr {
     animation: logo-enter-lr 1.2s ease-out forwards;
   }
+
   .logo-enter-rl {
     animation: logo-enter-rl 1.2s ease-out forwards;
   }
+
   .animate-logo-to-navbar {
     animation: logo-to-navbar 1s linear forwards;
     will-change: transform, opacity;
   }
+
   .animate-float {
     animation: float-card 5.2s ease-in-out 1.2s infinite;
   }
+
   .card-reveal {
     opacity: 0;
     transform: translateY(24px) scale(0.98);
     transition: opacity 700ms ease, transform 700ms ease;
   }
+
   .card-reveal.is-visible {
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -113,6 +162,7 @@
     transform: translate3d(0, 0, 0) scale(1);
     opacity: 1;
   }
+
   100% {
     transform: translate3d(-42vw, -36vh, 0) scale(0.32);
     opacity: 1;
@@ -120,49 +170,92 @@
 }
 
 @keyframes vibrate-lr {
-  0%, 100% { transform: translateX(-2px); }
-  50% { transform: translateX(2px); }
+
+  0%,
+  100% {
+    transform: translateX(-2px);
+  }
+
+  50% {
+    transform: translateX(2px);
+  }
 }
 
 @keyframes vibrate-rl {
-  0%, 100% { transform: translateX(2px); }
-  50% { transform: translateX(-2px); }
+
+  0%,
+  100% {
+    transform: translateX(2px);
+  }
+
+  50% {
+    transform: translateX(-2px);
+  }
 }
 
 @keyframes float-card {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translate3d(0, 0, 0) rotate(0deg);
   }
+
   20% {
     transform: translate3d(0, -8px, 0) rotate(-0.5deg);
   }
+
   40% {
     transform: translate3d(0, -4px, 0) rotate(0.4deg);
   }
+
   60% {
     transform: translate3d(0, -8px, 0) rotate(-0.4deg);
   }
+
   80% {
     transform: translate3d(0, -3px, 0) rotate(0.6deg);
   }
 }
 
 @keyframes logo-enter-lr {
-  0% { opacity: 0; transform: translateX(-60px) translateY(20px) scale(0.9); }
-  60% { opacity: 1; transform: translateX(12px) translateY(0) scale(1.02); }
-  100% { opacity: 1; transform: translateX(0) translateY(0) scale(1); }
+  0% {
+    opacity: 0;
+    transform: translateX(-60px) translateY(20px) scale(0.9);
+  }
+
+  60% {
+    opacity: 1;
+    transform: translateX(12px) translateY(0) scale(1.02);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0) translateY(0) scale(1);
+  }
 }
 
 @keyframes logo-enter-rl {
-  0% { opacity: 0; transform: translateX(60px) translateY(20px) scale(0.9); }
-  60% { opacity: 1; transform: translateX(-12px) translateY(0) scale(1.02); }
-  100% { opacity: 1; transform: translateX(0) translateY(0) scale(1); }
+  0% {
+    opacity: 0;
+    transform: translateX(60px) translateY(20px) scale(0.9);
+  }
+
+  60% {
+    opacity: 1;
+    transform: translateX(-12px) translateY(0) scale(1.02);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0) translateY(0) scale(1);
+  }
 }
 
 @keyframes hero-line-shimmer {
   0% {
     transform: translateX(-50%);
   }
+
   100% {
     transform: translateX(0%);
   }
@@ -174,7 +267,7 @@
     padding-bottom: 0.5rem;
   }
 
-  .scroll-fade > div {
+  .scroll-fade>div {
     padding: 1rem 1.1rem;
   }
 
