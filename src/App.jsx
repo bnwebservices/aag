@@ -176,6 +176,16 @@ function App() {
     scene.add(aagTextMesh);
     ringRef.current = aagTextMesh;
 
+    const updateResponsiveTextScale = () => {
+      if (!aagTextMesh || !camera) return;
+      const vHeight = 2 * Math.tan((camera.fov * Math.PI / 180) / 2) * camera.position.z;
+      const vWidth = vHeight * camera.aspect;
+      // Fit within 82% of visible width on mobile/tablet, max scale 1.0 on desktop
+      const targetScale = Math.min(1.0, (vWidth * 0.82) / 9.5);
+      aagTextMesh.scale.set(targetScale, targetScale, 1);
+    };
+    updateResponsiveTextScale();
+
     // Multi-tone brand particle cloud (Gold, Sapphire Blue, Warm Amber, Violet)
     const particleGroup = new THREE.Group();
     const colors = [0xc59b27, 0xd4af37, 0x2563eb, 0x3b82f6, 0xd95f03, 0x5548c8, 0xf3d068];
@@ -229,6 +239,7 @@ function App() {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
+      updateResponsiveTextScale();
       renderer.render(scene, camera);
     };
     window.addEventListener('resize', handleResize);
