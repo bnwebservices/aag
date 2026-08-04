@@ -71,7 +71,7 @@ function App() {
 
   useEffect(() => {
     if (sceneRef.current) {
-      const bgColor = theme === 'dark' ? 0x0b1320 : 0xf0f5fa;
+      const bgColor = theme === 'dark' ? 0x0c0e14 : 0xfaf7f2;
       sceneRef.current.background = new THREE.Color(bgColor);
       if (rendererRef.current && cameraRef.current) {
         rendererRef.current.render(sceneRef.current, cameraRef.current);
@@ -82,7 +82,7 @@ function App() {
   useEffect(() => {
     const container = containerRef.current;
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(theme === 'dark' ? 0x0b1320 : 0xf0f5fa);
+    scene.background = new THREE.Color(theme === 'dark' ? 0x0c0e14 : 0xfaf7f2);
     sceneRef.current = scene;
 
     const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -98,30 +98,30 @@ function App() {
     container.appendChild(renderer.domElement);
     rendererRef.current = renderer;
 
-    const ambient = new THREE.AmbientLight(0xffffff, 0.55);
+    const ambient = new THREE.AmbientLight(0xfff8ea, 0.6);
     scene.add(ambient);
 
-    const mainLight = new THREE.DirectionalLight(0xffffff, 0.85);
+    const mainLight = new THREE.DirectionalLight(0xfff5e6, 0.85);
     mainLight.position.set(4, 8, 5);
     mainLight.castShadow = false;
     scene.add(mainLight);
 
-    const backLight = new THREE.DirectionalLight(0x4488ff, 0.18);
-    backLight.position.set(-4, 1, -6);
+    const backLight = new THREE.DirectionalLight(0x2563eb, 0.35);
+    backLight.position.set(-5, 2, -6);
     scene.add(backLight);
 
-    const fillLight = new THREE.DirectionalLight(0x88ccff, 0.2);
-    fillLight.position.set(0, 2, 4);
+    const fillLight = new THREE.DirectionalLight(0xd4af37, 0.3);
+    fillLight.position.set(2, -2, 4);
     scene.add(fillLight);
 
-    // Professional 3D elements
+    // Dual 3D Torus Rings: Outer Gold + Inner Sapphire Blue
     const ringGeo = new THREE.TorusGeometry(2.0, 0.03, 32, 64);
     const ringMat = new THREE.MeshStandardMaterial({
-      color: 0x2c5f8a,
-      emissive: 0x1a3a5a,
-      emissiveIntensity: 0.05,
+      color: 0xc59b27,
+      emissive: 0x5c460d,
+      emissiveIntensity: 0.12,
       transparent: true,
-      opacity: 0.2,
+      opacity: 0.3,
     });
     const ring = new THREE.Mesh(ringGeo, ringMat);
     ring.position.set(0, 0.5, 0);
@@ -130,11 +130,13 @@ function App() {
     scene.add(ring);
     ringRef.current = ring;
 
-    const innerRingGeo = new THREE.TorusGeometry(1.4, 0.02, 32, 64);
+    const innerRingGeo = new THREE.TorusGeometry(1.4, 0.025, 32, 64);
     const innerRingMat = new THREE.MeshStandardMaterial({
-      color: 0x4a7fb5,
+      color: 0x3b82f6,
+      emissive: 0x0d205c,
+      emissiveIntensity: 0.15,
       transparent: true,
-      opacity: 0.15,
+      opacity: 0.28,
     });
     const innerRing = new THREE.Mesh(innerRingGeo, innerRingMat);
     innerRing.position.set(0, 0.5, 0);
@@ -142,17 +144,18 @@ function App() {
     innerRing.rotation.y = Math.PI / 4;
     scene.add(innerRing);
 
+    // Multi-tone brand particle cloud (Gold, Sapphire Blue, Warm Amber, Violet)
     const particleGroup = new THREE.Group();
-    const colors = [0x2c5f8a, 0x4a7fb5, 0x6a9fc5, 0x1a3a5a];
-    for (let i = 0; i < 35; i++) {
-      const geom = new THREE.SphereGeometry(0.035, 6);
+    const colors = [0xc59b27, 0xd4af37, 0x2563eb, 0x3b82f6, 0xd95f03, 0x5548c8, 0xf3d068];
+    for (let i = 0; i < 40; i++) {
+      const geom = new THREE.SphereGeometry(0.038, 6);
       const mat = new THREE.MeshStandardMaterial({
         color: colors[Math.floor(Math.random() * colors.length)],
         transparent: true,
-        opacity: 0.1 + Math.random() * 0.15,
+        opacity: 0.18 + Math.random() * 0.25,
       });
       const mesh = new THREE.Mesh(geom, mat);
-      const radius = 3 + Math.random() * 2.5;
+      const radius = 3 + Math.random() * 2.8;
       const theta = Math.random() * Math.PI * 2;
       const phi = Math.random() * Math.PI * 2;
       mesh.position.set(
@@ -236,7 +239,7 @@ function App() {
       website: 'https://agastyaenergy.in/',
       description: '"Agastya" symbolises Balance & Harmony. Agastya is inspired by the timeless principles of balance and harmony—a philosophy that reflects our approach to responsible growth and environmental sustainability. Agastya is an innovation-led enterprise focused on next-generation green energy and environmental solutions. Our mission is to enable the world\'s transition to a circular, balanced economy powered by clean resources.',
       fullName: 'Agastya Energy Solutions',
-      stock: 'CIN: L24100GJ2005PLC047292 | ISIN: INE753W01010',
+      stock: 'NSE: INE753W01010 | CIN: L24100GJ2005PLC047292',
       tags: ['Solar Energy', 'Wind Power', 'Circular Economy', 'Global Solutions']
     },
     {
@@ -279,7 +282,7 @@ function App() {
       <nav className="tablet-nav fixed top-0 left-0 right-0 z-20 bg-surface backdrop-blur-md border-b border-theme px-4 sm:px-6 md:px-12 py-3 md:py-4 transition-colors duration-500">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-[#727270] flex items-center justify-center shadow-md overflow-hidden border border-card">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#1c1917] via-[#2a2419] to-[#0c0e14] flex items-center justify-center shadow-md overflow-hidden border border-[var(--accent)]/30">
               <img src="/logos/AAg update logo.png" alt="AAG logo" className="w-full h-full object-contain p-1" />
             </div>
           </div>
@@ -337,7 +340,7 @@ function App() {
         <section className="min-h-[calc(100vh-5rem)] lg:min-h-screen w-full flex items-center justify-center pointer-events-none p-3 sm:p-6 md:p-4 mt-0">
           <div className="pointer-events-auto bg-surface backdrop-blur-lg rounded-[24px] sm:rounded-3xl p-5 sm:p-8 md:p-10 lg:p-16 w-full max-w-none md:max-w-none border border-card shadow-2xl transform transition-all duration-300 hover:shadow-3xl hover:scale-[1.01] transition-colors duration-500">
             <div className="flex flex-col md:flex-row items-start md:items-center gap-5 sm:gap-8 mb-6 sm:mb-10">
-              <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl bg-[#727270] flex items-center justify-center shadow-xl flex-shrink-0 transform transition-transform duration-300 hover:scale-110 overflow-hidden border border-card">
+              <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl bg-gradient-to-br from-[#1c1917] via-[#2a2419] to-[#0c0e14] flex items-center justify-center shadow-2xl flex-shrink-0 transform transition-transform duration-300 hover:scale-105 overflow-hidden border border-[var(--accent)]/40 ring-1 ring-[var(--accent)]/20">
                 <img src="/logos/AAg update logo.png" alt="AAG logo" className="w-full h-full object-contain p-4" />
               </div>
               <div className="w-full">
@@ -345,7 +348,7 @@ function App() {
                   <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-theme tracking-tight font-['Georgia','Times New Roman',serif]">
                     Anubhav Agrawal Group
                   </h1>
-                  <div className="mt-2 h-[3px] w-full overflow-hidden rounded-full bg-gradient-to-r from-black via-gray-500 to-gray-300 relative">
+                  <div className="mt-2 h-[3px] w-full overflow-hidden rounded-full bg-gradient-to-r from-[#c59b27] via-[#f3d068] via-[#2563eb] to-[#3b82f6] relative">
                     <div className="absolute inset-0 w-[200%] bg-gradient-to-r from-transparent via-white/70 to-transparent animate-[hero-line-shimmer_2.4s_linear_infinite]" />
                   </div>
                 </div>
@@ -380,7 +383,7 @@ function App() {
                   href={company.website || `#${company.id}`}
                   target="_blank"
                   rel="noreferrer"
-                  className={`rounded-3xl bg-surface border border-card p-6 flex items-center justify-center shadow-lg ${logosActive ? (index % 2 === 0 ? 'logo-enter-lr animate-vibrate-lr animate-float' : 'logo-enter-rl animate-vibrate-rl animate-float') : 'opacity-0'} transition-colors duration-500 hover:ring-1 hover:ring-[var(--accent)]`}
+                  className={`rounded-3xl bg-surface border border-card p-6 flex items-center justify-center shadow-lg ${logosActive ? (index % 2 === 0 ? 'logo-enter-lr animate-vibrate-lr animate-float' : 'logo-enter-rl animate-vibrate-rl animate-float') : 'opacity-0'} transition-all duration-500 hover:ring-2 hover:ring-[var(--accent)] hover:border-[var(--accent-blue)]/50 hover:shadow-2xl`}
                 >
                   <img src={company.logoImage || '/logos/AAg update logo.png'} alt={`${company.name} logo`} className="h-20 md:h-24 object-contain" />
                 </a>
@@ -402,7 +405,7 @@ function App() {
               className={`min-h-auto w-full flex items-center justify-center pointer-events-none px-3 py-2 sm:px-6 sm:py-3 md:px-4 md:py-1 lg:px-4 lg:py-1 scroll-fade card-reveal ${isVisible ? 'is-visible' : ''}`}
               style={{ transitionDelay: `${index * 120}ms` }}
             >
-              <div className="pointer-events-auto bg-surface backdrop-blur-lg rounded-[24px] sm:rounded-3xl p-4 sm:p-8 md:p-5 lg:p-8 max-w-6xl w-full sm:w-[95%] border border-card shadow-2xl transform transition-all duration-500 hover:shadow-3xl hover:scale-[1.01] hover:border-theme">
+              <div className="pointer-events-auto bg-surface backdrop-blur-lg rounded-[24px] sm:rounded-3xl p-4 sm:p-8 md:p-5 lg:p-8 max-w-6xl w-full sm:w-[95%] border border-card shadow-2xl transform transition-all duration-500 hover:shadow-3xl hover:scale-[1.01] hover:border-[var(--accent)]/40 hover:ring-1 hover:ring-[var(--accent-blue)]/20">
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 md:gap-4 mb-6 sm:mb-8 md:mb-4 border-b border-theme/20 pb-4 sm:pb-6 md:pb-3">
                 <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full p-1 shadow-2xl transform transition-all duration-300 hover:scale-110" style={{ background: `linear-gradient(135deg, ${company.logoColors.join(', ')})` }}>
                   <div className="w-full h-full rounded-full bg-surface flex items-center justify-center overflow-hidden shadow-inner transition-colors duration-500">
@@ -434,7 +437,7 @@ function App() {
                 </div>
               </div>
               
-              <div className={isMobile ? 'rounded-none border-0 bg-transparent p-0 shadow-none mb-5' : 'relative bg-panel-soft rounded-[20px] p-4 sm:p-6 md:p-3 mb-6 sm:mb-8 md:mb-4 border-l border-theme shadow-sm transition-all duration-300 hover:shadow-inner'}>
+              <div className={isMobile ? 'rounded-none border-0 bg-transparent p-0 shadow-none mb-5' : 'relative bg-panel-soft rounded-[20px] p-4 sm:p-6 md:p-3 mb-6 sm:mb-8 md:mb-4 border-l-4 border-l-[var(--accent)] border-t border-b border-r border-card shadow-sm transition-all duration-300 hover:shadow-inner'}>
                 <p className={`text-theme leading-7 sm:leading-8 text-sm sm:text-[15px] font-['Manrope'] ${isMobile ? 'text-base' : ''}`}>
                   {company.description}
                 </p>
@@ -443,7 +446,7 @@ function App() {
                 {/* Industry tags */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 md:gap-2">
                   {company.tags.map((tag, idx) => (
-                    <div key={idx} className="px-3 py-2.5 rounded-2xl bg-gradient-to-br from-[rgba(255,255,255,0.85)] via-[rgba(243,249,255,0.65)] to-[rgba(223,238,255,0.55)] text-center shadow-sm transition-all duration-300 hover:scale-105 hover:shadow-xl">
+                    <div key={idx} className="px-3 py-2.5 rounded-2xl bg-panel-soft border border-card text-center shadow-sm transition-all duration-300 hover:scale-105 hover:border-[var(--accent)] hover:shadow-md">
                       <p className="text-xs font-semibold text-[var(--accent)] font-['Manrope']">{tag}</p>
                     </div>
                   ))}
@@ -459,7 +462,7 @@ function App() {
             <div className="grid gap-5 sm:gap-10 lg:grid-cols-[2fr_1fr]">
               <div className="flex flex-col gap-3 sm:gap-6">
                 <div className="flex items-center gap-3 sm:gap-4">
-                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl sm:rounded-3xl bg-[#727270] p-3 shadow-sm flex items-center justify-center border border-card">
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl sm:rounded-3xl bg-gradient-to-br from-[#1c1917] via-[#2a2419] to-[#0c0e14] p-3 shadow-md flex items-center justify-center border border-[var(--accent)]/30">
                     <img src="/logos/AAg update logo.png" alt="AAG logo" className="w-full h-full object-contain" />
                   </div>
                   <div className="sm:block">
@@ -468,9 +471,9 @@ function App() {
                 </div>
                 <p className="max-w-2xl text-sm leading-7 text-muted">Anubhav Agrawal Group is an enterprise platform uniting high-growth businesses across agrochemicals, renewable energy, bio-chemicals, and semiconductor manufacturing. We combine strategic partnerships, innovation, and a Make-in-India growth agenda to create sustainable value and world-class industrial capabilities.</p>
                 <div className="flex flex-wrap gap-2 sm:gap-3">
-                  <span className="rounded-full border border-card bg-panel-soft px-3 py-2 text-[11px] sm:text-xs text-muted">Enterprise Strategy</span>
-                  <span className="rounded-full border border-card bg-panel-soft px-3 py-2 text-[11px] sm:text-xs text-muted">Make in India</span>
-                  <span className="rounded-full border border-card bg-panel-soft px-3 py-2 text-[11px] sm:text-xs text-muted">Sustainable Growth</span>
+                  <span className="rounded-full border border-[var(--accent)]/30 bg-gradient-to-r from-panel-soft via-surface to-panel-soft px-3 py-2 text-[11px] sm:text-xs text-muted-strong font-medium shadow-sm">Enterprise Strategy</span>
+                  <span className="rounded-full border border-[var(--accent-blue)]/30 bg-gradient-to-r from-panel-soft via-surface to-panel-soft px-3 py-2 text-[11px] sm:text-xs text-muted-strong font-medium shadow-sm">Make in India</span>
+                  <span className="rounded-full border border-[var(--accent)]/30 bg-gradient-to-r from-panel-soft via-surface to-panel-soft px-3 py-2 text-[11px] sm:text-xs text-muted-strong font-medium shadow-sm">Sustainable Growth</span>
                 </div>
               </div>
 

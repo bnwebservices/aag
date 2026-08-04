@@ -1,36 +1,41 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #f0f5fa;
-  --surface: rgba(255,255,255,0.95);
-  --surface-soft: #f7fbff;
-  --panel: #f8fbff;
-  --panel-soft: #edf4ff;
-  --text: #14213d;
-  --muted: #4a5a6a;
-  --muted-strong: #2c5f8a;
-  --border: rgba(44,95,138,0.14);
-  --cardborder: rgba(216,228,244,0.85);
-  --shadow: rgba(20,33,61,0.12);
-  --accent: #2c5f8a;
+  --bg: #faf7f2;
+  --surface: rgba(255, 253, 248, 0.95);
+  --surface-soft: #f4efe6;
+  --panel: #f6f2ea;
+  --panel-soft: #ede7db;
+  --text: #1c1917;
+  --muted: #57534e;
+  --muted-strong: #9e7715;
+  --border: rgba(197, 155, 39, 0.22);
+  --cardborder: rgba(197, 155, 39, 0.16);
+  --shadow: rgba(28, 25, 23, 0.08);
+  --accent: #c59b27;
+  --accent-gold: #d4af37;
+  --accent-blue: #2563eb;
+  --accent-glow: rgba(197, 155, 39, 0.15);
 }
 
 .dark {
-  --bg: #0b1320;
-  --surface: rgba(12,22,39,0.96);
-  --surface-soft: #101c30;
-  --panel: rgba(15,28,52,0.92);
-  --panel-soft: #12203b;
-  --text: #eaf3ff;
-  --muted: #a7b7d1;
-  --muted-strong: #8ab7ff;
-  --border: rgba(255,255,255,0.12);
-  --cardborder: rgba(255,255,255,0.08);
-  --shadow: rgba(0,0,0,0.35);
-  --accent: #7ab3ff;
+  --bg: #0c0e14;
+  --surface: rgba(18, 22, 32, 0.96);
+  --surface-soft: #141a26;
+  --panel: rgba(20, 26, 38, 0.92);
+  --panel-soft: #171f2f;
+  --text: #f5f2eb;
+  --muted: #9ca3af;
+  --muted-strong: #e5c158;
+  --border: rgba(229, 193, 88, 0.2);
+  --cardborder: rgba(229, 193, 88, 0.12);
+  --shadow: rgba(0, 0, 0, 0.45);
+  --accent: #e5c158;
+  --accent-gold: #f3d068;
+  --accent-blue: #60a5fa;
+  --accent-glow: rgba(229, 193, 88, 0.2);
 }
-
-.bg-page { background-color: var(--bg); transition: background-color 0.35s ease; }
+.bg-page { background-color: var(--bg); transition: background-color 0.35s ease; }                                                    
 .bg-surface { background-color: var(--surface); transition: background-color 0.35s ease, border-color 0.35s ease; }
 .bg-surface-soft { background-color: var(--surface-soft); }
 .bg-panel { background-color: var(--panel); }
@@ -42,6 +47,7 @@
 .border-card { border-color: var(--cardborder); }
 .shadow-theme { box-shadow: 0 30px 80px -40px var(--shadow); }
 .text-white { color: #ffffff !important; }
+.text-accent-blue { color: var(--accent-blue); }
 
 @layer utilities {
   .animate-vibrate-lr {
