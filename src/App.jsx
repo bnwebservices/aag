@@ -82,15 +82,15 @@ function App() {
     container.appendChild(renderer.domElement);
     rendererRef.current = renderer;
 
-    const ambient = new THREE.AmbientLight(0xffffff, 0.85);
+    const ambient = new THREE.AmbientLight(0xfffdf5, 0.9);
     scene.add(ambient);
 
-    const mainLight = new THREE.DirectionalLight(0xffffff, 0.9);
+    const mainLight = new THREE.DirectionalLight(0xfff8e7, 0.95);
     mainLight.position.set(4, 8, 5);
     mainLight.castShadow = false;
     scene.add(mainLight);
 
-    const backLight = new THREE.DirectionalLight(0x3b82f6, 0.25);
+    const backLight = new THREE.DirectionalLight(0xd6b46a, 0.35);
     backLight.position.set(-5, 2, -6);
     scene.add(backLight);
 
@@ -98,7 +98,7 @@ function App() {
     fillLight.position.set(2, -2, 4);
     scene.add(fillLight);
 
-    // 3D Floating "AAG" Text Mesh - Front-facing Poster Style
+    // 3D Floating "AAG" Text Mesh - Front-facing Classic Gold Poster Style
     const createAAGTexture = () => {
       const canvas = document.createElement('canvas');
       canvas.width = 1200;
@@ -107,26 +107,26 @@ function App() {
 
       ctx.clearRect(0, 0, 1200, 512);
 
-      // Uniform champagne gold color
-      const fillColor = '#D4AF37';
+      // Signature gold color combo
+      const fillColor = '#D6B46A';
 
-      // Font using Google Font Numans with wide poster tracking
-      ctx.font = '700 195px "Numans", "Raleway", "Manrope", sans-serif';
+      // Font using Cinzel / Numans serif style
+      ctx.font = '700 190px "Cinzel", "Numans", "Raleway", serif';
       if ('letterSpacing' in ctx) {
-        ctx.letterSpacing = '42px';
+        ctx.letterSpacing = '40px';
       }
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
 
-      // Sober ambient shadow
-      ctx.shadowColor = 'rgba(0, 0, 0, 0.15)';
-      ctx.shadowBlur = 20;
+      // Sober ambient gold drop shadow
+      ctx.shadowColor = 'rgba(214, 180, 106, 0.25)';
+      ctx.shadowBlur = 24;
 
       ctx.fillStyle = fillColor;
       ctx.fillText('A   A   G', 600, 256);
 
       ctx.lineWidth = 2;
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.25)';
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.35)';
       ctx.strokeText('A   A   G', 600, 256);
 
       const texture = new THREE.CanvasTexture(canvas);
@@ -170,15 +170,15 @@ function App() {
     };
     updateResponsiveTextScale();
 
-    // Clean neutral particle cloud (Pure White, Silver, Slate, Blue Accent)
+    // Elegant Warm Gold (#D6B46A / #CFB377) & Pure White particle cloud
     const particleGroup = new THREE.Group();
-    const colors = [0xffffff, 0xe2e8f0, 0xcbd5e1, 0x94a3b8, 0x3b82f6, 0xc59b27];
+    const colors = [0xffffff, 0xd6b46a, 0xcfb377, 0xf4e7c5, 0xe2e8f0, 0xa8863d];
     for (let i = 0; i < 40; i++) {
       const geom = new THREE.SphereGeometry(0.038, 6);
       const mat = new THREE.MeshStandardMaterial({
         color: colors[Math.floor(Math.random() * colors.length)],
         transparent: true,
-        opacity: 0.18 + Math.random() * 0.25,
+        opacity: 0.2 + Math.random() * 0.28,
       });
       const mesh = new THREE.Mesh(geom, mat);
       const radius = 3 + Math.random() * 2.8;
@@ -329,19 +329,19 @@ function App() {
       <div ref={containerRef} className="fixed top-0 left-0 w-full h-full z-0"></div>
 
       {/* Navbar */}
-      <nav className="tablet-nav fixed top-0 left-0 right-0 z-20 bg-surface backdrop-blur-md border-b border-theme px-4 sm:px-6 md:px-12 py-3 md:py-4 transition-colors duration-500">
+      <nav className="tablet-nav fixed top-0 left-0 right-0 z-20 bg-surface/90 backdrop-blur-md border-b border-[#D6B46A]/30 px-4 sm:px-6 md:px-12 py-3 md:py-4 transition-colors duration-500 shadow-sm">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#1c1917] via-[#2a2419] to-[#0c0e14] flex items-center justify-center shadow-md overflow-hidden border border-[var(--accent)]/30">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#1c1917] via-[#2a2419] to-[#0c0e14] flex items-center justify-center shadow-md overflow-hidden border border-[#D6B46A]/40">
               <img src="/logos/AAg update logo.png" alt="AAG logo" className="w-full h-full object-contain p-1" />
             </div>
           </div>
-          <div className="hidden md:flex items-center gap-6 text-sm">
+          <div className="hidden md:flex items-center gap-7 text-sm">
             {companies.map((company) => (
               <a
                 key={company.id}
                 href={`#${company.id}`}
-                className="nav-link-hover text-theme font-medium font-['Manrope'] text-xs uppercase tracking-wider"
+                className="nav-link-hover text-slate-800 font-semibold font-['Manrope'] text-xs uppercase tracking-wider hover:text-[#A8863D]"
               >
                 {company.name}
               </a>
@@ -349,7 +349,7 @@ function App() {
           </div>
           <div className="flex items-center gap-3">
             <button
-              className="md:hidden text-theme"
+              className="md:hidden text-slate-800"
               onClick={() => setMenuOpen((open) => !open)}
               aria-label="Toggle menu"
             >
@@ -358,14 +358,14 @@ function App() {
           </div>
         </div>
         {menuOpen && (
-          <div className="md:hidden mt-3 rounded-3xl bg-surface border border-card shadow-lg backdrop-blur-md p-4 transition-colors duration-500">
+          <div className="md:hidden mt-3 rounded-3xl bg-surface border border-[#D6B46A]/30 shadow-xl backdrop-blur-md p-4 transition-colors duration-500">
             <div className="flex flex-col gap-3">
               {companies.map((company) => (
                 <a
                   key={`mobile-${company.id}`}
                   href={`#${company.id}`}
                   onClick={() => setMenuOpen(false)}
-                  className="block nav-link-hover text-sm text-theme font-medium uppercase tracking-[0.18em]"
+                  className="block nav-link-hover text-sm text-slate-800 font-semibold uppercase tracking-[0.18em] hover:text-[#A8863D]"
                 >
                   {company.name}
                 </a>
@@ -379,31 +379,31 @@ function App() {
       <div ref={contentRef} className="tablet-tight-content relative z-10 min-h-screen overflow-y-auto pointer-events-auto pt-12 md:pt-10 lg:pt-20">
         {/* Hero Section */}
         <section className="min-h-[calc(100vh-5rem)] lg:min-h-screen w-full flex items-center justify-center pointer-events-none p-3 sm:p-6 md:p-4 mt-0">
-          <div className="pointer-events-auto bg-surface backdrop-blur-lg rounded-[24px] sm:rounded-3xl p-5 sm:p-8 md:p-10 lg:p-16 w-full max-w-none md:max-w-none border border-card shadow-2xl transform transition-all duration-300 hover:shadow-3xl hover:scale-[1.01] transition-colors duration-500">
+          <div className="pointer-events-auto bg-surface backdrop-blur-lg rounded-[24px] sm:rounded-3xl p-5 sm:p-8 md:p-10 lg:p-16 w-full max-w-none md:max-w-none border border-[#D6B46A]/35 shadow-[0_20px_60px_-15px_rgba(214,180,106,0.14)] transform transition-all duration-300 hover:shadow-[0_25px_70px_-10px_rgba(214,180,106,0.2)] hover:scale-[1.005] hover:border-[#D6B46A]/60 transition-colors duration-500">
             <div className="flex flex-col md:flex-row items-start md:items-center gap-5 sm:gap-8 mb-6 sm:mb-10">
-              <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl bg-gradient-to-br from-[#1c1917] via-[#2a2419] to-[#0c0e14] flex items-center justify-center shadow-2xl flex-shrink-0 transform transition-transform duration-300 hover:scale-105 overflow-hidden border border-[var(--accent)]/40 ring-1 ring-[var(--accent)]/20">
+              <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl bg-gradient-to-br from-[#1c1917] via-[#2a2419] to-[#0c0e14] flex items-center justify-center shadow-2xl flex-shrink-0 transform transition-transform duration-300 hover:scale-105 overflow-hidden border border-[#D6B46A]/50 ring-1 ring-[#CFB377]/30">
                 <img src="/logos/AAg update logo.png" alt="AAG logo" className="w-full h-full object-contain p-4" />
               </div>
               <div className="w-full">
                 <div className="inline-block relative">
-                  <h1 className="text-3xl sm:text-4xl md:text-5xl font-semibold text-theme tracking-tight font-['Georgia','Times New Roman',serif]">
+                  <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 tracking-tight font-['Cinzel','Cormorant_Garamond','Georgia',serif]">
                     Anubhav Agrawal Group
                   </h1>
-                  <div className="mt-2 h-[3px] w-full overflow-hidden rounded-full bg-gradient-to-r from-[#c59b27] via-[#f3d068] via-[#2563eb] to-[#3b82f6] relative">
-                    <div className="absolute inset-0 w-[200%] bg-gradient-to-r from-transparent via-white/70 to-transparent animate-[hero-line-shimmer_2.4s_linear_infinite]" />
+                  <div className="mt-2.5 h-[3px] w-full overflow-hidden rounded-full bg-gradient-to-r from-[#A8863D] via-[#D6B46A] via-[#CFB377] to-[#8F6E27] relative">
+                    <div className="absolute inset-0 w-[200%] bg-gradient-to-r from-transparent via-white/80 to-transparent animate-[hero-line-shimmer_2.4s_linear_infinite]" />
                   </div>
                 </div>
-                <p className="text-muted-strong font-medium text-[11px] sm:text-sm tracking-[0.2em] uppercase mt-2 font-['Manrope']">
+                <p className="text-[#A8863D] font-semibold text-[11px] sm:text-sm tracking-[0.22em] uppercase mt-2.5 font-['Manrope']">
                   Building India's Industrial Future Through Innovation
                 </p>
               </div>
             </div>
 
             <div className="mb-0 sm:mb-8">
-              <div className="rounded-[20px] sm:rounded-3xl bg-panel border border-card p-4 sm:p-8 shadow-lg transition-colors duration-500">
-                <h3 className="text-lg sm:text-xl font-semibold text-[var(--accent-blue)] mb-3 sm:mb-4 font-['Raleway']">About Anubhav Agrawal Group</h3>
-                <p className="text-sm sm:text-[15px] text-muted leading-7 sm:leading-8 font-['Manrope']">
-                  <strong>Anubhav Agarwal Group </strong> is a diversified Indian business conglomerate committed to driving innovation, industrial excellence, and sustainable growth. With a strong presence across specialty chemicals, agrochemicals, renewable energy, advanced manufacturing, and semiconductor technology, AAG is building future-ready businesses that contribute to India's industrial progress and global competitiveness. Guided by a vision of innovation, integrity, and long-term value creation, the Group continues to empower industries, strengthen infrastructure, and deliver solutions that create a lasting impact.
+              <div className="rounded-[20px] sm:rounded-3xl bg-[#FCFAFA]/80 backdrop-blur-sm border border-[#D6B46A]/25 border-l-4 border-l-[#D6B46A] p-5 sm:p-8 shadow-sm transition-colors duration-500">
+                <h3 className="text-lg sm:text-xl font-bold gold-gradient-text mb-3 sm:mb-4 font-['Cinzel','Raleway',serif]">About Anubhav Agrawal Group</h3>
+                <p className="text-sm sm:text-[15px] text-slate-700 leading-7 sm:leading-8 font-['Manrope']">
+                  <strong className="text-slate-900">Anubhav Agarwal Group </strong> is a diversified Indian business conglomerate committed to driving innovation, industrial excellence, and sustainable growth. With a strong presence across specialty chemicals, agrochemicals, renewable energy, advanced manufacturing, and semiconductor technology, AAG is building future-ready businesses that contribute to India's industrial progress and global competitiveness. Guided by a vision of innovation, integrity, and long-term value creation, the Group continues to empower industries, strengthen infrastructure, and deliver solutions that create a lasting impact.
                 </p>
               </div>
             </div>
@@ -415,7 +415,7 @@ function App() {
         <section ref={logoPreviewRef} className={`w-full flex items-center justify-center py-8 sm:py-12 md:py-6 pointer-events-none p-3 sm:p-6 md:px-4 transition-all duration-700 ${logosActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div className="pointer-events-auto max-w-6xl w-full">
             <div className="mb-6 sm:mb-8 text-center">
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-theme">AAG <span className="text-[var(--accent-blue)]">Companies</span></h2>
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-slate-900 font-['Cinzel','Raleway',serif]">AAG <span className="gold-gradient-text">Companies</span></h2>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 md:gap-4">
               {companies.map((company, index) => (
@@ -424,7 +424,7 @@ function App() {
                   href={company.website || `#${company.id}`}
                   target="_blank"
                   rel="noreferrer"
-                  className={`rounded-3xl bg-surface border border-card p-6 flex items-center justify-center shadow-lg ${logosActive ? (index % 2 === 0 ? 'logo-enter-lr animate-vibrate-lr animate-float' : 'logo-enter-rl animate-vibrate-rl animate-float') : 'opacity-0'} transition-all duration-500 hover:ring-2 hover:ring-[var(--accent)] hover:border-[var(--accent-blue)]/50 hover:shadow-2xl`}
+                  className={`rounded-3xl bg-surface border border-[#D6B46A]/25 p-6 flex items-center justify-center shadow-md ${logosActive ? (index % 2 === 0 ? 'logo-enter-lr animate-vibrate-lr animate-float' : 'logo-enter-rl animate-vibrate-rl animate-float') : 'opacity-0'} transition-all duration-500 hover:ring-2 hover:ring-[#D6B46A]/60 hover:border-[#D6B46A] hover:shadow-[0_15px_35px_rgba(214,180,106,0.18)]`}
                 >
                   <img src={company.logoImage || '/logos/AAg update logo.png'} alt={`${company.name} logo`} className="h-20 md:h-24 object-contain" />
                 </a>
@@ -446,9 +446,9 @@ function App() {
               className={`min-h-auto w-full flex items-center justify-center pointer-events-none px-3 py-2 sm:px-6 sm:py-3 md:px-4 md:py-1 lg:px-4 lg:py-1 scroll-fade card-reveal ${isVisible ? 'is-visible' : ''}`}
               style={{ transitionDelay: `${index * 120}ms` }}
             >
-              <div className="pointer-events-auto bg-surface backdrop-blur-lg rounded-[24px] sm:rounded-3xl p-4 sm:p-8 md:p-5 lg:p-8 max-w-6xl w-full sm:w-[95%] border border-card shadow-2xl transform transition-all duration-500 hover:shadow-3xl hover:scale-[1.01] hover:border-[var(--accent)]/40 hover:ring-1 hover:ring-[var(--accent-blue)]/20">
-                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 md:gap-4 mb-6 sm:mb-8 md:mb-4 border-b border-theme/20 pb-4 sm:pb-6 md:pb-3">
-                  <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full p-1 shadow-2xl transform transition-all duration-300 hover:scale-110" style={{ background: `linear-gradient(135deg, ${company.logoColors.join(', ')})` }}>
+              <div className="pointer-events-auto bg-surface backdrop-blur-lg rounded-[24px] sm:rounded-3xl p-4 sm:p-8 md:p-5 lg:p-8 max-w-6xl w-full sm:w-[95%] border border-[#D6B46A]/30 shadow-xl transform transition-all duration-500 hover:shadow-[0_25px_60px_-15px_rgba(214,180,106,0.2)] hover:scale-[1.005] hover:border-[#D6B46A]/60 hover:ring-1 hover:ring-[#D6B46A]/30">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 md:gap-4 mb-6 sm:mb-8 md:mb-4 border-b border-[#D6B46A]/20 pb-4 sm:pb-6 md:pb-3">
+                  <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full p-1 shadow-xl transform transition-all duration-300 hover:scale-105" style={{ background: `linear-gradient(135deg, ${company.logoColors.join(', ')})` }}>
                     <div className="w-full h-full rounded-full bg-surface flex items-center justify-center overflow-hidden shadow-inner transition-colors duration-500">
                       {company.logoImage ? (
                         <img src={company.logoImage} alt={`${company.name} logo`} className="w-full h-full object-contain p-2" />
@@ -461,25 +461,25 @@ function App() {
                     </div>
                   </div>
                   <div>
-                    <h2 className="text-2xl sm:text-3xl font-bold text-theme font-['Raleway']">{company.name}</h2>
-                    <p className="text-sm text-muted-strong font-medium font-['Manrope']">
+                    <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 font-['Cinzel','Raleway',serif]">{company.name}</h2>
+                    <p className="text-sm text-[#A8863D] font-semibold font-['Manrope'] mt-0.5">
                       {company.fullName}
                     </p>
                     {company.stock && (
-                      <p className="text-xs text-muted font-['Manrope'] mt-1">{company.stock}</p>
+                      <p className="text-xs text-slate-500 font-['Manrope'] mt-1">{company.stock}</p>
                     )}
                     {company.website && (
                       <p className="text-xs mt-2">
-                        <a href={company.website} target="_blank" rel="noreferrer" className="text-[var(--accent-blue)] font-semibold hover:underline">
-                          Visit {company.name} website
+                        <a href={company.website} target="_blank" rel="noreferrer" className="text-[#A8863D] hover:text-[#78591f] font-semibold hover:underline inline-flex items-center gap-1.5 transition-colors">
+                          Visit {company.name} website <i className="fas fa-external-link-alt text-[10px]"></i>
                         </a>
                       </p>
                     )}
                   </div>
                 </div>
 
-                <div className={isMobile ? 'rounded-none border-0 bg-transparent p-0 shadow-none mb-5' : 'relative bg-panel-soft rounded-[20px] p-4 sm:p-6 md:p-3 mb-6 sm:mb-8 md:mb-4 border-l-4 border-l-[var(--accent)] border-t border-b border-r border-card shadow-sm transition-all duration-300 hover:shadow-inner'}>
-                  <p className={`text-theme leading-7 sm:leading-8 text-sm sm:text-[15px] font-['Manrope'] ${isMobile ? 'text-base' : ''}`}>
+                <div className={isMobile ? 'rounded-none border-0 bg-transparent p-0 shadow-none mb-5' : 'relative bg-[#FCFAFA]/80 rounded-[20px] p-4 sm:p-6 md:p-4 mb-6 sm:mb-8 md:mb-4 border-l-4 border-l-[#D6B46A] border border-[#D6B46A]/20 shadow-xs transition-all duration-300 hover:shadow-sm'}>
+                  <p className={`text-slate-800 leading-7 sm:leading-8 text-sm sm:text-[15px] font-['Manrope'] ${isMobile ? 'text-base' : ''}`}>
                     {company.description}
                   </p>
                 </div>
@@ -487,8 +487,8 @@ function App() {
                 {/* Industry tags */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 md:gap-2">
                   {company.tags.map((tag, idx) => (
-                    <div key={idx} className="px-3 py-2.5 rounded-2xl bg-panel-soft border border-card text-center shadow-sm transition-all duration-300 hover:scale-105 hover:border-[var(--accent)] hover:shadow-md">
-                      <p className="text-xs font-semibold text-[var(--accent)] font-['Manrope']">{tag}</p>
+                    <div key={idx} className="px-3.5 py-2.5 rounded-2xl bg-[#FCFAFA] border border-[#D6B46A]/30 text-center shadow-xs transition-all duration-300 hover:scale-[1.03] hover:border-[#D6B46A] hover:shadow-md">
+                      <p className="text-xs font-semibold text-[#A8863D] font-['Manrope']">{tag}</p>
                     </div>
                   ))}
                 </div>
@@ -498,32 +498,32 @@ function App() {
         })}
 
         {/* Footer / Enterprise Section */}
-        <footer className="w-full bg-gradient-to-br from-[#2a231d] via-[#3a3023] to-[#191512] text-white border-t border-[var(--accent)]/40 shadow-2xl mt-12 md:mt-20">
+        <footer className="w-full bg-gradient-to-br from-[#1c1813] via-[#2a2219] to-[#120f0c] text-white border-t-2 border-[#D6B46A]/40 shadow-2xl mt-12 md:mt-20">
           <div className="pointer-events-auto max-w-7xl mx-auto px-4 py-8 sm:px-8 md:px-12 md:py-16">
             <div className="grid gap-5 sm:gap-10 lg:grid-cols-[2fr_1fr]">
               <div className="flex flex-col gap-3 sm:gap-6">
                 <div className="flex items-center gap-3 sm:gap-4">
-                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl sm:rounded-3xl bg-white/10 backdrop-blur-md p-3 shadow-md flex items-center justify-center border border-[var(--accent)]/40">
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl sm:rounded-3xl bg-white/10 backdrop-blur-md p-3 shadow-md flex items-center justify-center border border-[#D6B46A]/50">
                     <img src="/logos/AAg update logo.png" alt="AAG logo" className="w-full h-full object-contain" />
                   </div>
                   <div className="sm:block">
-                    <h3 className="hidden sm:block text-2xl sm:text-3xl font-bold tracking-tight text-white font-['Georgia','Times_New_Roman',serif]">Anubhav Agrawal Group</h3>
+                    <h3 className="hidden sm:block text-2xl sm:text-3xl font-bold tracking-tight text-white font-['Cinzel','Georgia',serif]">Anubhav Agrawal Group</h3>
                   </div>
                 </div>
                 <p className="max-w-2xl text-sm leading-7 text-stone-300 font-['Manrope']">Anubhav Agrawal Group is an enterprise platform uniting high-growth businesses across agrochemicals, renewable energy, bio-chemicals, and semiconductor manufacturing. We combine strategic partnerships, innovation, and a Make-in-India growth agenda to create sustainable value and world-class industrial capabilities.</p>
                 <div className="flex flex-wrap gap-2 sm:gap-3">
-                  <span className="rounded-full border border-[var(--accent)]/40 bg-white/5 backdrop-blur-md px-3 py-2 text-[11px] sm:text-xs text-[var(--accent-gold)] font-medium shadow-sm">Enterprise Strategy</span>
-                  <span className="rounded-full border border-[var(--accent-blue)]/40 bg-white/5 backdrop-blur-md px-3 py-2 text-[11px] sm:text-xs text-blue-300 font-medium shadow-sm">Make in India</span>
-                  <span className="rounded-full border border-[var(--accent)]/40 bg-white/5 backdrop-blur-md px-3 py-2 text-[11px] sm:text-xs text-[var(--accent-gold)] font-medium shadow-sm">Sustainable Growth</span>
+                  <span className="rounded-full border border-[#D6B46A]/40 bg-white/5 backdrop-blur-md px-3.5 py-2 text-[11px] sm:text-xs text-[#CFB377] font-medium shadow-sm">Enterprise Strategy</span>
+                  <span className="rounded-full border border-[#D6B46A]/40 bg-white/5 backdrop-blur-md px-3.5 py-2 text-[11px] sm:text-xs text-[#CFB377] font-medium shadow-sm">Make in India</span>
+                  <span className="rounded-full border border-[#D6B46A]/40 bg-white/5 backdrop-blur-md px-3.5 py-2 text-[11px] sm:text-xs text-[#CFB377] font-medium shadow-sm">Sustainable Growth</span>
                 </div>
               </div>
 
               <div className="grid gap-3 text-left sm:gap-4 md:ml-6 lg:ml-10">
-                <p className="text-sm font-semibold text-[var(--accent-gold)] uppercase tracking-[0.24em] font-['Manrope']">Quick Links</p>
-                <a href="#bn-agrochem" className="text-sm text-stone-300 hover:text-[var(--accent-gold)] transition-colors font-['Manrope']">BN Agrochem</a>
-                <a href="#agastya" className="text-sm text-stone-300 hover:text-[var(--accent-gold)] transition-colors font-['Manrope']">Agastya</a>
-                <a href="#epitome" className="text-sm text-stone-300 hover:text-[var(--accent-gold)] transition-colors font-['Manrope']">Epitome</a>
-                <a href="#indichip" className="text-sm text-stone-300 hover:text-[var(--accent-gold)] transition-colors font-['Manrope']">Indichip</a>
+                <p className="text-sm font-semibold text-[#D6B46A] uppercase tracking-[0.24em] font-['Manrope']">Quick Links</p>
+                <a href="#bn-agrochem" className="text-sm text-stone-300 hover:text-[#D6B46A] transition-colors font-['Manrope']">BN Agrochem</a>
+                <a href="#agastya" className="text-sm text-stone-300 hover:text-[#D6B46A] transition-colors font-['Manrope']">Agastya</a>
+                <a href="#epitome" className="text-sm text-stone-300 hover:text-[#D6B46A] transition-colors font-['Manrope']">Epitome</a>
+                <a href="#indichip" className="text-sm text-stone-300 hover:text-[#D6B46A] transition-colors font-['Manrope']">Indichip</a>
               </div>
             </div>
 
@@ -531,9 +531,9 @@ function App() {
               <p className="text-center md:text-left">© 2026 Anubhav Agrawal Group. All Rights Reserved.</p>
               <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-stone-400 md:justify-end">
                 <span className="uppercase tracking-[0.3em] text-[11px] sm:text-xs">Innovation</span>
-                <span className="text-[var(--accent)]">|</span>
+                <span className="text-[#D6B46A]">|</span>
                 <span className="uppercase tracking-[0.3em] text-[11px] sm:text-xs">Sustainability</span>
-                <span className="text-[var(--accent)]">|</span>
+                <span className="text-[#D6B46A]">|</span>
                 <span className="uppercase tracking-[0.3em] text-[11px] sm:text-xs">Growth</span>
               </div>
             </div>

@@ -3,19 +3,22 @@
 :root {
   --bg: #ffffff;
   --surface: #ffffff;
-  --surface-soft: #ffffff;
-  --panel: #ffffff;
-  --panel-soft: #ffffff;
+  --surface-soft: #faf7f0;
+  --panel: #fffdfa;
+  --panel-soft: #fcf9f2;
   --text: #0f172a;
-  --muted: #475569;
-  --muted-strong: #b48518;
-  --border: rgba(226, 232, 240, 0.9);
-  --cardborder: rgba(226, 232, 240, 0.8);
+  --muted: #57657a;
+  --muted-strong: #b59247;
+  --border: rgba(214, 180, 106, 0.28);
+  --cardborder: rgba(207, 179, 119, 0.22);
   --shadow: rgba(0, 0, 0, 0.04);
-  --accent: #c59b27;
-  --accent-gold: #d4af37;
-  --accent-blue: #2563eb;
-  --accent-glow: rgba(197, 155, 39, 0.08);
+  --shadow-gold: rgba(214, 180, 106, 0.16);
+  --accent: #D6B46A;
+  --accent-gold: #D6B46A;
+  --accent-gold-soft: #CFB377;
+  --accent-gold-light: #F4E7C5;
+  --accent-dark-gold: #A8863D;
+  --accent-glow: rgba(214, 180, 106, 0.14);
 }
 
 .bg-page {
@@ -53,6 +56,14 @@
   color: var(--muted-strong);
 }
 
+.text-gold {
+  color: var(--accent-gold);
+}
+
+.text-gold-dark {
+  color: var(--accent-dark-gold);
+}
+
 .border-theme {
   border-color: var(--border);
 }
@@ -61,16 +72,36 @@
   border-color: var(--cardborder);
 }
 
+.border-gold {
+  border-color: rgba(214, 180, 106, 0.35);
+}
+
 .shadow-theme {
   box-shadow: 0 30px 80px -40px var(--shadow);
+}
+
+.shadow-gold-subtle {
+  box-shadow: 0 10px 30px -10px rgba(214, 180, 106, 0.2);
 }
 
 .text-white {
   color: #ffffff !important;
 }
 
-.text-accent-blue {
-  color: var(--accent-blue);
+.gold-gradient-text {
+  background: linear-gradient(135deg, #a8863d 0%, #D6B46A 45%, #CFB377 75%, #8f6e27 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gold-gradient-bg {
+  background: linear-gradient(135deg, #D6B46A 0%, #CFB377 50%, #f4e7c5 100%);
+}
+
+.gold-badge {
+  background: linear-gradient(135deg, rgba(214, 180, 106, 0.1) 0%, rgba(207, 179, 119, 0.22) 100%);
+  border: 1px solid rgba(214, 180, 106, 0.35);
+  color: #a8863d;
 }
 
 @layer utilities {
