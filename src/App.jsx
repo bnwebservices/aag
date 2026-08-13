@@ -359,8 +359,8 @@ function App() {
       <nav className="tablet-nav fixed top-0 left-0 right-0 z-20 bg-surface/90 backdrop-blur-md border-b border-[#D6B46A]/30 px-4 sm:px-6 md:px-12 py-3 md:py-4 transition-colors duration-500 shadow-sm">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#1c1917] via-[#2a2419] to-[#0c0e14] flex items-center justify-center shadow-md overflow-hidden border border-[#D6B46A]/40">
-              <img src="/logos/AAg update logo.png" alt="AAG logo" className="w-full h-full object-contain p-1" />
+            <div className="w-10 h-10 rounded-xl bg-[#796F5C] flex items-center justify-center shadow-sm overflow-hidden border border-[#D6B46A]/50">
+              <img src="/logos/logo new.webp" alt="AAG logo" className="w-full h-full object-contain p-1" />
             </div>
           </div>
           <div className="hidden md:flex items-center gap-7 text-sm">
@@ -412,8 +412,8 @@ function App() {
         <section className="min-h-[calc(100vh-5rem)] lg:min-h-screen w-full flex items-center justify-center pointer-events-none p-3 sm:p-6 md:p-4 mt-0">
           <div className="pointer-events-auto bg-surface backdrop-blur-lg rounded-[24px] sm:rounded-3xl p-5 sm:p-8 md:p-10 lg:p-16 w-full max-w-none md:max-w-none border border-[#D6B46A]/35 shadow-[0_20px_60px_-15px_rgba(214,180,106,0.14)] transform transition-all duration-300 hover:shadow-[0_25px_70px_-10px_rgba(214,180,106,0.2)] hover:scale-[1.005] hover:border-[#D6B46A]/60 transition-colors duration-500">
             <div className="flex flex-col md:flex-row items-start md:items-center gap-5 sm:gap-8 mb-6 sm:mb-10">
-              <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl bg-gradient-to-br from-[#1c1917] via-[#2a2419] to-[#0c0e14] flex items-center justify-center shadow-2xl flex-shrink-0 transform transition-transform duration-300 hover:scale-105 overflow-hidden border border-[#D6B46A]/50 ring-1 ring-[#CFB377]/30">
-                <img src="/logos/AAg update logo.png" alt="AAG logo" className="w-full h-full object-contain p-4" />
+              <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl bg-[#796F5C] flex items-center justify-center shadow-md flex-shrink-0 transform transition-transform duration-300 hover:scale-105 overflow-hidden border border-[#D6B46A]/60 ring-1 ring-[#CFB377]/40">
+                <img src="/logos/logo new.webp" alt="AAG logo" className="w-full h-full object-contain p-2 sm:p-3" />
               </div>
               <div className="w-full">
                 <div className="inline-block relative">
@@ -462,7 +462,7 @@ function App() {
                   rel="noreferrer"
                   className={`rounded-3xl bg-surface border border-[#D6B46A]/25 p-6 flex items-center justify-center shadow-md ${logosActive ? (index % 2 === 0 ? 'logo-enter-lr animate-vibrate-lr animate-float' : 'logo-enter-rl animate-vibrate-rl animate-float') : 'opacity-0'} transition-all duration-500 hover:ring-2 hover:ring-[#D6B46A]/60 hover:border-[#D6B46A] hover:shadow-[0_15px_35px_rgba(214,180,106,0.18)]`}
                 >
-                  <img src={company.logoImage || '/logos/AAg update logo.png'} alt={`${company.name} logo`} className="h-20 md:h-24 object-contain" />
+                  <img src={company.logoImage || '/logos/logo new.webp'} alt={`${company.name} logo`} className="h-20 md:h-24 object-contain" />
                 </a>
               ))}
             </div>
@@ -539,8 +539,8 @@ function App() {
             <div className="grid gap-5 sm:gap-10 lg:grid-cols-[2fr_1fr]">
               <div className="flex flex-col gap-3 sm:gap-6">
                 <div className="flex items-center gap-3 sm:gap-4">
-                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl sm:rounded-3xl bg-white/10 backdrop-blur-md p-3 shadow-md flex items-center justify-center border border-[#D6B46A]/50">
-                    <img src="/logos/AAg update logo.png" alt="AAG logo" className="w-full h-full object-contain" />
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl sm:rounded-3xl bg-[#796F5C] p-2.5 shadow-md flex items-center justify-center border border-[#D6B46A]/60">
+                    <img src="/logos/logo new.webp" alt="AAG logo" className="w-full h-full object-contain" />
                   </div>
                   <div className="sm:block">
                     <h3 className="hidden sm:block text-2xl sm:text-3xl font-bold tracking-tight text-white font-['Cinzel','Georgia',serif]">Anubhav Agrawal Group</h3>
