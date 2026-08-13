@@ -329,6 +329,10 @@ function App() {
     const targetElement = document.getElementById(companyId);
     if (!targetElement) return;
 
+    if (typeof window !== 'undefined' && window.history && window.history.pushState) {
+      window.history.pushState(null, '', `/${companyId}`);
+    }
+
     const navbarOffset = 100; // Fixed navbar height + breathing room
 
     if (contentRef.current && contentRef.current.scrollHeight > contentRef.current.clientHeight) {
@@ -367,7 +371,7 @@ function App() {
             {companies.map((company) => (
               <a
                 key={company.id}
-                href={`#${company.id}`}
+                href={`/${company.id}`}
                 onClick={(e) => handleNavClick(e, company.id)}
                 className="nav-link-hover text-slate-800 font-semibold font-['Manrope'] text-xs uppercase tracking-wider hover:text-[#A8863D]"
               >
@@ -391,7 +395,7 @@ function App() {
               {companies.map((company) => (
                 <a
                   key={`mobile-${company.id}`}
-                  href={`#${company.id}`}
+                  href={`/${company.id}`}
                   onClick={(e) => {
                     setMenuOpen(false);
                     handleNavClick(e, company.id);
@@ -452,7 +456,7 @@ function App() {
               {companies.map((company, index) => (
                 <a
                   key={`logo-preview-${company.id}`}
-                  href={company.website || `#${company.id}`}
+                  href={company.website || `/${company.id}`}
                   onClick={(e) => {
                     if (!company.website) {
                       handleNavClick(e, company.id);
@@ -556,10 +560,10 @@ function App() {
 
               <div className="grid gap-3 text-left sm:gap-4 md:ml-6 lg:ml-10">
                 <p className="text-sm font-semibold text-[#D6B46A] uppercase tracking-[0.24em] font-['Manrope']">Quick Links</p>
-                <a href="#bn-agrochem" onClick={(e) => handleNavClick(e, 'bn-agrochem')} className="text-sm text-stone-300 hover:text-[#D6B46A] transition-colors font-['Manrope']">BN Agrochem</a>
-                <a href="#agastya" onClick={(e) => handleNavClick(e, 'agastya')} className="text-sm text-stone-300 hover:text-[#D6B46A] transition-colors font-['Manrope']">Agastya</a>
-                <a href="#epitome" onClick={(e) => handleNavClick(e, 'epitome')} className="text-sm text-stone-300 hover:text-[#D6B46A] transition-colors font-['Manrope']">Epitome</a>
-                <a href="#indichip" onClick={(e) => handleNavClick(e, 'indichip')} className="text-sm text-stone-300 hover:text-[#D6B46A] transition-colors font-['Manrope']">Indichip</a>
+                <a href="/bn-agrochem" onClick={(e) => handleNavClick(e, 'bn-agrochem')} className="text-sm text-stone-300 hover:text-[#D6B46A] transition-colors font-['Manrope']">BN Agrochem</a>
+                <a href="/agastya" onClick={(e) => handleNavClick(e, 'agastya')} className="text-sm text-stone-300 hover:text-[#D6B46A] transition-colors font-['Manrope']">Agastya</a>
+                <a href="/epitome" onClick={(e) => handleNavClick(e, 'epitome')} className="text-sm text-stone-300 hover:text-[#D6B46A] transition-colors font-['Manrope']">Epitome</a>
+                <a href="/indichip" onClick={(e) => handleNavClick(e, 'indichip')} className="text-sm text-stone-300 hover:text-[#D6B46A] transition-colors font-['Manrope']">Indichip</a>
               </div>
             </div>
 
