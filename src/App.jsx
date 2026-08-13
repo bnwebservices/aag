@@ -386,7 +386,7 @@ function App() {
               </div>
               <div className="w-full">
                 <div className="inline-block relative">
-                  <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 tracking-tight font-['Cinzel','Cormorant_Garamond','Georgia',serif]">
+                  <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight font-['Cinzel','Cormorant_Garamond','Georgia',serif] gold-gradient-text">
                     Anubhav Agrawal Group
                   </h1>
                   <div className="mt-2.5 h-[3px] w-full overflow-hidden rounded-full bg-gradient-to-r from-[#A8863D] via-[#D6B46A] via-[#CFB377] to-[#8F6E27] relative">
@@ -415,7 +415,7 @@ function App() {
         <section ref={logoPreviewRef} className={`w-full flex items-center justify-center py-8 sm:py-12 md:py-6 pointer-events-none p-3 sm:p-6 md:px-4 transition-all duration-700 ${logosActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div className="pointer-events-auto max-w-6xl w-full">
             <div className="mb-6 sm:mb-8 text-center">
-              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-slate-900 font-['Cinzel','Raleway',serif]">AAG <span className="gold-gradient-text">Companies</span></h2>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-['Cinzel','Raleway',serif] gold-gradient-text">AAG Companies</h2>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 md:gap-4">
               {companies.map((company, index) => (
@@ -461,7 +461,7 @@ function App() {
                     </div>
                   </div>
                   <div>
-                    <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 font-['Cinzel','Raleway',serif]">{company.name}</h2>
+                    <h2 className="text-2xl sm:text-3xl font-bold font-['Cinzel','Raleway',serif] gold-gradient-text">{company.name}</h2>
                     <p className="text-sm text-[#A8863D] font-semibold font-['Manrope'] mt-0.5">
                       {company.fullName}
                     </p>

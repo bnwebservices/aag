@@ -89,7 +89,7 @@
 }
 
 .gold-gradient-text {
-  background: linear-gradient(135deg, #a8863d 0%, #D6B46A 45%, #CFB377 75%, #8f6e27 100%);
+  background: linear-gradient(135deg, #7a5b1e 0%, #b89345 35%, #D6B46A 65%, #8f6e27 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
