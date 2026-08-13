@@ -323,6 +323,33 @@ function App() {
     }
   ];
 
+  // Scroll offset handler to render cards comfortably below fixed navbar
+  const handleNavClick = (e, companyId) => {
+    e.preventDefault();
+    const targetElement = document.getElementById(companyId);
+    if (!targetElement) return;
+
+    const navbarOffset = 100; // Fixed navbar height + breathing room
+
+    if (contentRef.current && contentRef.current.scrollHeight > contentRef.current.clientHeight) {
+      const containerRect = contentRef.current.getBoundingClientRect();
+      const targetRect = targetElement.getBoundingClientRect();
+      const currentScroll = contentRef.current.scrollTop;
+      const targetScroll = currentScroll + (targetRect.top - containerRect.top) - navbarOffset;
+
+      contentRef.current.scrollTo({
+        top: Math.max(0, targetScroll),
+        behavior: 'smooth',
+      });
+    } else {
+      const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+      window.scrollTo({
+        top: Math.max(0, elementPosition - navbarOffset),
+        behavior: 'smooth',
+      });
+    }
+  };
+
   return (
     <div className="relative min-w-full min-h-screen overflow-x-hidden overflow-y-hidden font-['Raleway','Manrope',sans-serif] bg-page text-theme transition-colors duration-500">
       {/* 3D Canvas */}
@@ -341,6 +368,7 @@ function App() {
               <a
                 key={company.id}
                 href={`#${company.id}`}
+                onClick={(e) => handleNavClick(e, company.id)}
                 className="nav-link-hover text-slate-800 font-semibold font-['Manrope'] text-xs uppercase tracking-wider hover:text-[#A8863D]"
               >
                 {company.name}
@@ -364,7 +392,10 @@ function App() {
                 <a
                   key={`mobile-${company.id}`}
                   href={`#${company.id}`}
-                  onClick={() => setMenuOpen(false)}
+                  onClick={(e) => {
+                    setMenuOpen(false);
+                    handleNavClick(e, company.id);
+                  }}
                   className="block nav-link-hover text-sm text-slate-800 font-semibold uppercase tracking-[0.18em] hover:text-[#A8863D]"
                 >
                   {company.name}
@@ -422,7 +453,12 @@ function App() {
                 <a
                   key={`logo-preview-${company.id}`}
                   href={company.website || `#${company.id}`}
-                  target="_blank"
+                  onClick={(e) => {
+                    if (!company.website) {
+                      handleNavClick(e, company.id);
+                    }
+                  }}
+                  target={company.website ? "_blank" : "_self"}
                   rel="noreferrer"
                   className={`rounded-3xl bg-surface border border-[#D6B46A]/25 p-6 flex items-center justify-center shadow-md ${logosActive ? (index % 2 === 0 ? 'logo-enter-lr animate-vibrate-lr animate-float' : 'logo-enter-rl animate-vibrate-rl animate-float') : 'opacity-0'} transition-all duration-500 hover:ring-2 hover:ring-[#D6B46A]/60 hover:border-[#D6B46A] hover:shadow-[0_15px_35px_rgba(214,180,106,0.18)]`}
                 >
@@ -443,7 +479,7 @@ function App() {
               id={company.id}
               data-animate-card
               data-card-id={company.id}
-              className={`min-h-auto w-full flex items-center justify-center pointer-events-none px-3 py-2 sm:px-6 sm:py-3 md:px-4 md:py-1 lg:px-4 lg:py-1 scroll-fade card-reveal ${isVisible ? 'is-visible' : ''}`}
+              className={`scroll-mt-24 sm:scroll-mt-28 md:scroll-mt-32 lg:scroll-mt-36 min-h-auto w-full flex items-center justify-center pointer-events-none px-3 py-3 sm:px-6 sm:py-5 md:px-4 md:py-3 lg:px-4 lg:py-4 scroll-fade card-reveal ${isVisible ? 'is-visible' : ''}`}
               style={{ transitionDelay: `${index * 120}ms` }}
             >
               <div className="pointer-events-auto bg-surface backdrop-blur-lg rounded-[24px] sm:rounded-3xl p-4 sm:p-8 md:p-5 lg:p-8 max-w-6xl w-full sm:w-[95%] border border-[#D6B46A]/30 shadow-xl transform transition-all duration-500 hover:shadow-[0_25px_60px_-15px_rgba(214,180,106,0.2)] hover:scale-[1.005] hover:border-[#D6B46A]/60 hover:ring-1 hover:ring-[#D6B46A]/30">
@@ -520,10 +556,10 @@ function App() {
 
               <div className="grid gap-3 text-left sm:gap-4 md:ml-6 lg:ml-10">
                 <p className="text-sm font-semibold text-[#D6B46A] uppercase tracking-[0.24em] font-['Manrope']">Quick Links</p>
-                <a href="#bn-agrochem" className="text-sm text-stone-300 hover:text-[#D6B46A] transition-colors font-['Manrope']">BN Agrochem</a>
-                <a href="#agastya" className="text-sm text-stone-300 hover:text-[#D6B46A] transition-colors font-['Manrope']">Agastya</a>
-                <a href="#epitome" className="text-sm text-stone-300 hover:text-[#D6B46A] transition-colors font-['Manrope']">Epitome</a>
-                <a href="#indichip" className="text-sm text-stone-300 hover:text-[#D6B46A] transition-colors font-['Manrope']">Indichip</a>
+                <a href="#bn-agrochem" onClick={(e) => handleNavClick(e, 'bn-agrochem')} className="text-sm text-stone-300 hover:text-[#D6B46A] transition-colors font-['Manrope']">BN Agrochem</a>
+                <a href="#agastya" onClick={(e) => handleNavClick(e, 'agastya')} className="text-sm text-stone-300 hover:text-[#D6B46A] transition-colors font-['Manrope']">Agastya</a>
+                <a href="#epitome" onClick={(e) => handleNavClick(e, 'epitome')} className="text-sm text-stone-300 hover:text-[#D6B46A] transition-colors font-['Manrope']">Epitome</a>
+                <a href="#indichip" onClick={(e) => handleNavClick(e, 'indichip')} className="text-sm text-stone-300 hover:text-[#D6B46A] transition-colors font-['Manrope']">Indichip</a>
               </div>
             </div>
 
