@@ -431,8 +431,8 @@ function App() {
       {/* Scrollable content */}
       <div ref={contentRef} className="tablet-tight-content relative z-10 min-h-screen overflow-y-auto pointer-events-auto pt-12 md:pt-10 lg:pt-20">
         {/* Hero Section */}
-        <section className="min-h-[calc(100vh-5rem)] lg:min-h-screen w-full flex items-center justify-center pointer-events-none p-3 sm:p-6 md:p-4 mt-0">
-          <div className="pointer-events-auto bg-surface backdrop-blur-lg rounded-[24px] sm:rounded-3xl p-5 sm:p-8 md:p-10 lg:p-16 w-full max-w-none md:max-w-none border border-[#D6B46A]/35 shadow-[0_20px_60px_-15px_rgba(214,180,106,0.14)] transform transition-all duration-300 hover:shadow-[0_25px_70px_-10px_rgba(214,180,106,0.2)] hover:scale-[1.005] hover:border-[#D6B46A]/60 transition-colors duration-500">
+        <section className="w-full pointer-events-auto bg-surface/95 backdrop-blur-xl border-b-2 border-[#D6B46A]/40 py-8 sm:py-12 md:py-16 shadow-xl transition-colors duration-500">
+          <div className="w-full px-4 sm:px-8 md:px-12 lg:px-16">
             <div className="flex flex-col md:flex-row items-start md:items-center gap-5 sm:gap-8 mb-6 sm:mb-10">
               <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl bg-[#796F5C] flex items-center justify-center shadow-md flex-shrink-0 transform transition-transform duration-300 hover:scale-105 overflow-hidden border border-[#D6B46A]/60 ring-1 ring-[#CFB377]/40">
                 <img src="/logos/logo new.webp" alt="AAG logo" className="w-full h-full object-contain p-2 sm:p-3" />
@@ -452,7 +452,7 @@ function App() {
               </div>
             </div>
 
-            <div className="mb-0 sm:mb-8">
+            <div className="mb-0 sm:mb-2">
               <div className="rounded-[20px] sm:rounded-3xl bg-[#FCFAFA]/80 backdrop-blur-sm border border-[#D6B46A]/25 border-l-4 border-l-[#D6B46A] p-5 sm:p-8 shadow-sm transition-colors duration-500">
                 <h3 className="text-lg sm:text-xl font-bold gold-gradient-text mb-3 sm:mb-4 font-['Cinzel','Raleway',serif]">About Anubhav Agarwal Group</h3>
                 <p className="text-sm sm:text-[15px] text-slate-700 leading-7 sm:leading-8 font-['Manrope']">
@@ -460,7 +460,6 @@ function App() {
                 </p>
               </div>
             </div>
-
           </div>
         </section>
 
