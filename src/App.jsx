@@ -1,6 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import MediaSection from './components/MediaSection';
+import BnAgrochemPage from './pages/BnAgrochemPage';
+import AgastyaPage from './pages/AgastyaPage';
+import AboutPage from './pages/AboutPage';
+import InvestorsPage from './pages/InvestorsPage';
 
 function App() {
   const containerRef = useRef(null);
@@ -13,10 +17,62 @@ function App() {
   const contentRef = useRef(null);
   const logoPreviewRef = useRef(null);
   const scrollAmountRef = useRef(0);
-  const [logosActive, setLogosActive] = useState(false);
+  const [logosActive, setLogosActive] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(() => (typeof window !== 'undefined' ? window.innerWidth < 768 : false));
-  const [visibleCardIds, setVisibleCardIds] = useState([]);
+  const [visibleCardIds, setVisibleCardIds] = useState(['bn-agrochem', 'agastya', 'epitome', 'indichip', 'media']);
+  const [companiesDropdownOpen, setCompaniesDropdownOpen] = useState(false);
+  
+  const [activePage, setActivePage] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const path = window.location.pathname.replace('/', '').toLowerCase();
+      if (['bn-agrochem', 'agastya', 'about', 'investors', 'media'].includes(path)) {
+        return path;
+      }
+    }
+    return 'home';
+  });
+
+  const navigateTo = (pageId, e = null) => {
+    if (e) e.preventDefault();
+    setActivePage(pageId);
+    if (typeof window !== 'undefined' && window.history && window.history.pushState) {
+      window.history.pushState(null, '', pageId === 'home' ? '/' : `/${pageId}`);
+    }
+    if (contentRef.current) {
+      contentRef.current.scrollTop = 0;
+    }
+    if (typeof window !== 'undefined') {
+      window.scrollTo(0, 0);
+    }
+    setMenuOpen(false);
+  };
+
+  // Scroll to top on every page switch
+  useEffect(() => {
+    const resetScroll = () => {
+      if (contentRef.current) {
+        contentRef.current.scrollTop = 0;
+      }
+      if (typeof window !== 'undefined') {
+        window.scrollTo(0, 0);
+      }
+    };
+    resetScroll();
+    const timer = setTimeout(resetScroll, 50);
+    return () => clearTimeout(timer);
+  }, [activePage]);
+
+  // Handle browser back/forward navigation
+  useEffect(() => {
+    const handlePopState = () => {
+      const path = window.location.pathname.replace('/', '').toLowerCase();
+      const targetPage = ['bn-agrochem', 'agastya', 'about', 'investors', 'media'].includes(path) ? path : 'home';
+      setActivePage(targetPage);
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   useEffect(() => {
     document.documentElement.classList.remove('dark');
@@ -361,35 +417,113 @@ function App() {
       <div ref={containerRef} className="fixed top-0 left-0 w-full h-full z-0"></div>
 
       {/* Navbar */}
-      <nav className="tablet-nav fixed top-0 left-0 right-0 z-20 bg-surface/90 backdrop-blur-md border-b border-[#D6B46A]/30 px-4 sm:px-6 md:px-12 py-3 md:py-4 transition-colors duration-500 shadow-sm">
+      <nav className="tablet-nav fixed top-0 left-0 right-0 z-50 bg-white border-b-2 border-[#D6B46A]/40 px-4 sm:px-6 md:px-12 py-3.5 md:py-4 shadow-md">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-[#796F5C] flex items-center justify-center shadow-sm overflow-hidden border border-[#D6B46A]/50">
+          <div
+            onClick={(e) => navigateTo('home', e)}
+            className="flex items-center gap-3 cursor-pointer group"
+          >
+            <div className="w-10 h-10 rounded-xl bg-[#796F5C] flex items-center justify-center shadow-sm overflow-hidden border border-[#D6B46A]/50 group-hover:scale-105 transition-transform">
               <img src="/logos/logo new.webp" alt="AAG logo" className="w-full h-full object-contain p-1" />
             </div>
+            <span className="font-bold font-['Cinzel','Georgia',serif] text-slate-900 text-sm hidden sm:inline-block tracking-wide">
+              Anubhav Agarwal Group
+            </span>
           </div>
+
           <div className="hidden md:flex items-center gap-7 text-sm">
-            {companies.map((company) => (
-              <a
-                key={company.id}
-                href={`/${company.id}`}
-                onClick={(e) => handleNavClick(e, company.id)}
-                className="nav-link-hover text-slate-800 font-semibold font-['Manrope'] text-xs uppercase tracking-wider hover:text-[#A8863D]"
-              >
-                {company.name}
-              </a>
-            ))}
-            <a
-              href="/media"
-              onClick={(e) => handleNavClick(e, 'media')}
-              className="nav-link-hover text-slate-800 font-semibold font-['Manrope'] text-xs uppercase tracking-wider hover:text-[#A8863D]"
+            
+            {/* Companies Dropdown */}
+            <div
+              className="relative"
+              onMouseEnter={() => setCompaniesDropdownOpen(true)}
+              onMouseLeave={() => setCompaniesDropdownOpen(false)}
             >
-              Media
-            </a>
+              <button
+                onClick={() => setCompaniesDropdownOpen((prev) => !prev)}
+                className={`nav-link-hover font-semibold font-['Manrope'] text-xs uppercase tracking-wider flex items-center gap-1.5 cursor-pointer py-1.5 transition-colors ${
+                  activePage === 'bn-agrochem' || activePage === 'agastya' ? 'text-[#A8863D] font-bold' : 'text-slate-800 hover:text-[#A8863D]'
+                }`}
+              >
+                <span>Companies</span>
+                <i className={`fas fa-chevron-down text-[10px] transition-transform duration-200 ${companiesDropdownOpen ? 'rotate-180 text-[#A8863D]' : ''}`}></i>
+              </button>
+
+              {/* Dropdown Menu Box */}
+              {companiesDropdownOpen && (
+                <div className="absolute top-full left-0 mt-1 w-64 rounded-2xl bg-white/95 backdrop-blur-xl border border-[#D6B46A]/40 shadow-2xl p-2 z-50 animate-in fade-in duration-150">
+                  <div className="text-[10px] font-bold text-[#A8863D] uppercase tracking-wider px-3 py-1.5 border-b border-stone-100 font-['Manrope']">
+                    AAG Enterprise Companies
+                  </div>
+                  <div className="flex flex-col gap-1 mt-1">
+                    {companies.map((company) => (
+                      <a
+                        key={`drop-${company.id}`}
+                        href={company.id === 'bn-agrochem' ? '/bn-agrochem' : company.id === 'agastya' ? '/agastya' : `/${company.id}`}
+                        onClick={(e) => {
+                          setCompaniesDropdownOpen(false);
+                          if (company.id === 'bn-agrochem') {
+                            navigateTo('bn-agrochem', e);
+                          } else if (company.id === 'agastya') {
+                            navigateTo('agastya', e);
+                          } else {
+                            if (activePage !== 'home') {
+                              navigateTo('home', e);
+                              setTimeout(() => handleNavClick(e, company.id), 150);
+                            } else {
+                              handleNavClick(e, company.id);
+                            }
+                          }
+                        }}
+                        className="flex items-center gap-3 p-2.5 rounded-xl hover:bg-stone-50 transition-colors group cursor-pointer"
+                      >
+                        <div className="w-8 h-8 rounded-lg bg-stone-100 p-1 flex items-center justify-center border border-stone-200 group-hover:border-[#D6B46A] flex-shrink-0">
+                          {company.logoImage ? (
+                            <img src={company.logoImage} alt={company.name} className="w-full h-full object-contain" />
+                          ) : (
+                            <i className={`fas ${company.logoIcon} text-xs`} style={{ color: company.color }}></i>
+                          )}
+                        </div>
+                        <div className="flex flex-col">
+                          <span className="text-xs font-bold text-slate-900 group-hover:text-[#A8863D] transition-colors font-['Cinzel','Raleway',serif]">
+                            {company.name}
+                          </span>
+                          <span className="text-[10px] text-slate-500 font-['Manrope'] truncate max-w-[150px]">
+                            {company.sector}
+                          </span>
+                        </div>
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Other Nav Items */}
+            {[
+              { id: 'about', label: 'Leadership & Structure' },
+              { id: 'investors', label: 'Investors' },
+              { id: 'media', label: 'Media' },
+            ].map((item) => {
+              const isActive = activePage === item.id;
+              return (
+                <a
+                  key={item.id}
+                  href={`/${item.id}`}
+                  onClick={(e) => navigateTo(item.id, e)}
+                  className={`nav-link-hover font-semibold font-['Manrope'] text-xs uppercase tracking-wider transition-colors ${
+                    isActive ? 'text-[#A8863D] font-bold border-b-2 border-[#D6B46A] pb-0.5' : 'text-slate-800 hover:text-[#A8863D]'
+                  }`}
+                >
+                  {item.label}
+                </a>
+              );
+            })}
           </div>
+
           <div className="flex items-center gap-3">
             <button
-              className="md:hidden text-slate-800"
+              className="md:hidden text-slate-800 p-2"
               onClick={() => setMenuOpen((open) => !open)}
               aria-label="Toggle menu"
             >
@@ -397,234 +531,285 @@ function App() {
             </button>
           </div>
         </div>
+
         {menuOpen && (
           <div className="md:hidden mt-3 rounded-3xl bg-surface border border-[#D6B46A]/30 shadow-xl backdrop-blur-md p-4 transition-colors duration-500">
             <div className="flex flex-col gap-3">
-              {companies.map((company) => (
+              {/* Mobile Companies Sub-list */}
+              <div className="flex flex-col gap-1 border-b border-stone-200/60 pb-3">
+                <span className="text-[10px] font-bold text-[#A8863D] uppercase tracking-wider px-1 mb-1 font-['Manrope']">
+                  Our Companies
+                </span>
+                {companies.map((company) => (
+                  <a
+                    key={`mobile-drop-${company.id}`}
+                    href={company.id === 'bn-agrochem' ? '/bn-agrochem' : company.id === 'agastya' ? '/agastya' : `/${company.id}`}
+                    onClick={(e) => {
+                      setMenuOpen(false);
+                      if (company.id === 'bn-agrochem') navigateTo('bn-agrochem', e);
+                      else if (company.id === 'agastya') navigateTo('agastya', e);
+                      else {
+                        if (activePage !== 'home') {
+                          navigateTo('home', e);
+                          setTimeout(() => handleNavClick(e, company.id), 150);
+                        } else {
+                          handleNavClick(e, company.id);
+                        }
+                      }
+                    }}
+                    className="flex items-center gap-2.5 px-2 py-1.5 rounded-lg text-xs font-semibold text-slate-800 hover:text-[#A8863D]"
+                  >
+                    <span className="w-2 h-2 rounded-full bg-[#D6B46A]"></span>
+                    <span>{company.name}</span>
+                  </a>
+                ))}
+              </div>
+
+              {/* Mobile Other Items */}
+              {[
+                { id: 'about', label: 'Leadership & Structure' },
+                { id: 'investors', label: 'Investors & Banking' },
+                { id: 'media', label: 'Media' },
+              ].map((item) => (
                 <a
-                  key={`mobile-${company.id}`}
-                  href={`/${company.id}`}
-                  onClick={(e) => {
-                    setMenuOpen(false);
-                    handleNavClick(e, company.id);
-                  }}
-                  className="block nav-link-hover text-sm text-slate-800 font-semibold uppercase tracking-[0.18em] hover:text-[#A8863D]"
+                  key={`mobile-${item.id}`}
+                  href={`/${item.id}`}
+                  onClick={(e) => navigateTo(item.id, e)}
+                  className={`block text-xs font-semibold uppercase tracking-[0.18em] py-1.5 ${
+                    activePage === item.id ? 'text-[#A8863D] font-bold' : 'text-slate-800 hover:text-[#A8863D]'
+                  }`}
                 >
-                  {company.name}
+                  {item.label}
                 </a>
               ))}
-              <a
-                href="/media"
-                onClick={(e) => {
-                  setMenuOpen(false);
-                  handleNavClick(e, 'media');
-                }}
-                className="block nav-link-hover text-sm text-slate-800 font-semibold uppercase tracking-[0.18em] hover:text-[#A8863D]"
-              >
-                Media
-              </a>
             </div>
           </div>
         )}
       </nav>
 
-      {/* Scrollable content */}
-      <div ref={contentRef} className="tablet-tight-content relative z-10 min-h-screen overflow-y-auto pointer-events-auto pt-12 md:pt-10 lg:pt-20">
-        {/* Hero Section */}
-        <section className="w-full pointer-events-auto bg-surface/95 backdrop-blur-xl border-b-2 border-[#D6B46A]/40 py-8 sm:py-12 md:py-16 shadow-xl transition-colors duration-500">
-          <div className="w-full px-4 sm:px-8 md:px-12 lg:px-16">
-            <div className="flex flex-col md:flex-row items-start md:items-center gap-5 sm:gap-8 mb-6 sm:mb-10">
-              <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl bg-[#796F5C] flex items-center justify-center shadow-md flex-shrink-0 transform transition-transform duration-300 hover:scale-105 overflow-hidden border border-[#D6B46A]/60 ring-1 ring-[#CFB377]/40">
-                <img src="/logos/logo new.webp" alt="AAG logo" className="w-full h-full object-contain p-2 sm:p-3" />
-              </div>
-              <div className="w-full">
-                <div className="inline-block relative">
-                  <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight font-['Cinzel','Cormorant_Garamond','Georgia',serif] gold-gradient-text">
-                    Anubhav Agarwal Group
-                  </h1>
-                  <div className="mt-2.5 h-[3px] w-full overflow-hidden rounded-full bg-gradient-to-r from-[#A8863D] via-[#D6B46A] via-[#CFB377] to-[#8F6E27] relative">
-                    <div className="absolute inset-0 w-[200%] bg-gradient-to-r from-transparent via-white/80 to-transparent animate-[hero-line-shimmer_2.4s_linear_infinite]" />
+      {/* Scrollable Content Viewport */}
+      <div ref={contentRef} className="tablet-tight-content relative z-10 min-h-screen overflow-y-auto pointer-events-auto pt-16 sm:pt-20 md:pt-24 lg:pt-24">
+        
+        {/* Page Switcher */}
+        {activePage === 'bn-agrochem' && <BnAgrochemPage />}
+        {activePage === 'agastya' && <AgastyaPage />}
+        {activePage === 'about' && <AboutPage />}
+        {activePage === 'investors' && <InvestorsPage />}
+        {activePage === 'media' && <MediaSection />}
+
+        {/* Home Page */}
+        {activePage === 'home' && (
+          <>
+            {/* Hero Section */}
+            <section className="min-h-[calc(100vh-5rem)] lg:min-h-screen w-full flex items-center justify-center pointer-events-none p-3 sm:p-6 md:p-4 mt-0">
+              <div className="pointer-events-auto bg-surface backdrop-blur-lg rounded-[24px] sm:rounded-3xl p-5 sm:p-8 md:p-10 lg:p-16 w-full max-w-none md:max-w-none border border-[#D6B46A]/35 shadow-[0_20px_60px_-15px_rgba(214,180,106,0.14)] transform transition-all duration-300 hover:shadow-[0_25px_70px_-10px_rgba(214,180,106,0.2)] hover:scale-[1.005] hover:border-[#D6B46A]/60 transition-colors duration-500">
+                <div className="flex flex-col md:flex-row items-start md:items-center gap-5 sm:gap-8 mb-6 sm:mb-10">
+                  <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl bg-[#796F5C] flex items-center justify-center shadow-md flex-shrink-0 transform transition-transform duration-300 hover:scale-105 overflow-hidden border border-[#D6B46A]/60 ring-1 ring-[#CFB377]/40">
+                    <img src="/logos/logo new.webp" alt="AAG logo" className="w-full h-full object-contain p-2 sm:p-3" />
                   </div>
-                </div>
-                <p className="text-[#A8863D] font-semibold text-[11px] sm:text-sm tracking-[0.22em] uppercase mt-2.5 font-['Manrope']">
-                  Building India's Industrial Future Through Innovation
-                </p>
-              </div>
-            </div>
-
-            <div className="mb-0 sm:mb-2">
-              <div className="rounded-[20px] sm:rounded-3xl bg-[#FCFAFA]/80 backdrop-blur-sm border border-[#D6B46A]/25 border-l-4 border-l-[#D6B46A] p-5 sm:p-8 shadow-sm transition-colors duration-500">
-                <h3 className="text-lg sm:text-xl font-bold gold-gradient-text mb-3 sm:mb-4 font-['Cinzel','Raleway',serif]">About Anubhav Agarwal Group</h3>
-                <p className="text-sm sm:text-[15px] text-slate-700 leading-7 sm:leading-8 font-['Manrope']">
-                  <strong className="text-slate-900">Anubhav Agarwal Group </strong> is a diversified Indian business conglomerate committed to driving innovation, industrial excellence, and sustainable growth. With a strong presence across specialty chemicals, agrochemicals, renewable energy, advanced manufacturing, and semiconductor technology, AAG is building future-ready businesses that contribute to India's industrial progress and global competitiveness. Guided by a vision of innovation, integrity, and long-term value creation, the Group continues to empower industries, strengthen infrastructure, and deliver solutions that create a lasting impact.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Company logos preview - RUNNING RIGHT TO LEFT MARQUEE */}
-        <section ref={logoPreviewRef} className={`w-full overflow-hidden py-10 sm:py-16 pointer-events-none transition-all duration-700 ${logosActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <div className="pointer-events-auto w-full bg-gradient-to-br from-[#1c1813] via-[#2a2219] to-[#120f0c] border-y-2 border-[#D6B46A]/40 py-10 sm:py-14 shadow-2xl">
-            <div className="mb-6 sm:mb-8 text-center px-4">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-['Cinzel','Raleway',serif] gold-gradient-text">AAG Companies</h2>
-              <p className="text-xs sm:text-sm text-stone-300 font-semibold font-['Manrope'] mt-1.5 uppercase tracking-wider">
-                Our portfolio across four core industrial sectors
-              </p>
-              <div className="mt-2.5 mx-auto h-[2px] w-24 rounded-full bg-gradient-to-r from-transparent via-[#D6B46A] to-transparent" />
-            </div>
-
-            {/* Continuous Running Cards Marquee Strip (Right to Left) - GOLD GRADIENT LANE MATCHED TO TITLE */}
-            <div className="relative w-full overflow-hidden py-6 sm:py-8 bg-gradient-to-r from-[#7a5b1e] via-[#b89345] via-[#D6B46A] via-[#CFB377] to-[#8f6e27] shadow-[0_10px_35px_rgba(214,180,106,0.3)] border-y-2 border-[#D6B46A]">
-              
-              {/* Shimmer Light Sweep Effect across the Gold Lane */}
-              <div className="absolute inset-0 w-[200%] bg-gradient-to-r from-transparent via-white/30 to-transparent animate-[hero-line-shimmer_3s_linear_infinite] pointer-events-none" />
-
-              <div className="flex gap-8 animate-marquee-running items-stretch relative z-10">
-                {[...companies, ...companies, ...companies].map((company, index) => (
-                  <a
-                    key={`logo-marquee-${company.id}-${index}`}
-                    href={company.website || `/${company.id}`}
-                    onClick={(e) => {
-                      if (!company.website) {
-                        handleNavClick(e, company.id);
-                      }
-                    }}
-                    target={company.website ? "_blank" : "_self"}
-                    rel="noreferrer"
-                    className="flex-shrink-0 w-72 sm:w-88 rounded-3xl bg-white border-2 border-white/80 p-5 sm:p-6 flex flex-col items-center justify-center text-center shadow-xl transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:border-[#D6B46A] hover:shadow-[0_20px_45px_rgba(0,0,0,0.35)] group relative overflow-hidden"
-                  >
-                    {/* Big Prominent Logo Container */}
-                    <div className="h-40 sm:h-48 w-full flex items-center justify-center p-4 rounded-2xl bg-white shadow-inner border border-slate-100 transition-all duration-300 group-hover:border-[#D6B46A]/60 group-hover:shadow-md">
-                      <img
-                        src={company.logoImage || '/logos/logo new.webp'}
-                        alt={`${company.name} logo`}
-                        className="max-h-full max-w-full object-contain filter drop-shadow transition-transform duration-300 group-hover:scale-110"
-                      />
+                  <div className="w-full">
+                    <div className="inline-block relative">
+                      <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight font-['Cinzel','Cormorant_Garamond','Georgia',serif] gold-gradient-text">
+                        Anubhav Agarwal Group
+                      </h1>
+                      <div className="mt-2.5 h-[3px] w-full overflow-hidden rounded-full bg-gradient-to-r from-[#A8863D] via-[#D6B46A] via-[#CFB377] to-[#8F6E27] relative">
+                        <div className="absolute inset-0 w-[200%] bg-gradient-to-r from-transparent via-white/80 to-transparent animate-[hero-line-shimmer_2.4s_linear_infinite]" />
+                      </div>
                     </div>
-
-                    {/* Clean Company Name */}
-                    <div className="mt-4 w-full text-center">
-                      <h3 className="text-lg sm:text-xl font-bold text-slate-900 group-hover:text-[#A8863D] transition-colors font-['Cinzel','Raleway',serif]">
-                        {company.name}
-                      </h3>
-                    </div>
-
-                    {/* Bottom Golden Accent Line */}
-                    <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-gradient-to-r from-transparent via-[#D6B46A] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  </a>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Company Sections */}
-        {companies.map((company, index) => {
-          const isVisible = visibleCardIds.includes(company.id);
-
-          return (
-            <section
-              key={company.id}
-              id={company.id}
-              data-animate-card
-              data-card-id={company.id}
-              className={`scroll-mt-24 sm:scroll-mt-28 md:scroll-mt-32 lg:scroll-mt-36 min-h-auto w-full flex items-center justify-center pointer-events-none px-3 py-3 sm:px-6 sm:py-5 md:px-4 md:py-3 lg:px-4 lg:py-4 scroll-fade card-reveal ${isVisible ? 'is-visible' : ''}`}
-              style={{ transitionDelay: `${index * 120}ms` }}
-            >
-              <div className="pointer-events-auto bg-surface backdrop-blur-lg rounded-[24px] sm:rounded-3xl p-4 sm:p-8 md:p-5 lg:p-8 max-w-6xl w-full sm:w-[95%] border border-[#D6B46A]/30 shadow-xl transform transition-all duration-500 hover:shadow-[0_25px_60px_-15px_rgba(214,180,106,0.2)] hover:scale-[1.005] hover:border-[#D6B46A]/60 hover:ring-1 hover:ring-[#D6B46A]/30">
-                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 md:gap-4 mb-6 sm:mb-8 md:mb-4 border-b border-[#D6B46A]/20 pb-4 sm:pb-6 md:pb-3">
-                  <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full p-1 shadow-xl transform transition-all duration-300 hover:scale-105" style={{ background: `linear-gradient(135deg, ${company.logoColors.join(', ')})` }}>
-                    <div className="w-full h-full rounded-full bg-surface flex items-center justify-center overflow-hidden shadow-inner transition-colors duration-500">
-                      {company.logoImage ? (
-                        <img src={company.logoImage} alt={`${company.name} logo`} className="w-full h-full object-contain p-2" />
-                      ) : (
-                        <div className="flex flex-col items-center justify-center">
-                          <span className="text-xl font-black tracking-tight" style={{ color: company.color }}>{company.logoLabel}</span>
-                          <i className={`fas ${company.logoIcon} text-xs mt-1`} style={{ color: company.color }}></i>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                  <div>
-                    <h2 className="text-2xl sm:text-3xl font-bold font-['Cinzel','Raleway',serif] gold-gradient-text">{company.name}</h2>
-                    <p className="text-sm text-[#A8863D] font-semibold font-['Manrope'] mt-0.5">
-                      {company.fullName}
+                    <p className="text-[#A8863D] font-semibold text-[11px] sm:text-sm tracking-[0.22em] uppercase mt-2.5 font-['Manrope']">
+                      Building India's Industrial Future Through Innovation
                     </p>
-                    {company.stock && (
-                      <p className="text-xs text-slate-500 font-['Manrope'] mt-1">{company.stock}</p>
-                    )}
-                    {company.website && (
-                      <p className="text-xs mt-2">
-                        <a href={company.website} target="_blank" rel="noreferrer" className="text-[#A8863D] hover:text-[#78591f] font-semibold hover:underline inline-flex items-center gap-1.5 transition-colors">
-                          Visit {company.name} website <i className="fas fa-external-link-alt text-[10px]"></i>
-                        </a>
-                      </p>
-                    )}
                   </div>
                 </div>
 
-                <div className={isMobile ? 'rounded-none border-0 bg-transparent p-0 shadow-none mb-5' : 'relative bg-[#FCFAFA]/80 rounded-[20px] p-4 sm:p-6 md:p-4 mb-6 sm:mb-8 md:mb-4 border-l-4 border-l-[#D6B46A] border border-[#D6B46A]/20 shadow-xs transition-all duration-300 hover:shadow-sm'}>
-                  <p className={`text-slate-800 leading-7 sm:leading-8 text-sm sm:text-[15px] font-['Manrope'] ${isMobile ? 'text-base' : ''}`}>
-                    {company.description}
-                  </p>
-                </div>
-
-                {/* Industry tags */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 md:gap-2">
-                  {company.tags.map((tag, idx) => (
-                    <div key={idx} className="px-3.5 py-2.5 rounded-2xl bg-[#FCFAFA] border border-[#D6B46A]/30 text-center shadow-xs transition-all duration-300 hover:scale-[1.03] hover:border-[#D6B46A] hover:shadow-md">
-                      <p className="text-xs font-semibold text-[#A8863D] font-['Manrope']">{tag}</p>
-                    </div>
-                  ))}
+                <div className="mb-0 sm:mb-8">
+                  <div className="rounded-[20px] sm:rounded-3xl bg-[#FCFAFA]/80 backdrop-blur-sm border border-[#D6B46A]/25 border-l-4 border-l-[#D6B46A] p-5 sm:p-8 shadow-sm transition-colors duration-500">
+                    <h3 className="text-lg sm:text-xl font-bold gold-gradient-text mb-3 sm:mb-4 font-['Cinzel','Raleway',serif]">About Anubhav Agarwal Group</h3>
+                    <p className="text-sm sm:text-[15px] text-slate-700 leading-7 sm:leading-8 font-['Manrope']">
+                      <strong className="text-slate-900">Anubhav Agarwal Group </strong> is a diversified Indian business conglomerate committed to driving innovation, industrial excellence, and sustainable growth. With a strong presence across specialty chemicals, agrochemicals, renewable energy, advanced manufacturing, and semiconductor technology, AAG is building future-ready businesses that contribute to India's industrial progress and global competitiveness. Guided by a vision of innovation, integrity, and long-term value creation, the Group continues to empower industries, strengthen infrastructure, and deliver solutions that create a lasting impact.
+                    </p>
+                  </div>
                 </div>
               </div>
             </section>
-          );
-        })}
 
-        {/* Media Section */}
-        <MediaSection />
+            {/* Company logos preview - RUNNING RIGHT TO LEFT MARQUEE */}
+            <section ref={logoPreviewRef} className="w-full overflow-hidden py-10 sm:py-16 pointer-events-none transition-all duration-700 opacity-100 translate-y-0">
+              <div className="pointer-events-auto w-full bg-gradient-to-br from-[#1c1813] via-[#2a2219] to-[#120f0c] border-y-2 border-[#D6B46A]/40 py-10 sm:py-14 shadow-2xl">
+                <div className="mb-6 sm:mb-8 text-center px-4">
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-['Cinzel','Raleway',serif] gold-gradient-text">AAG Companies</h2>
+                  <p className="text-xs sm:text-sm text-stone-300 font-semibold font-['Manrope'] mt-1.5 uppercase tracking-wider">
+                    Our portfolio across four core industrial sectors
+                  </p>
+                  <div className="mt-2.5 mx-auto h-[2px] w-24 rounded-full bg-gradient-to-r from-transparent via-[#D6B46A] to-transparent" />
+                </div>
 
-        {/* Footer / Enterprise Section */}
-        <footer className="w-full bg-gradient-to-br from-[#1c1813] via-[#2a2219] to-[#120f0c] text-white border-t-2 border-[#D6B46A]/40 shadow-2xl mt-12 md:mt-20">
-          <div className="pointer-events-auto max-w-7xl mx-auto px-4 py-8 sm:px-8 md:px-12 md:py-16">
-            <div className="grid gap-5 sm:gap-10 lg:grid-cols-[2fr_1fr]">
-              <div className="flex flex-col gap-3 sm:gap-6">
-                <div className="flex items-center gap-3 sm:gap-4">
-                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl sm:rounded-3xl bg-[#796F5C] p-2.5 shadow-md flex items-center justify-center border border-[#D6B46A]/60">
-                    <img src="/logos/logo new.webp" alt="AAG logo" className="w-full h-full object-contain" />
-                  </div>
-                  <div className="sm:block">
-                    <h3 className="hidden sm:block text-2xl sm:text-3xl font-bold tracking-tight text-white font-['Cinzel','Georgia',serif]">Anubhav Agarwal Group</h3>
+                {/* Continuous Running Cards Marquee Strip (Right to Left) - GOLD GRADIENT LANE MATCHED TO TITLE */}
+                <div className="relative w-full overflow-hidden py-6 sm:py-8 bg-gradient-to-r from-[#7a5b1e] via-[#b89345] via-[#D6B46A] via-[#CFB377] to-[#8f6e27] shadow-[0_10px_35px_rgba(214,180,106,0.3)] border-y-2 border-[#D6B46A]">
+                  
+                  {/* Shimmer Light Sweep Effect across the Gold Lane */}
+                  <div className="absolute inset-0 w-[200%] bg-gradient-to-r from-transparent via-white/30 to-transparent animate-[hero-line-shimmer_3s_linear_infinite] pointer-events-none" />
+
+                  <div className="flex gap-8 animate-marquee-running items-stretch relative z-10">
+                    {[...companies, ...companies, ...companies].map((company, index) => (
+                      <a
+                        key={`logo-marquee-${company.id}-${index}`}
+                        href={company.website || `/${company.id}`}
+                        onClick={(e) => {
+                          if (company.id === 'bn-agrochem') navigateTo('bn-agrochem', e);
+                          else if (company.id === 'agastya') navigateTo('agastya', e);
+                          else if (!company.website) handleNavClick(e, company.id);
+                        }}
+                        target={company.website ? "_blank" : "_self"}
+                        rel="noreferrer"
+                        className="flex-shrink-0 w-72 sm:w-88 rounded-3xl bg-white border-2 border-white/80 p-5 sm:p-6 flex flex-col items-center justify-center text-center shadow-xl transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:border-[#D6B46A] hover:shadow-[0_20px_45px_rgba(0,0,0,0.35)] group relative overflow-hidden"
+                      >
+                        {/* Big Prominent Logo Container */}
+                        <div className="h-40 sm:h-48 w-full flex items-center justify-center p-4 rounded-2xl bg-white shadow-inner border border-slate-100 transition-all duration-300 group-hover:border-[#D6B46A]/60 group-hover:shadow-md">
+                          <img
+                            src={company.logoImage || '/logos/logo new.webp'}
+                            alt={`${company.name} logo`}
+                            className="max-h-full max-w-full object-contain filter drop-shadow transition-transform duration-300 group-hover:scale-110"
+                          />
+                        </div>
+
+                        {/* Clean Company Name */}
+                        <div className="mt-4 w-full text-center">
+                          <h3 className="text-lg sm:text-xl font-bold text-slate-900 group-hover:text-[#A8863D] transition-colors font-['Cinzel','Raleway',serif]">
+                            {company.name}
+                          </h3>
+                        </div>
+
+                        {/* Bottom Golden Accent Line */}
+                        <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-gradient-to-r from-transparent via-[#D6B46A] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      </a>
+                    ))}
                   </div>
                 </div>
-                <p className="max-w-2xl text-sm leading-7 text-stone-300 font-['Manrope']">Anubhav Agarwal Group is an enterprise platform uniting high-growth businesses across agrochemicals, renewable energy, bio-chemicals, and semiconductor manufacturing. We combine strategic partnerships, innovation, and a Make-in-India growth agenda to create sustainable value and world-class industrial capabilities.</p>
-                <div className="flex flex-wrap gap-2 sm:gap-3">
-                  <span className="rounded-full border border-[#D6B46A]/40 bg-white/5 backdrop-blur-md px-3.5 py-2 text-[11px] sm:text-xs text-[#CFB377] font-medium shadow-sm">Enterprise Strategy</span>
-                  <span className="rounded-full border border-[#D6B46A]/40 bg-white/5 backdrop-blur-md px-3.5 py-2 text-[11px] sm:text-xs text-[#CFB377] font-medium shadow-sm">Make in India</span>
-                  <span className="rounded-full border border-[#D6B46A]/40 bg-white/5 backdrop-blur-md px-3.5 py-2 text-[11px] sm:text-xs text-[#CFB377] font-medium shadow-sm">Sustainable Growth</span>
+              </div>
+            </section>
+
+            {/* Company Sections */}
+            {companies.map((company, index) => {
+              return (
+                <section
+                  key={company.id}
+                  id={company.id}
+                  data-animate-card
+                  data-card-id={company.id}
+                  className="scroll-mt-24 sm:scroll-mt-28 md:scroll-mt-32 lg:scroll-mt-36 min-h-auto w-full flex items-center justify-center pointer-events-none px-3 py-3 sm:px-6 sm:py-5 md:px-4 md:py-3 lg:px-4 lg:py-4 opacity-100 translate-y-0"
+                  style={{ transitionDelay: `${index * 120}ms` }}
+                >
+                  <div className="pointer-events-auto bg-surface backdrop-blur-lg rounded-[24px] sm:rounded-3xl p-4 sm:p-8 md:p-5 lg:p-8 max-w-6xl w-full sm:w-[95%] border border-[#D6B46A]/30 shadow-xl transform transition-all duration-500 hover:shadow-[0_25px_60px_-15px_rgba(214,180,106,0.2)] hover:scale-[1.005] hover:border-[#D6B46A]/60 hover:ring-1 hover:ring-[#D6B46A]/30">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 md:gap-4 mb-6 sm:mb-8 md:mb-4 border-b border-[#D6B46A]/20 pb-4 sm:pb-6 md:pb-3">
+                      <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full p-1 shadow-xl transform transition-all duration-300 hover:scale-105" style={{ background: `linear-gradient(135deg, ${company.logoColors.join(', ')})` }}>
+                        <div className="w-full h-full rounded-full bg-surface flex items-center justify-center overflow-hidden shadow-inner transition-colors duration-500">
+                          {company.logoImage ? (
+                            <img src={company.logoImage} alt={`${company.name} logo`} className="w-full h-full object-contain p-2" />
+                          ) : (
+                            <div className="flex flex-col items-center justify-center">
+                              <span className="text-xl font-black tracking-tight" style={{ color: company.color }}>{company.logoLabel}</span>
+                              <i className={`fas ${company.logoIcon} text-xs mt-1`} style={{ color: company.color }}></i>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                      <div>
+                        <h2 className="text-2xl sm:text-3xl font-bold font-['Cinzel','Raleway',serif] gold-gradient-text">{company.name}</h2>
+                        <p className="text-sm text-[#A8863D] font-semibold font-['Manrope'] mt-0.5">
+                          {company.fullName}
+                        </p>
+                        {company.stock && (
+                          <p className="text-xs text-slate-500 font-['Manrope'] mt-1">{company.stock}</p>
+                        )}
+                        <div className="mt-2 flex gap-3">
+                          {company.id === 'bn-agrochem' && (
+                            <button
+                              onClick={(e) => navigateTo('bn-agrochem', e)}
+                              className="text-xs text-[#A8863D] hover:text-[#78591f] font-bold hover:underline inline-flex items-center gap-1 cursor-pointer"
+                            >
+                              Explore Full BN Agrochem Page <i className="fas fa-arrow-right text-[10px]"></i>
+                            </button>
+                          )}
+                          {company.id === 'agastya' && (
+                            <button
+                              onClick={(e) => navigateTo('agastya', e)}
+                              className="text-xs text-[#A8863D] hover:text-[#78591f] font-bold hover:underline inline-flex items-center gap-1 cursor-pointer"
+                            >
+                              Explore Full Agastya Energy Page <i className="fas fa-arrow-right text-[10px]"></i>
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className={isMobile ? 'rounded-none border-0 bg-transparent p-0 shadow-none mb-5' : 'relative bg-[#FCFAFA]/80 rounded-[20px] p-4 sm:p-6 md:p-4 mb-6 sm:mb-8 md:mb-4 border-l-4 border-l-[#D6B46A] border border-[#D6B46A]/20 shadow-xs transition-all duration-300 hover:shadow-sm'}>
+                      <p className={`text-slate-800 leading-7 sm:leading-8 text-sm sm:text-[15px] font-['Manrope'] ${isMobile ? 'text-base' : ''}`}>
+                        {company.description}
+                      </p>
+                    </div>
+
+                    {/* Industry tags */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 md:gap-2">
+                      {company.tags.map((tag, idx) => (
+                        <div key={idx} className="px-3.5 py-2.5 rounded-2xl bg-[#FCFAFA] border border-[#D6B46A]/30 text-center shadow-xs transition-all duration-300 hover:scale-[1.03] hover:border-[#D6B46A] hover:shadow-md">
+                          <p className="text-xs font-semibold text-[#A8863D] font-['Manrope']">{tag}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </section>
+              );
+            })}
+
+            {/* Media Section */}
+            <MediaSection />
+          </>
+        )}
+
+        {/* Footer / Enterprise Section */}
+        <footer className="w-full bg-gradient-to-br from-[#1c1813] via-[#2a2219] to-[#120f0c] text-white border-t-2 border-[#D6B46A]/40 shadow-2xl mt-6 sm:mt-8">
+          <div className="pointer-events-auto max-w-7xl mx-auto px-4 py-8 sm:px-8 md:px-12 md:py-16">
+            <div className="grid gap-8 sm:gap-10 lg:grid-cols-[2fr_1fr]">
+              <div className="flex flex-col gap-4 sm:gap-6">
+                <div className="flex items-center gap-4">
+                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-[#796F5C] p-2.5 shadow-md flex items-center justify-center border border-[#D6B46A]/60">
+                    <img src="/logos/logo new.webp" alt="AAG logo" className="w-full h-full object-contain" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-white font-['Cinzel','Georgia',serif]">Anubhav Agarwal Group</h3>
+                    <p className="text-xs text-[#CFB377] font-['Manrope']">Building India's Industrial Future</p>
+                  </div>
+                </div>
+                <p className="max-w-2xl text-xs sm:text-sm leading-6 sm:leading-7 text-stone-300 font-['Manrope']">
+                  Anubhav Agarwal Group is an enterprise platform uniting high-growth businesses across agrochemicals, renewable energy, bio-chemicals, and semiconductor manufacturing. We combine strategic partnerships, innovation, and a Make-in-India growth agenda to create sustainable value.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  <span className="rounded-full border border-[#D6B46A]/40 bg-white/5 px-3 py-1.5 text-[10px] sm:text-xs text-[#CFB377] font-medium">Enterprise Strategy</span>
+                  <span className="rounded-full border border-[#D6B46A]/40 bg-white/5 px-3 py-1.5 text-[10px] sm:text-xs text-[#CFB377] font-medium">Make in India</span>
+                  <span className="rounded-full border border-[#D6B46A]/40 bg-white/5 px-3 py-1.5 text-[10px] sm:text-xs text-[#CFB377] font-medium">Sustainable Growth</span>
                 </div>
               </div>
 
-                <div className="grid gap-3 text-left sm:gap-4 md:ml-6 lg:ml-10">
-                  <p className="text-sm font-semibold text-[#D6B46A] uppercase tracking-[0.24em] font-['Manrope']">Quick Links</p>
-                  <a href="/bn-agrochem" onClick={(e) => handleNavClick(e, 'bn-agrochem')} className="text-sm text-stone-300 hover:text-[#D6B46A] transition-colors font-['Manrope']">BN Agrochem</a>
-                  <a href="/agastya" onClick={(e) => handleNavClick(e, 'agastya')} className="text-sm text-stone-300 hover:text-[#D6B46A] transition-colors font-['Manrope']">Agastya</a>
-                  <a href="/epitome" onClick={(e) => handleNavClick(e, 'epitome')} className="text-sm text-stone-300 hover:text-[#D6B46A] transition-colors font-['Manrope']">Epitome</a>
-                  <a href="/indichip" onClick={(e) => handleNavClick(e, 'indichip')} className="text-sm text-stone-300 hover:text-[#D6B46A] transition-colors font-['Manrope']">Indichip</a>
-                  <a href="/media" onClick={(e) => handleNavClick(e, 'media')} className="text-sm text-stone-300 hover:text-[#D6B46A] transition-colors font-['Manrope']">Media & Achievements</a>
-                </div>
+              <div className="grid gap-3 text-left sm:gap-3.5 md:ml-6">
+                <p className="text-xs font-bold text-[#D6B46A] uppercase tracking-[0.24em] font-['Manrope']">Site Navigation</p>
+                <a href="/" onClick={(e) => navigateTo('home', e)} className="text-xs sm:text-sm text-stone-300 hover:text-[#D6B46A] transition-colors">Home</a>
+                <a href="/bn-agrochem" onClick={(e) => navigateTo('bn-agrochem', e)} className="text-xs sm:text-sm text-stone-300 hover:text-[#D6B46A] transition-colors">BN Agrochem Limited</a>
+                <a href="/agastya" onClick={(e) => navigateTo('agastya', e)} className="text-xs sm:text-sm text-stone-300 hover:text-[#D6B46A] transition-colors">Agastya Energy Group</a>
+                <a href="/about" onClick={(e) => navigateTo('about', e)} className="text-xs sm:text-sm text-stone-300 hover:text-[#D6B46A] transition-colors">Leadership & Structure</a>
+                <a href="/investors" onClick={(e) => navigateTo('investors', e)} className="text-xs sm:text-sm text-stone-300 hover:text-[#D6B46A] transition-colors">Investors & Banking</a>
+                <a href="/media" onClick={(e) => navigateTo('media', e)} className="text-xs sm:text-sm text-stone-300 hover:text-[#D6B46A] transition-colors">Media & Press</a>
+              </div>
             </div>
 
-            <div className="mt-8 sm:mt-12 border-t border-stone-700/60 pt-6 flex flex-col gap-3 sm:gap-4 md:flex-row md:items-center md:justify-between text-sm text-stone-400 font-['Manrope']">
-              <p className="text-center md:text-left">© 2026 Anubhav Agarwal Group. All Rights Reserved.</p>
-              <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-stone-400 md:justify-end">
-                <span className="uppercase tracking-[0.3em] text-[11px] sm:text-xs">Innovation</span>
+            <div className="mt-8 border-t border-stone-700/60 pt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between text-xs text-stone-400 font-['Manrope']">
+              <p>© 2026 Anubhav Agarwal Group. All Rights Reserved.</p>
+              <div className="flex items-center gap-2 text-stone-400">
+                <span className="uppercase tracking-widest text-[10px]">Innovation</span>
                 <span className="text-[#D6B46A]">|</span>
-                <span className="uppercase tracking-[0.3em] text-[11px] sm:text-xs">Sustainability</span>
+                <span className="uppercase tracking-widest text-[10px]">Sustainability</span>
                 <span className="text-[#D6B46A]">|</span>
-                <span className="uppercase tracking-[0.3em] text-[11px] sm:text-xs">Growth</span>
+                <span className="uppercase tracking-widest text-[10px]">Growth</span>
               </div>
             </div>
           </div>
