@@ -2,18 +2,78 @@ import React from 'react';
 
 export default function AboutPage() {
   const leadershipTeam = [
-    { name: 'Mr. Piyush Bichhoriya', role: 'Director', desc: 'Seasoned technology leader with over 20 years of experience in system optimization and strategic business management. Ex-Adani & Fortune 500 alumnus.' },
-    { name: 'Mr. Chintan Shah', role: 'Director', desc: 'Deep expertise in strategic planning, corporate affairs, fund management, project execution, and regulatory compliance.' },
-    { name: 'Mr. Sparsh Sachar', role: 'Director', desc: 'Accomplished entrepreneur in the Agro Commodity sector with strong business acumen and focus on sustainable growth.' },
-    { name: 'Mr. Bernhard Rack', role: 'Chief Executive Officer', desc: 'Physics graduate & global veteran in semiconductor and solar industries (30+ years experience, Ex-Siemens, Ex-Infineon).' },
-    { name: 'Mr. Amit Kalra', role: 'Chief Financial Officer', desc: 'Chartered Accountant with 20+ years of experience in energy and infrastructure, with a decade of project financing expertise.' },
-    { name: 'Mr. Gaurav Tripathi', role: 'Director', desc: 'ISB Hyderabad alumnus with over 15 years of experience scaling businesses across retail, FMCG, and technology.' },
-    { name: 'Mr. Nikhilesh Kumar Gangele', role: 'Director', desc: 'Extensive 39 years experience in oleochemicals, fatty acids, soaps, edible oil refineries, and glycerin production.' },
-    { name: 'Mr. Charan Rajpoot', role: 'President - Sales', desc: 'Over 20 years experience in sales and distribution across Cadbury, ConAgra, Cargill, and Bata India.' },
-    { name: 'Mr. Anurag Bansal', role: 'Chief Financial Officer', desc: 'Chartered Accountant with 20+ years of comprehensive financial leadership.' },
-    { name: 'Mr. Nand Kishore Verma', role: 'Director', desc: '35 years of expertise in procurement, sales, and operations management across edible oil and agribusiness sectors.' },
-    { name: 'Rajiv Ranjan', role: 'Chief Operating Officer', desc: '23+ years of experience in plant operations, supply chain management, and manufacturing.' },
-    { name: 'Dr. S. Vinodh', role: 'VP - Technology', desc: '18+ years of expertise in photovoltaics, semiconductor manufacturing, and advanced solar cell technologies.' },
+    {
+      name: 'Mr. Piyush Bichhoriya',
+      role: 'Director',
+      image: '/Stake Holder/Piyush Bichhoria.png',
+      desc: 'Seasoned technology leader with over 20 years of experience in system optimization and strategic business management. Ex-Adani & Fortune 500 alumnus.'
+    },
+    {
+      name: 'Mr. Chintan Shah',
+      role: 'Director',
+      image: '/Stake Holder/Chitan Sir3.png',
+      desc: 'Deep expertise in strategic planning, corporate affairs, fund management, project execution, and regulatory compliance.'
+    },
+    {
+      name: 'Mr. Sparsh Sachar',
+      role: 'Director',
+      image: '/Stake Holder/Sparsh Sachar.png',
+      desc: 'Accomplished entrepreneur in the Agro Commodity sector with strong business acumen and focus on sustainable growth.'
+    },
+    {
+      name: 'Mr. Bernhard Rack',
+      role: 'Chief Executive Officer',
+      image: '/Stake Holder/Bernhard Rack.png',
+      desc: 'Physics graduate & global veteran in semiconductor and solar industries (30+ years experience, Ex-Siemens, Ex-Infineon).'
+    },
+    {
+      name: 'Mr. Amit Kalra',
+      role: 'Chief Financial Officer',
+      image: '/Stake Holder/Amit Kalra.png',
+      desc: 'Chartered Accountant with 20+ years of experience in energy and infrastructure, with a decade of project financing expertise.'
+    },
+    {
+      name: 'Mr. Gaurav Tripathi',
+      role: 'Director',
+      image: '/Stake Holder/Gaurav-Tripathi.png',
+      desc: 'ISB Hyderabad alumnus with over 15 years of experience scaling businesses across retail, FMCG, and technology.'
+    },
+    {
+      name: 'Mr. Nikhilesh Kumar Gangele',
+      role: 'Director',
+      image: '/Stake Holder/Nikhlesh Gangley.png',
+      desc: 'Extensive 39 years experience in oleochemicals, fatty acids, soaps, edible oil refineries, and glycerin production.'
+    },
+    {
+      name: 'Mr. Charan Rajpoot',
+      role: 'President - Sales',
+      image: '/Stake Holder/Charan-rajpoot.png',
+      desc: 'Over 20 years experience in sales and distribution across Cadbury, ConAgra, Cargill, and Bata India.'
+    },
+    {
+      name: 'Mr. Anurag Bansal',
+      role: 'Chief Financial Officer',
+      image: '/Stake Holder/Anurag Bansal.png',
+      desc: 'Chartered Accountant with 20+ years of comprehensive financial leadership.'
+    },
+    {
+      name: 'Mr. Nand Kishore Verma',
+      role: 'Director',
+      image: '/Stake Holder/Nand-kishor-verma.png',
+      desc: '35 years of expertise in procurement, sales, and operations management across edible oil and agribusiness sectors.'
+    },
+    {
+      name: 'Mr. Rajiv Ranjan',
+      role: 'Chief Operating Officer',
+      image: '/Stake Holder/Rajiv Ranjan.png',
+      desc: '23+ years of experience in plant operations, supply chain management, and manufacturing.'
+    },
+    {
+      name: 'Dr. S. Vinodh',
+      role: 'VP - Technology',
+      image: '/Stake Holder/Dr. S. Vinodh.png',
+      desc: '18+ years of expertise in photovoltaics, semiconductor manufacturing, and advanced solar cell technologies.'
+    },
   ];
 
   const milestones = [
@@ -30,7 +90,7 @@ export default function AboutPage() {
 
   return (
     <div className="w-full bg-slate-50 text-slate-800 font-['Manrope'] pb-0">
-      
+
       {/* Hero Header Banner */}
       <section className="relative w-full bg-gradient-to-br from-[#1c1813] via-[#2a2219] to-[#120f0c] text-white pt-8 sm:pt-12 md:pt-14 pb-16 sm:pb-24 px-4 sm:px-8 md:px-16 border-b-2 border-[#D6B46A]/40 shadow-2xl">
         <div className="w-full max-w-7xl mx-auto text-center">
@@ -53,7 +113,7 @@ export default function AboutPage() {
             {/* Image */}
             <div className="w-full h-full max-h-[420px] rounded-3xl overflow-hidden border-2 border-[#D6B46A]/40 shadow-lg bg-white p-2 flex items-center justify-center">
               <img
-                src="/Anubhav sir personal info/qprple3rxdwl1j4floiw.webp"
+                src={encodeURI("/Anubhav sir personal info/Anubhav sir.png")}
                 alt="Shri Anubhav Agarwal - Founder & MD"
                 className="w-full h-full object-contain rounded-2xl"
               />
@@ -68,7 +128,7 @@ export default function AboutPage() {
                 Shri. Anubhav Agarwal
               </h2>
               <p className="text-sm font-bold text-[#A8863D] mt-1 font-['Manrope']">Founder & Managing Director, Anubhav Agarwal Group</p>
-              
+
               <div className="mt-4 space-y-3 text-xs sm:text-sm text-slate-600 leading-relaxed">
                 <p>
                   Shri Anubhav Agarwal is a dynamic entrepreneur and visionary leader driven by a strong purpose to create meaningful industrial impact and positively influence millions of lives.
@@ -94,6 +154,47 @@ export default function AboutPage() {
         </div>
       </section>
 
+      <div className="w-full px-4 sm:px-8 md:px-12 lg:px-16 mt-12 space-y-16">
+        {/* Executive Leadership Team Grid */}
+        <section className="w-full">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl sm:text-4xl font-bold font-['Cinzel','Raleway',serif] gold-gradient-text">
+              Executive Leadership Team
+            </h2>
+            <p className="text-slate-600 text-xs sm:text-sm mt-2 max-w-xl mx-auto">
+              Distinguished industry leaders and technical veterans driving operational excellence.
+            </p>
+            <div className="mt-3 mx-auto h-[2px] w-20 bg-gradient-to-r from-transparent via-[#D6B46A] to-transparent" />
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {leadershipTeam.map((leader, idx) => (
+              <div key={idx} className="bg-white rounded-3xl p-5 border border-[#D6B46A]/25 shadow-md flex flex-col justify-between hover:shadow-2xl hover:border-[#D6B46A] transition-all group">
+                <div>
+                  {leader.image && (
+                    <div className="w-full h-64 sm:h-72 rounded-2xl overflow-hidden mb-4 border border-[#D6B46A]/20 bg-stone-50 flex items-center justify-center p-1 group-hover:border-[#D6B46A]/40 transition-colors">
+                      <img
+                        src={encodeURI(leader.image)}
+                        alt={`${leader.name} - ${leader.role}`}
+                        onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                        className="w-full h-full object-cover object-top rounded-xl group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                  )}
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#A8863D]">{leader.role}</span>
+                  <h3 className="text-lg font-bold text-slate-900 font-['Cinzel','Raleway',serif] mt-1 group-hover:text-[#7a5b1e] transition-colors">{leader.name}</h3>
+                  <p className="text-xs text-slate-600 mt-2 leading-relaxed">{leader.desc}</p>
+                </div>
+                <div className="mt-4 pt-3 border-t border-slate-100 text-[10px] font-semibold text-[#7a5b1e] flex items-center justify-between">
+                  <span>AAG Executive Leadership</span>
+                  <i className="fas fa-user-tie text-[#D6B46A]"></i>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
+
       {/* Corporate Hierarchy Structure - EDGE TO EDGE FULL WINDOW WIDTH */}
       <section className="w-full bg-white border-y-2 border-[#D6B46A]/40 py-12 sm:py-16 shadow-xl my-12">
         <div className="w-full px-4 sm:px-8 md:px-12 lg:px-16">
@@ -110,34 +211,42 @@ export default function AboutPage() {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             {/* Structural Summary & Key Points */}
-            <div className="space-y-4">
-              <div className="p-5 rounded-2xl bg-stone-50 border border-[#D6B46A]/25 border-l-4 border-l-[#D6B46A] shadow-xs">
-                <span className="text-[10px] font-bold text-[#A8863D] uppercase tracking-wider">FMCG & Oleo-Chemicals Division</span>
-                <h4 className="text-base font-bold text-slate-900 font-['Cinzel','Raleway',serif] mt-1">BN Agrochem & Epitome Industries</h4>
-                <p className="text-xs text-slate-600 mt-1.5 leading-relaxed">
-                  Anchor consumer and industrial arm managing high-capacity edible oil refineries at Gandhidham & Mathura, alongside Epitome Industries' integrated oleo-chemical complex for fatty acids, glycerin, and bio-chemicals.
+            <div className="space-y-3.5">
+              <div className="p-4.5 rounded-2xl bg-stone-50 border border-[#D6B46A]/25 border-l-4 border-l-[#D6B46A] shadow-xs hover:bg-white transition-colors">
+                <span className="text-[10px] font-bold text-[#A8863D] uppercase tracking-wider">Edible Oils & FMCG Division</span>
+                <h4 className="text-base font-bold text-slate-900 font-['Cinzel','Raleway',serif] mt-0.5">BN Agrochem Limited</h4>
+                <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+                  Anchor consumer goods arm managing high-capacity edible oil refineries at Gandhidham & Mathura, producing trusted nationwide brands Simply Fresh & Healthy Value.
                 </p>
               </div>
 
-              <div className="p-5 rounded-2xl bg-stone-50 border border-[#D6B46A]/25 border-l-4 border-l-[#A8863D] shadow-xs">
+              <div className="p-4.5 rounded-2xl bg-stone-50 border border-[#D6B46A]/25 border-l-4 border-l-[#CFB377] shadow-xs hover:bg-white transition-colors">
+                <span className="text-[10px] font-bold text-[#A8863D] uppercase tracking-wider">Specialty & Oleo-Chemicals Division</span>
+                <h4 className="text-base font-bold text-slate-900 font-['Cinzel','Raleway',serif] mt-0.5">Epitome Industries India Limited</h4>
+                <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+                  Integrated oleo-chemical complex manufacturing high-grade distilled fatty acids, refined glycerin, and sustainable bio-chemical solutions for industrial applications.
+                </p>
+              </div>
+
+              <div className="p-4.5 rounded-2xl bg-stone-50 border border-[#D6B46A]/25 border-l-4 border-l-[#A8863D] shadow-xs hover:bg-white transition-colors">
                 <span className="text-[10px] font-bold text-[#A8863D] uppercase tracking-wider">Renewable Energy Infrastructure</span>
-                <h4 className="text-base font-bold text-slate-900 font-['Cinzel','Raleway',serif] mt-1">Agastya Energy Platform</h4>
-                <p className="text-xs text-slate-600 mt-1.5 leading-relaxed">
-                  Giga-scale green energy division executing 12 GW Ingot & Wafer manufacturing, 5 GW Solar Cell & Module plants, utility-scale BESS storage, and ~194 MW PM-KUSUM solar IPP projects across India.
+                <h4 className="text-base font-bold text-slate-900 font-['Cinzel','Raleway',serif] mt-0.5">Agastya Energy Platform</h4>
+                <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+                  Giga-scale green energy division executing 12 GW Ingot & Wafer manufacturing, 5 GW Solar Cell & Module plants, BESS storage, and ~194 MW PM-KUSUM solar IPP projects.
                 </p>
               </div>
 
-              <div className="p-5 rounded-2xl bg-stone-50 border border-[#D6B46A]/25 border-l-4 border-l-[#7a5b1e] shadow-xs">
+              <div className="p-4.5 rounded-2xl bg-stone-50 border border-[#D6B46A]/25 border-l-4 border-l-[#7a5b1e] shadow-xs hover:bg-white transition-colors">
                 <span className="text-[10px] font-bold text-[#A8863D] uppercase tracking-wider">Advanced Technology & Semiconductors</span>
-                <h4 className="text-base font-bold text-slate-900 font-['Cinzel','Raleway',serif] mt-1">Indichip Semiconductors</h4>
-                <p className="text-xs text-slate-600 mt-1.5 leading-relaxed">
-                  Pioneering domestic Silicon Carbide (SiC) semiconductor device manufacturing in strategic technology transfer partnership with Yitoa Micro Technology Corporation.
+                <h4 className="text-base font-bold text-slate-900 font-['Cinzel','Raleway',serif] mt-0.5">Indichip Semiconductors</h4>
+                <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+                  Pioneering domestic Silicon Carbide (SiC) semiconductor device manufacturing in strategic tech-transfer partnership with Yitoa Micro Technology Corporation.
                 </p>
               </div>
             </div>
 
             {/* Corporate Structure Infographic - Fit Card Container */}
-            <div className="w-full h-[340px] sm:h-[380px] md:h-[400px] rounded-3xl overflow-hidden border border-[#D6B46A]/30 shadow-md bg-white p-2 flex items-center justify-center">
+            <div className="w-full h-[400px] sm:h-[440px] rounded-3xl overflow-hidden border border-[#D6B46A]/30 shadow-md bg-white p-2 flex items-center justify-center">
               <img
                 src="/our structure/jq2torzwybwwrrquethq.webp"
                 alt="Anubhav Agarwal Group Hierarchy Structure Chart"
@@ -147,36 +256,6 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
-
-      <div className="w-full px-4 sm:px-8 md:px-12 lg:px-16 mt-12 space-y-16">
-        {/* Executive Leadership Team Grid */}
-        <section className="w-full">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl sm:text-4xl font-bold font-['Cinzel','Raleway',serif] gold-gradient-text">
-              Executive Leadership Team
-            </h2>
-            <p className="text-slate-600 text-xs sm:text-sm mt-2 max-w-xl mx-auto">
-              Distinguished industry leaders and technical veterans driving operational excellence.
-            </p>
-            <div className="mt-3 mx-auto h-[2px] w-20 bg-gradient-to-r from-transparent via-[#D6B46A] to-transparent" />
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {leadershipTeam.map((leader, idx) => (
-              <div key={idx} className="bg-white rounded-3xl p-6 border border-[#D6B46A]/25 shadow-md flex flex-col justify-between hover:shadow-xl transition-all">
-                <div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider text-[#A8863D]">{leader.role}</span>
-                  <h3 className="text-lg font-bold text-slate-900 font-['Cinzel','Raleway',serif] mt-1">{leader.name}</h3>
-                  <p className="text-xs text-slate-600 mt-2.5 leading-relaxed">{leader.desc}</p>
-                </div>
-                <div className="mt-4 pt-3 border-t border-slate-100 text-[10px] font-semibold text-[#7a5b1e]">
-                  AAG Executive Board
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-      </div>
 
       {/* Chronological Milestone Journey - HORIZONTAL WAVE TIMELINE */}
       <section className="w-full bg-gradient-to-b from-white via-stone-50/30 to-white border-t-2 border-[#D6B46A]/40 py-12 sm:py-16 shadow-xl mt-12 mb-0">
