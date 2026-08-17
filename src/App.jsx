@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
+import MediaSection from './components/MediaSection';
 
 function App() {
   const containerRef = useRef(null);
@@ -378,6 +379,13 @@ function App() {
                 {company.name}
               </a>
             ))}
+            <a
+              href="/media"
+              onClick={(e) => handleNavClick(e, 'media')}
+              className="nav-link-hover text-slate-800 font-semibold font-['Manrope'] text-xs uppercase tracking-wider hover:text-[#A8863D]"
+            >
+              Media
+            </a>
           </div>
           <div className="flex items-center gap-3">
             <button
@@ -405,6 +413,16 @@ function App() {
                   {company.name}
                 </a>
               ))}
+              <a
+                href="/media"
+                onClick={(e) => {
+                  setMenuOpen(false);
+                  handleNavClick(e, 'media');
+                }}
+                className="block nav-link-hover text-sm text-slate-800 font-semibold uppercase tracking-[0.18em] hover:text-[#A8863D]"
+              >
+                Media
+              </a>
             </div>
           </div>
         )}
@@ -422,7 +440,7 @@ function App() {
               <div className="w-full">
                 <div className="inline-block relative">
                   <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight font-['Cinzel','Cormorant_Garamond','Georgia',serif] gold-gradient-text">
-                    Anubhav Agrawal Group
+                    Anubhav Agarwal Group
                   </h1>
                   <div className="mt-2.5 h-[3px] w-full overflow-hidden rounded-full bg-gradient-to-r from-[#A8863D] via-[#D6B46A] via-[#CFB377] to-[#8F6E27] relative">
                     <div className="absolute inset-0 w-[200%] bg-gradient-to-r from-transparent via-white/80 to-transparent animate-[hero-line-shimmer_2.4s_linear_infinite]" />
@@ -436,7 +454,7 @@ function App() {
 
             <div className="mb-0 sm:mb-8">
               <div className="rounded-[20px] sm:rounded-3xl bg-[#FCFAFA]/80 backdrop-blur-sm border border-[#D6B46A]/25 border-l-4 border-l-[#D6B46A] p-5 sm:p-8 shadow-sm transition-colors duration-500">
-                <h3 className="text-lg sm:text-xl font-bold gold-gradient-text mb-3 sm:mb-4 font-['Cinzel','Raleway',serif]">About Anubhav Agrawal Group</h3>
+                <h3 className="text-lg sm:text-xl font-bold gold-gradient-text mb-3 sm:mb-4 font-['Cinzel','Raleway',serif]">About Anubhav Agarwal Group</h3>
                 <p className="text-sm sm:text-[15px] text-slate-700 leading-7 sm:leading-8 font-['Manrope']">
                   <strong className="text-slate-900">Anubhav Agarwal Group </strong> is a diversified Indian business conglomerate committed to driving innovation, industrial excellence, and sustainable growth. With a strong presence across specialty chemicals, agrochemicals, renewable energy, advanced manufacturing, and semiconductor technology, AAG is building future-ready businesses that contribute to India's industrial progress and global competitiveness. Guided by a vision of innovation, integrity, and long-term value creation, the Group continues to empower industries, strengthen infrastructure, and deliver solutions that create a lasting impact.
                 </p>
@@ -446,29 +464,58 @@ function App() {
           </div>
         </section>
 
-        {/* Company logos preview */}
-        <section ref={logoPreviewRef} className={`w-full flex items-center justify-center py-8 sm:py-12 md:py-6 pointer-events-none p-3 sm:p-6 md:px-4 transition-all duration-700 ${logosActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <div className="pointer-events-auto max-w-6xl w-full">
-            <div className="mb-6 sm:mb-8 text-center">
+        {/* Company logos preview - RUNNING RIGHT TO LEFT MARQUEE */}
+        <section ref={logoPreviewRef} className={`w-full overflow-hidden py-10 sm:py-16 pointer-events-none transition-all duration-700 ${logosActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <div className="pointer-events-auto w-full bg-gradient-to-br from-[#1c1813] via-[#2a2219] to-[#120f0c] border-y-2 border-[#D6B46A]/40 py-10 sm:py-14 shadow-2xl">
+            <div className="mb-6 sm:mb-8 text-center px-4">
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-['Cinzel','Raleway',serif] gold-gradient-text">AAG Companies</h2>
+              <p className="text-xs sm:text-sm text-stone-300 font-semibold font-['Manrope'] mt-1.5 uppercase tracking-wider">
+                Our portfolio across four core industrial sectors
+              </p>
+              <div className="mt-2.5 mx-auto h-[2px] w-24 rounded-full bg-gradient-to-r from-transparent via-[#D6B46A] to-transparent" />
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 md:gap-4">
-              {companies.map((company, index) => (
-                <a
-                  key={`logo-preview-${company.id}`}
-                  href={company.website || `/${company.id}`}
-                  onClick={(e) => {
-                    if (!company.website) {
-                      handleNavClick(e, company.id);
-                    }
-                  }}
-                  target={company.website ? "_blank" : "_self"}
-                  rel="noreferrer"
-                  className={`rounded-3xl bg-surface border border-[#D6B46A]/25 p-6 flex items-center justify-center shadow-md ${logosActive ? (index % 2 === 0 ? 'logo-enter-lr animate-vibrate-lr animate-float' : 'logo-enter-rl animate-vibrate-rl animate-float') : 'opacity-0'} transition-all duration-500 hover:ring-2 hover:ring-[#D6B46A]/60 hover:border-[#D6B46A] hover:shadow-[0_15px_35px_rgba(214,180,106,0.18)]`}
-                >
-                  <img src={company.logoImage || '/logos/logo new.webp'} alt={`${company.name} logo`} className="h-20 md:h-24 object-contain" />
-                </a>
-              ))}
+
+            {/* Continuous Running Cards Marquee Strip (Right to Left) - GOLD GRADIENT LANE MATCHED TO TITLE */}
+            <div className="relative w-full overflow-hidden py-6 sm:py-8 bg-gradient-to-r from-[#7a5b1e] via-[#b89345] via-[#D6B46A] via-[#CFB377] to-[#8f6e27] shadow-[0_10px_35px_rgba(214,180,106,0.3)] border-y-2 border-[#D6B46A]">
+              
+              {/* Shimmer Light Sweep Effect across the Gold Lane */}
+              <div className="absolute inset-0 w-[200%] bg-gradient-to-r from-transparent via-white/30 to-transparent animate-[hero-line-shimmer_3s_linear_infinite] pointer-events-none" />
+
+              <div className="flex gap-8 animate-marquee-running items-stretch relative z-10">
+                {[...companies, ...companies, ...companies].map((company, index) => (
+                  <a
+                    key={`logo-marquee-${company.id}-${index}`}
+                    href={company.website || `/${company.id}`}
+                    onClick={(e) => {
+                      if (!company.website) {
+                        handleNavClick(e, company.id);
+                      }
+                    }}
+                    target={company.website ? "_blank" : "_self"}
+                    rel="noreferrer"
+                    className="flex-shrink-0 w-72 sm:w-88 rounded-3xl bg-white border-2 border-white/80 p-5 sm:p-6 flex flex-col items-center justify-center text-center shadow-xl transition-all duration-300 hover:scale-105 hover:-translate-y-1 hover:border-[#D6B46A] hover:shadow-[0_20px_45px_rgba(0,0,0,0.35)] group relative overflow-hidden"
+                  >
+                    {/* Big Prominent Logo Container */}
+                    <div className="h-40 sm:h-48 w-full flex items-center justify-center p-4 rounded-2xl bg-white shadow-inner border border-slate-100 transition-all duration-300 group-hover:border-[#D6B46A]/60 group-hover:shadow-md">
+                      <img
+                        src={company.logoImage || '/logos/logo new.webp'}
+                        alt={`${company.name} logo`}
+                        className="max-h-full max-w-full object-contain filter drop-shadow transition-transform duration-300 group-hover:scale-110"
+                      />
+                    </div>
+
+                    {/* Clean Company Name */}
+                    <div className="mt-4 w-full text-center">
+                      <h3 className="text-lg sm:text-xl font-bold text-slate-900 group-hover:text-[#A8863D] transition-colors font-['Cinzel','Raleway',serif]">
+                        {company.name}
+                      </h3>
+                    </div>
+
+                    {/* Bottom Golden Accent Line */}
+                    <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-gradient-to-r from-transparent via-[#D6B46A] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
         </section>
@@ -537,6 +584,9 @@ function App() {
           );
         })}
 
+        {/* Media Section */}
+        <MediaSection />
+
         {/* Footer / Enterprise Section */}
         <footer className="w-full bg-gradient-to-br from-[#1c1813] via-[#2a2219] to-[#120f0c] text-white border-t-2 border-[#D6B46A]/40 shadow-2xl mt-12 md:mt-20">
           <div className="pointer-events-auto max-w-7xl mx-auto px-4 py-8 sm:px-8 md:px-12 md:py-16">
@@ -547,10 +597,10 @@ function App() {
                     <img src="/logos/logo new.webp" alt="AAG logo" className="w-full h-full object-contain" />
                   </div>
                   <div className="sm:block">
-                    <h3 className="hidden sm:block text-2xl sm:text-3xl font-bold tracking-tight text-white font-['Cinzel','Georgia',serif]">Anubhav Agrawal Group</h3>
+                    <h3 className="hidden sm:block text-2xl sm:text-3xl font-bold tracking-tight text-white font-['Cinzel','Georgia',serif]">Anubhav Agarwal Group</h3>
                   </div>
                 </div>
-                <p className="max-w-2xl text-sm leading-7 text-stone-300 font-['Manrope']">Anubhav Agrawal Group is an enterprise platform uniting high-growth businesses across agrochemicals, renewable energy, bio-chemicals, and semiconductor manufacturing. We combine strategic partnerships, innovation, and a Make-in-India growth agenda to create sustainable value and world-class industrial capabilities.</p>
+                <p className="max-w-2xl text-sm leading-7 text-stone-300 font-['Manrope']">Anubhav Agarwal Group is an enterprise platform uniting high-growth businesses across agrochemicals, renewable energy, bio-chemicals, and semiconductor manufacturing. We combine strategic partnerships, innovation, and a Make-in-India growth agenda to create sustainable value and world-class industrial capabilities.</p>
                 <div className="flex flex-wrap gap-2 sm:gap-3">
                   <span className="rounded-full border border-[#D6B46A]/40 bg-white/5 backdrop-blur-md px-3.5 py-2 text-[11px] sm:text-xs text-[#CFB377] font-medium shadow-sm">Enterprise Strategy</span>
                   <span className="rounded-full border border-[#D6B46A]/40 bg-white/5 backdrop-blur-md px-3.5 py-2 text-[11px] sm:text-xs text-[#CFB377] font-medium shadow-sm">Make in India</span>
@@ -558,17 +608,18 @@ function App() {
                 </div>
               </div>
 
-              <div className="grid gap-3 text-left sm:gap-4 md:ml-6 lg:ml-10">
-                <p className="text-sm font-semibold text-[#D6B46A] uppercase tracking-[0.24em] font-['Manrope']">Quick Links</p>
-                <a href="/bn-agrochem" onClick={(e) => handleNavClick(e, 'bn-agrochem')} className="text-sm text-stone-300 hover:text-[#D6B46A] transition-colors font-['Manrope']">BN Agrochem</a>
-                <a href="/agastya" onClick={(e) => handleNavClick(e, 'agastya')} className="text-sm text-stone-300 hover:text-[#D6B46A] transition-colors font-['Manrope']">Agastya</a>
-                <a href="/epitome" onClick={(e) => handleNavClick(e, 'epitome')} className="text-sm text-stone-300 hover:text-[#D6B46A] transition-colors font-['Manrope']">Epitome</a>
-                <a href="/indichip" onClick={(e) => handleNavClick(e, 'indichip')} className="text-sm text-stone-300 hover:text-[#D6B46A] transition-colors font-['Manrope']">Indichip</a>
-              </div>
+                <div className="grid gap-3 text-left sm:gap-4 md:ml-6 lg:ml-10">
+                  <p className="text-sm font-semibold text-[#D6B46A] uppercase tracking-[0.24em] font-['Manrope']">Quick Links</p>
+                  <a href="/bn-agrochem" onClick={(e) => handleNavClick(e, 'bn-agrochem')} className="text-sm text-stone-300 hover:text-[#D6B46A] transition-colors font-['Manrope']">BN Agrochem</a>
+                  <a href="/agastya" onClick={(e) => handleNavClick(e, 'agastya')} className="text-sm text-stone-300 hover:text-[#D6B46A] transition-colors font-['Manrope']">Agastya</a>
+                  <a href="/epitome" onClick={(e) => handleNavClick(e, 'epitome')} className="text-sm text-stone-300 hover:text-[#D6B46A] transition-colors font-['Manrope']">Epitome</a>
+                  <a href="/indichip" onClick={(e) => handleNavClick(e, 'indichip')} className="text-sm text-stone-300 hover:text-[#D6B46A] transition-colors font-['Manrope']">Indichip</a>
+                  <a href="/media" onClick={(e) => handleNavClick(e, 'media')} className="text-sm text-stone-300 hover:text-[#D6B46A] transition-colors font-['Manrope']">Media & Achievements</a>
+                </div>
             </div>
 
             <div className="mt-8 sm:mt-12 border-t border-stone-700/60 pt-6 flex flex-col gap-3 sm:gap-4 md:flex-row md:items-center md:justify-between text-sm text-stone-400 font-['Manrope']">
-              <p className="text-center md:text-left">© 2026 Anubhav Agrawal Group. All Rights Reserved.</p>
+              <p className="text-center md:text-left">© 2026 Anubhav Agarwal Group. All Rights Reserved.</p>
               <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-stone-400 md:justify-end">
                 <span className="uppercase tracking-[0.3em] text-[11px] sm:text-xs">Innovation</span>
                 <span className="text-[#D6B46A]">|</span>

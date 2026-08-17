@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
-html, body {
+html,
+body {
   scroll-behavior: smooth;
   scroll-padding-top: 6.5rem;
 }
@@ -303,4 +304,25 @@ html, body {
   .tablet-tight-content {
     padding-top: 2.25rem !important;
   }
+}
+
+/* Continuous Running Right-to-Left Marquee for Company Cards */
+@keyframes marquee-running {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-33.333333%);
+  }
+}
+
+.animate-marquee-running {
+  display: flex;
+  width: max-content;
+  animation: marquee-running 28s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee-running:hover {
+  animation-play-state: paused;
 }
