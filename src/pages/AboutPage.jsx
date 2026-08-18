@@ -94,9 +94,6 @@ export default function AboutPage() {
       {/* Hero Header Banner */}
       <section className="relative w-full bg-gradient-to-br from-[#1c1813] via-[#2a2219] to-[#120f0c] text-white pt-8 sm:pt-12 md:pt-14 pb-16 sm:pb-24 px-4 sm:px-8 md:px-16 border-b-2 border-[#D6B46A]/40 shadow-2xl">
         <div className="w-full max-w-7xl mx-auto text-center">
-          <span className="inline-block px-3.5 py-1.5 rounded-full bg-[#D6B46A]/20 border border-[#D6B46A]/40 text-[#CFB377] text-xs font-semibold uppercase tracking-widest mb-4">
-            Group Profile & Governance
-          </span>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold font-['Cinzel','Raleway',serif] gold-gradient-text">
             Leadership & Corporate Structure
           </h1>

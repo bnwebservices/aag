@@ -5,6 +5,7 @@ import BnAgrochemPage from './pages/BnAgrochemPage';
 import AgastyaPage from './pages/AgastyaPage';
 import AboutPage from './pages/AboutPage';
 import InvestorsPage from './pages/InvestorsPage';
+import MediaPage from './pages/MediaPage';
 
 function App() {
   const containerRef = useRef(null);
@@ -423,12 +424,13 @@ function App() {
             onClick={(e) => navigateTo('home', e)}
             className="flex items-center gap-3 cursor-pointer group"
           >
-            <div className="w-10 h-10 rounded-xl bg-[#796F5C] flex items-center justify-center shadow-sm overflow-hidden border border-[#D6B46A]/50 group-hover:scale-105 transition-transform">
-              <img src="/logos/logo new.webp" alt="AAG logo" className="w-full h-full object-contain p-1" />
+            <div className="h-12 sm:h-14 md:h-16 flex items-center justify-center -my-2.5 transition-all duration-300 group-hover:scale-105">
+              <img
+                src="/logos/logo new.webp"
+                alt="AAG logo"
+                className="h-full w-auto object-contain filter drop-shadow-[0_2px_10px_rgba(214,180,106,0.3)] group-hover:drop-shadow-[0_4px_16px_rgba(214,180,106,0.5)] transition-all duration-300"
+              />
             </div>
-            <span className="font-bold font-['Cinzel','Georgia',serif] text-slate-900 text-sm hidden sm:inline-block tracking-wide">
-              Anubhav Agarwal Group
-            </span>
           </div>
 
           <div className="hidden md:flex items-center gap-7 text-sm">
@@ -595,7 +597,7 @@ function App() {
         {activePage === 'agastya' && <AgastyaPage />}
         {activePage === 'about' && <AboutPage />}
         {activePage === 'investors' && <InvestorsPage />}
-        {activePage === 'media' && <MediaSection />}
+        {activePage === 'media' && <MediaPage />}
 
         {/* Home Page */}
         {activePage === 'home' && (
@@ -772,9 +774,13 @@ function App() {
           <div className="pointer-events-auto max-w-7xl mx-auto px-4 py-8 sm:px-8 md:px-12 md:py-16">
             <div className="grid gap-8 sm:gap-10 lg:grid-cols-[2fr_1fr]">
               <div className="flex flex-col gap-4 sm:gap-6">
-                <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-[#796F5C] p-2.5 shadow-md flex items-center justify-center border border-[#D6B46A]/60">
-                    <img src="/logos/logo new.webp" alt="AAG logo" className="w-full h-full object-contain" />
+                <div className="flex items-center gap-4 sm:gap-5">
+                  <div className="w-16 h-16 sm:w-20 sm:h-20 flex items-center justify-center flex-shrink-0">
+                    <img
+                      src="/logos/logo new.webp"
+                      alt="AAG logo"
+                      className="w-full h-full object-contain filter drop-shadow-[0_4px_16px_rgba(214,180,106,0.35)] hover:scale-105 transition-transform duration-300"
+                    />
                   </div>
                   <div>
                     <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-white font-['Cinzel','Georgia',serif]">Anubhav Agarwal Group</h3>
