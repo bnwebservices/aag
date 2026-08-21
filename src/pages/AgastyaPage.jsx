@@ -79,9 +79,9 @@ export default function AgastyaPage() {
 
   return (
     <div className="w-full bg-slate-50 text-slate-800 font-['Manrope'] pb-0">
-      
+
       {/* Hero Header Banner */}
-      <section className="relative w-full bg-gradient-to-br from-[#1c1813] via-[#2a2219] to-[#120f0c] text-white pt-8 sm:pt-12 md:pt-14 pb-16 sm:pb-24 px-4 sm:px-8 md:px-16 border-b-2 border-[#D6B46A]/40 shadow-2xl">
+      <section className="relative w-full bg-gradient-to-br from-[#1c1813] via-[#2a2219] to-[#120f0c] text-white pt-12 sm:pt-16 md:pt-16 pb-16 sm:pb-24 px-4 sm:px-8 md:px-16 border-b-2 border-[#D6B46A]/40 shadow-2xl">
         <div className="w-full max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
           <div className="max-w-3xl">
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold font-['Cinzel','Raleway',serif] gold-gradient-text leading-tight">
@@ -90,10 +90,20 @@ export default function AgastyaPage() {
             <p className="text-stone-300 text-sm sm:text-base md:text-lg mt-4 leading-relaxed font-['Manrope']">
               Building a fully integrated renewable energy platform spanning the complete solar value chain—from silicon ingots & wafers to solar cells, modules, IPP generation, and battery energy storage.
             </p>
-            <div className="mt-8 flex flex-wrap gap-4">
+            <div className="mt-8 flex flex-wrap gap-4 items-center">
+              <a
+                href="https://agastyaenergy.in/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-6 py-3 rounded-full bg-gradient-to-r from-[#7a5b1e] via-[#b89345] to-[#D6B46A] text-white font-semibold text-xs sm:text-sm shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all inline-flex items-center gap-2"
+              >
+                <i className="fas fa-globe"></i>
+                <span>Visit Official Website</span>
+                <i className="fas fa-external-link-alt text-xs"></i>
+              </a>
               <a
                 href="#projects"
-                className="px-6 py-3 rounded-full bg-gradient-to-r from-[#7a5b1e] via-[#b89345] to-[#D6B46A] text-white font-semibold text-xs sm:text-sm shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all"
+                className="px-6 py-3 rounded-full bg-white/10 hover:bg-white/20 text-white font-semibold text-xs sm:text-sm border border-white/20 transition-all"
               >
                 Project Pipeline
               </a>
@@ -106,8 +116,18 @@ export default function AgastyaPage() {
             </div>
           </div>
 
-          <div className="w-48 h-48 sm:w-56 sm:h-56 rounded-3xl bg-white p-5 shadow-2xl flex items-center justify-center border-2 border-[#D6B46A]/50 flex-shrink-0">
-            <img src="/logos/Final-AGASTYA-Logo_ctc-1-removebg-preview.png" alt="Agastya Logo" className="w-full h-full object-contain" />
+          <div className="relative w-48 h-48 sm:w-56 sm:h-56 rounded-3xl bg-white p-5 shadow-2xl flex items-center justify-center border-2 border-[#D6B46A]/50 flex-shrink-0 my-auto">
+            <img src="/logos/Final-AGASTYA-Logo_ctc-1-removebg-preview.png" alt="Agastya Logo" className="w-full h-full object-contain p-2" />
+            <a
+              href="https://www.linkedin.com/company/agastya-energy-industries/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="absolute -top-2 -right-2 sm:-top-3 sm:-right-3 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#0077b5] hover:bg-[#005582] text-white flex items-center justify-center shadow-xl hover:scale-110 transition-all cursor-pointer z-10 border-2 border-white"
+              title="Agastya Energy LinkedIn"
+              aria-label="Agastya Energy LinkedIn"
+            >
+              <i className="fab fa-linkedin-in text-lg"></i>
+            </a>
           </div>
         </div>
       </section>

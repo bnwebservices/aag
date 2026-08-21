@@ -81,6 +81,7 @@ const teamAwards = [
     title: 'Global Indian of the Year Presentation',
     subtitle: 'MD Anubhav Agarwal holding the GOY 2023 trophy at AsiaOne Forum',
     image: '/Taking Awards/0F2A6686.webp',
+    objectPos: 'object-top',
   },
   {
     id: 'team-2',
@@ -352,35 +353,14 @@ export default function MediaPage() {
     <div className="w-full bg-slate-50 text-slate-800 font-['Manrope'] pb-16">
       
       {/* 1. Hero Header Banner */}
-      <section className="relative w-full bg-gradient-to-br from-[#1c1813] via-[#2a2219] to-[#120f0c] text-white pt-8 sm:pt-12 md:pt-14 pb-16 sm:pb-24 px-4 sm:px-8 md:px-16 border-b-2 border-[#D6B46A]/40 shadow-2xl">
+      <section className="relative w-full bg-gradient-to-br from-[#1c1813] via-[#2a2219] to-[#120f0c] text-white pt-12 sm:pt-16 md:pt-20 pb-12 sm:pb-16 px-4 sm:px-8 md:px-16 border-b-2 border-[#D6B46A]/40 shadow-2xl">
         <div className="w-full max-w-7xl mx-auto text-center">
-          <span className="inline-block px-3.5 py-1.5 rounded-full bg-[#D6B46A]/20 border border-[#D6B46A]/40 text-[#CFB377] text-xs font-semibold uppercase tracking-widest mb-4">
-            Press, Recognitions & Accolades
-          </span>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold font-['Cinzel','Raleway',serif] gold-gradient-text">
             Media & Achievements
           </h1>
           <p className="text-stone-300 text-sm sm:text-base md:text-lg mt-4 max-w-3xl mx-auto leading-relaxed font-['Manrope']">
             A comprehensive showcase of our global honors, leadership award ceremonies, World Business Records recognitions, and national press coverage.
           </p>
-
-          {/* Quick Navigation Pills */}
-          <div className="flex flex-wrap items-center justify-center gap-3 mt-8">
-            {[
-              { id: 'group-awards', label: 'Group Awards & Trophies' },
-              { id: 'team-awards', label: 'Team Receiving Honors' },
-              { id: 'wbr-awards', label: 'WBR Global Recognition' },
-              { id: 'media-coverage', label: 'Media & Press Coverage' },
-            ].map((btn) => (
-              <button
-                key={btn.id}
-                onClick={() => scrollToSection(btn.id)}
-                className="px-4 sm:px-5 py-2 rounded-full text-xs font-semibold bg-white/10 hover:bg-[#D6B46A] hover:text-stone-900 border border-[#D6B46A]/40 text-stone-200 transition-all duration-300 backdrop-blur-md cursor-pointer"
-              >
-                {btn.label}
-              </button>
-            ))}
-          </div>
         </div>
       </section>
 
@@ -472,7 +452,7 @@ export default function MediaPage() {
                   <img
                     src={item.image}
                     alt={item.title}
-                    className="w-full h-full object-cover filter group-hover:scale-105 transition-transform duration-500 will-change-transform"
+                    className={`w-full h-full object-cover ${item.objectPos || 'object-top'} filter group-hover:scale-105 transition-transform duration-500 will-change-transform`}
                     loading="lazy"
                     decoding="async"
                   />

@@ -117,11 +117,21 @@ export default function AboutPage() {
             </div>
 
             {/* Profile Bio */}
-            <div>
-              <div className="inline-block px-3 py-1 rounded-full bg-[#D6B46A]/15 border border-[#D6B46A]/30 text-[#7a5b1e] text-xs font-bold uppercase tracking-wider mb-2">
+            <div className="relative">
+              <a
+                href="https://www.linkedin.com/in/anubhav-agarwal-15ab82121/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="absolute top-0 right-0 w-10 h-10 rounded-full bg-[#0077b5] hover:bg-[#005582] text-white flex items-center justify-center shadow-md hover:scale-110 transition-all cursor-pointer z-10"
+                title="Shri Anubhav Agarwal LinkedIn"
+                aria-label="Shri Anubhav Agarwal LinkedIn"
+              >
+                <i className="fab fa-linkedin-in text-lg"></i>
+              </a>
+              <div className="inline-block px-3 py-1 rounded-full bg-[#D6B46A]/15 border border-[#D6B46A]/30 text-[#7a5b1e] text-xs font-bold uppercase tracking-wider mb-2 pr-12">
                 Global Indian of the Year 2023 Awardee
               </div>
-              <h2 className="text-3xl sm:text-4xl font-bold font-['Cinzel','Raleway',serif] text-slate-900">
+              <h2 className="text-3xl sm:text-4xl font-bold font-['Cinzel','Raleway',serif] text-slate-900 pr-12">
                 Shri. Anubhav Agarwal
               </h2>
               <p className="text-sm font-bold text-[#A8863D] mt-1 font-['Manrope']">Founder & Managing Director, Anubhav Agarwal Group</p>
