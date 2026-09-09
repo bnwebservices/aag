@@ -49,6 +49,10 @@ body {
   background-color: var(--panel-soft);
 }
 
+.tablet-tight-content {
+  height: 100vh;
+}
+
 .text-theme {
   color: var(--text);
   transition: color 0.35s ease;
@@ -98,6 +102,8 @@ body {
   background: linear-gradient(135deg, #7a5b1e 0%, #b89345 35%, #D6B46A 65%, #8f6e27 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  padding-bottom: 0.15em;
+  margin-bottom: -0.15em;
 }
 
 .gold-gradient-bg {
@@ -146,6 +152,7 @@ body {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
+
 }
 
 .nav-link-hover {
@@ -280,6 +287,37 @@ body {
   }
 }
 
+@keyframes wave-path-flow {
+  0% {
+    transform: translateY(0px) scaleY(0.995);
+    opacity: 0.72;
+  }
+
+  50% {
+    transform: translateY(-3px) scaleY(1.01);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(2px) scaleY(0.995);
+    opacity: 0.8;
+  }
+}
+
+@keyframes wave-dot-pulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(214, 180, 106, 0.28);
+  }
+
+  50% {
+    transform: scale(1.08);
+    box-shadow: 0 0 0 8px rgba(214, 180, 106, 0.06);
+  }
+}
+
 @media (min-width: 768px) and (max-width: 1366px) {
   .scroll-fade {
     padding-top: 0.5rem;
@@ -311,6 +349,7 @@ body {
   0% {
     transform: translateX(0%);
   }
+
   100% {
     transform: translateX(-33.333333%);
   }
@@ -325,4 +364,30 @@ body {
 
 .animate-marquee-running:hover {
   animation-play-state: paused;
+}
+
+/* 3D Transform & Flip Styles for Vision & Mission Cinematic Section */
+.perspective-container {
+  perspective: 1600px;
+  transform-style: preserve-3d;
+}
+
+.card-3d-flipper {
+  transform-style: preserve-3d;
+  will-change: transform, opacity;
+  transition: box-shadow 0.3s ease;
+}
+
+.card-3d-face {
+  backface-visibility: hidden !important;
+  -webkit-backface-visibility: hidden !important;
+  transform-style: preserve-3d;
+}
+
+.card-3d-front {
+  transform: rotateY(0deg);
+}
+
+.card-3d-back {
+  transform: rotateY(180deg);
 }

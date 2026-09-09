@@ -1,6 +1,28 @@
-import React from 'react';
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
 
 export default function AboutPage() {
+  const wavePathRef = useRef(null);
+  const glowPathRef = useRef(null);
+
+  useEffect(() => {
+    const waveEls = [wavePathRef.current, glowPathRef.current].filter(Boolean);
+    if (!waveEls.length) return;
+
+    waveEls.forEach((el, idx) => {
+      gsap.to(el, {
+        strokeDashoffset: idx === 0 ? -120 : -80,
+        duration: 5 + idx * 0.6,
+        repeat: -1,
+        ease: 'none',
+      });
+    });
+
+    return () => {
+      gsap.killTweensOf(waveEls);
+    };
+  }, []);
+
   const leadershipTeam = [
     {
       name: 'Mr. Piyush Bichhoriya',
@@ -89,15 +111,15 @@ export default function AboutPage() {
   ];
 
   return (
-    <div className="w-full bg-slate-50 text-slate-800 font-['Manrope'] pb-0">
+    <div className="w-full bg-slate-50 text-slate-800 font-['Noto_Sans','Krub',sans-serif] pb-0">
 
       {/* Hero Header Banner */}
-      <section className="relative w-full bg-gradient-to-br from-[#1c1813] via-[#2a2219] to-[#120f0c] text-white pt-8 sm:pt-12 md:pt-14 pb-16 sm:pb-24 px-4 sm:px-8 md:px-16 border-b-2 border-[#D6B46A]/40 shadow-2xl">
+      <section className="relative w-full bg-gradient-to-br from-[#1c1813] via-[#2a2219] to-[#120f0c] text-white pt-12 sm:pt-16 md:pt-20 pb-16 sm:pb-24 px-4 sm:px-8 md:px-16 border-b-2 border-[#D6B46A]/40 shadow-2xl">
         <div className="w-full max-w-7xl mx-auto text-center">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold font-['Cinzel','Raleway',serif] gold-gradient-text">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold font-['Google_Sans','Montserrat',sans-serif] gold-gradient-text">
             Leadership & Corporate Structure
           </h1>
-          <p className="text-stone-300 text-sm sm:text-base md:text-lg mt-4 max-w-3xl mx-auto leading-relaxed font-['Manrope']">
+          <p className="text-stone-300 text-sm sm:text-base md:text-lg mt-4 max-w-3xl mx-auto leading-relaxed font-['Noto_Sans','Krub',sans-serif]">
             Driven by entrepreneurial conviction, visionary leadership, and a commitment to building India’s self-reliant industrial and renewable energy platforms.
           </p>
         </div>
@@ -131,10 +153,10 @@ export default function AboutPage() {
               <div className="inline-block px-3 py-1 rounded-full bg-[#D6B46A]/15 border border-[#D6B46A]/30 text-[#7a5b1e] text-xs font-bold uppercase tracking-wider mb-2 pr-12">
                 Global Indian of the Year 2023 Awardee
               </div>
-              <h2 className="text-3xl sm:text-4xl font-bold font-['Cinzel','Raleway',serif] text-slate-900 pr-12">
+              <h2 className="text-3xl sm:text-4xl font-bold font-['Google_Sans','Montserrat',sans-serif] text-slate-900 pr-12">
                 Shri. Anubhav Agarwal
               </h2>
-              <p className="text-sm font-bold text-[#A8863D] mt-1 font-['Manrope']">Founder & Managing Director, Anubhav Agarwal Group</p>
+              <p className="text-sm font-bold text-[#A8863D] mt-1 font-['Noto_Sans','Krub',sans-serif]">Founder & Managing Director, Anubhav Agarwal Group</p>
 
               <div className="mt-4 space-y-3 text-xs sm:text-sm text-slate-600 leading-relaxed">
                 <p>
@@ -165,7 +187,7 @@ export default function AboutPage() {
         {/* Executive Leadership Team Grid */}
         <section className="w-full">
           <div className="text-center mb-10">
-            <h2 className="text-3xl sm:text-4xl font-bold font-['Cinzel','Raleway',serif] gold-gradient-text">
+            <h2 className="text-3xl sm:text-4xl font-bold font-['Google_Sans','Montserrat',sans-serif] gold-gradient-text">
               Executive Leadership Team
             </h2>
             <p className="text-slate-600 text-xs sm:text-sm mt-2 max-w-xl mx-auto">
@@ -189,7 +211,7 @@ export default function AboutPage() {
                     </div>
                   )}
                   <span className="text-[10px] font-bold uppercase tracking-wider text-[#A8863D]">{leader.role}</span>
-                  <h3 className="text-lg font-bold text-slate-900 font-['Cinzel','Raleway',serif] mt-1 group-hover:text-[#7a5b1e] transition-colors">{leader.name}</h3>
+                  <h3 className="text-lg font-bold text-slate-900 font-['Google_Sans','Montserrat',sans-serif] mt-1 group-hover:text-[#7a5b1e] transition-colors">{leader.name}</h3>
                   <p className="text-xs text-slate-600 mt-2 leading-relaxed">{leader.desc}</p>
                 </div>
                 <div className="mt-4 pt-3 border-t border-slate-100 text-[10px] font-semibold text-[#7a5b1e] flex items-center justify-between">
@@ -207,7 +229,7 @@ export default function AboutPage() {
         <div className="w-full px-4 sm:px-8 md:px-12 lg:px-16">
           <div className="text-center mb-8">
             <span className="text-xs font-bold uppercase tracking-widest text-[#A8863D]">Corporate Governance & Hierarchy</span>
-            <h2 className="text-2xl sm:text-3xl font-bold font-['Cinzel','Raleway',serif] text-slate-900 mt-1">
+            <h2 className="text-2xl sm:text-3xl font-bold font-['Google_Sans','Montserrat',sans-serif] text-slate-900 mt-1">
               Group Corporate Structure
             </h2>
             <p className="text-slate-600 text-xs sm:text-sm mt-2 max-w-2xl mx-auto">
@@ -221,7 +243,7 @@ export default function AboutPage() {
             <div className="space-y-3.5">
               <div className="p-4.5 rounded-2xl bg-stone-50 border border-[#D6B46A]/25 border-l-4 border-l-[#D6B46A] shadow-xs hover:bg-white transition-colors">
                 <span className="text-[10px] font-bold text-[#A8863D] uppercase tracking-wider">Edible Oils & FMCG Division</span>
-                <h4 className="text-base font-bold text-slate-900 font-['Cinzel','Raleway',serif] mt-0.5">BN Agrochem Limited</h4>
+                <h4 className="text-base font-bold text-slate-900 font-['Google_Sans','Montserrat',sans-serif] mt-0.5">BN Agrochem Limited</h4>
                 <p className="text-xs text-slate-600 mt-1 leading-relaxed">
                   Anchor consumer goods arm managing high-capacity edible oil refineries at Gandhidham & Mathura, producing trusted nationwide brands Simply Fresh & Healthy Value.
                 </p>
@@ -229,7 +251,7 @@ export default function AboutPage() {
 
               <div className="p-4.5 rounded-2xl bg-stone-50 border border-[#D6B46A]/25 border-l-4 border-l-[#CFB377] shadow-xs hover:bg-white transition-colors">
                 <span className="text-[10px] font-bold text-[#A8863D] uppercase tracking-wider">Specialty & Oleo-Chemicals Division</span>
-                <h4 className="text-base font-bold text-slate-900 font-['Cinzel','Raleway',serif] mt-0.5">Epitome Industries India Limited</h4>
+                <h4 className="text-base font-bold text-slate-900 font-['Google_Sans','Montserrat',sans-serif] mt-0.5">Epitome Industries India Limited</h4>
                 <p className="text-xs text-slate-600 mt-1 leading-relaxed">
                   Integrated oleo-chemical complex manufacturing high-grade distilled fatty acids, refined glycerin, and sustainable bio-chemical solutions for industrial applications.
                 </p>
@@ -237,7 +259,7 @@ export default function AboutPage() {
 
               <div className="p-4.5 rounded-2xl bg-stone-50 border border-[#D6B46A]/25 border-l-4 border-l-[#A8863D] shadow-xs hover:bg-white transition-colors">
                 <span className="text-[10px] font-bold text-[#A8863D] uppercase tracking-wider">Renewable Energy Infrastructure</span>
-                <h4 className="text-base font-bold text-slate-900 font-['Cinzel','Raleway',serif] mt-0.5">Agastya Energy Platform</h4>
+                <h4 className="text-base font-bold text-slate-900 font-['Google_Sans','Montserrat',sans-serif] mt-0.5">Agastya Energy Platform</h4>
                 <p className="text-xs text-slate-600 mt-1 leading-relaxed">
                   Giga-scale green energy division executing 12 GW Ingot & Wafer manufacturing, 5 GW Solar Cell & Module plants, BESS storage, and ~194 MW PM-KUSUM solar IPP projects.
                 </p>
@@ -245,7 +267,7 @@ export default function AboutPage() {
 
               <div className="p-4.5 rounded-2xl bg-stone-50 border border-[#D6B46A]/25 border-l-4 border-l-[#7a5b1e] shadow-xs hover:bg-white transition-colors">
                 <span className="text-[10px] font-bold text-[#A8863D] uppercase tracking-wider">Advanced Technology & Semiconductors</span>
-                <h4 className="text-base font-bold text-slate-900 font-['Cinzel','Raleway',serif] mt-0.5">Indichip Semiconductors</h4>
+                <h4 className="text-base font-bold text-slate-900 font-['Google_Sans','Montserrat',sans-serif] mt-0.5">Indichip Semiconductors</h4>
                 <p className="text-xs text-slate-600 mt-1 leading-relaxed">
                   Pioneering domestic Silicon Carbide (SiC) semiconductor device manufacturing in strategic tech-transfer partnership with Yitoa Micro Technology Corporation.
                 </p>
@@ -269,7 +291,7 @@ export default function AboutPage() {
         <div className="w-full px-4 sm:px-8 md:px-12 lg:px-16 max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <span className="text-xs font-bold uppercase tracking-widest text-[#A8863D]">Fifteen Years of Excellence</span>
-            <h2 className="text-3xl sm:text-4xl font-bold font-['Cinzel','Raleway',serif] gold-gradient-text mt-1">
+            <h2 className="text-3xl sm:text-4xl font-bold font-['Google_Sans','Montserrat',sans-serif] gold-gradient-text mt-1">
               Milestone Journey (2011 – 2026)
             </h2>
             <p className="text-slate-500 text-xs sm:text-sm mt-2 max-w-lg mx-auto">
@@ -289,6 +311,8 @@ export default function AboutPage() {
             >
               {/* Soft glow behind curve */}
               <path
+                ref={glowPathRef}
+                className="wave-timeline-path"
                 d={(() => {
                   const count = milestones.length;
                   const spacing = 900 / (count - 1);
@@ -306,9 +330,12 @@ export default function AboutPage() {
                 strokeWidth="8"
                 strokeLinecap="round"
                 opacity="0.12"
+                strokeDasharray="16 18"
               />
               {/* Main wave curve */}
               <path
+                ref={wavePathRef}
+                className="wave-timeline-path"
                 d={(() => {
                   const count = milestones.length;
                   const spacing = 900 / (count - 1);
@@ -325,6 +352,7 @@ export default function AboutPage() {
                 stroke="url(#waveGold)"
                 strokeWidth="3"
                 strokeLinecap="round"
+                strokeDasharray="18 20"
               />
               <defs>
                 <linearGradient id="waveGold" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -348,7 +376,9 @@ export default function AboutPage() {
                   style={{ left: `${pct}%`, top: dotTopPct, transform: 'translate(-50%, -50%)' }}
                 >
                   {/* Dot */}
-                  <div className="w-7 h-7 rounded-full bg-gradient-to-br from-[#7a5b1e] via-[#D6B46A] to-[#A8863D] border-[3px] border-white shadow-lg group-hover:scale-125 transition-transform cursor-default z-10 relative">
+                  <div
+                    className="wave-timeline-dot w-7 h-7 rounded-full bg-gradient-to-br from-[#7a5b1e] via-[#D6B46A] to-[#A8863D] border-[3px] border-white shadow-lg group-hover:scale-125 transition-transform cursor-default z-10 relative"
+                  >
                     <span className="absolute inset-0 flex items-center justify-center text-white text-[9px] font-bold">
                       {String(idx + 1).padStart(2, '0')}
                     </span>
@@ -370,7 +400,7 @@ export default function AboutPage() {
                     <span className="inline-block px-2 py-0.5 rounded-full bg-[#D6B46A]/15 border border-[#D6B46A]/30 text-[#7a5b1e] text-[10px] font-bold mb-1">
                       {ms.year}
                     </span>
-                    <h4 className="text-[11px] font-bold text-slate-900 font-['Cinzel','Raleway',serif] leading-tight group-hover:text-[#7a5b1e] transition-colors">
+                    <h4 className="text-[11px] font-bold text-slate-900 font-['Google_Sans','Montserrat',sans-serif] leading-tight group-hover:text-[#7a5b1e] transition-colors">
                       {ms.title}
                     </h4>
                     <p className="text-[9px] text-slate-500 mt-0.5 leading-snug hidden lg:block">{ms.desc}</p>
@@ -395,7 +425,7 @@ export default function AboutPage() {
                     <span className="inline-block px-2 py-0.5 rounded-full bg-[#D6B46A]/15 border border-[#D6B46A]/30 text-[#7a5b1e] text-[10px] font-bold mb-1">
                       {ms.year}
                     </span>
-                    <h4 className="text-sm font-bold text-slate-900 font-['Cinzel','Raleway',serif] leading-tight">{ms.title}</h4>
+                    <h4 className="text-sm font-bold text-slate-900 font-['Google_Sans','Montserrat',sans-serif] leading-tight">{ms.title}</h4>
                     <p className="text-[11px] text-slate-500 mt-0.5 leading-relaxed">{ms.desc}</p>
                   </div>
                 </div>

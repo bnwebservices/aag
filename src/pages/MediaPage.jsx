@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 // 1. Factual Group Awards & Certificates Data
 const groupAwards = [
@@ -133,72 +133,72 @@ const teamAwards = [
   },
 ];
 
-// 3. Factual WBR Awards Data
+// 3. Factual Global Business Excellence Conclave & Awards 2025 Data
 const wbrAwards = [
   {
     id: 'wbr-1',
-    title: 'WBR Certificate of Excellence - House of Commons',
-    subtitle: 'Awarded to BN Group as Fastest Growing Edible Oil Manufacturer of the Year',
+    title: 'Global Business Excellence Conclave & Awards 2025',
+    subtitle: 'BN Group recognition at the Global Business Excellence Conclave & Awards 2025',
     image: '/WBR/IMG-20250405-WA0012.webp',
   },
   {
     id: 'wbr-2',
-    title: 'London Daily & WBR UK Delegation',
-    subtitle: 'BN Group executive delegation at the Parliament Buildings, London, UK',
+    title: 'Global Business Excellence Conclave Delegation',
+    subtitle: 'BN Group leadership participation in the Global Business Excellence Conclave & Awards 2025',
     image: '/WBR/IMG-20250405-WA0013.webp',
   },
   {
     id: 'wbr-3',
-    title: 'WBR International Excellence Summit',
-    subtitle: 'Stage presentation of Global Excellence Award in London, UK',
+    title: 'Global Business Excellence Awards Stage Moment',
+    subtitle: 'Recognition moment on stage during the Global Business Excellence Conclave & Awards 2025',
     image: '/WBR/IMG-20250405-WA0021.webp',
   },
   {
     id: 'wbr-4',
-    title: 'UK Parliament House of Commons Felicitation',
-    subtitle: 'MD Anubhav Agarwal holding WBR Certificate of Excellence in Central Lobby',
+    title: 'International Business Excellence Felicitation',
+    subtitle: 'MD Anubhav Agarwal receiving recognition at the Global Business Excellence Conclave & Awards 2025',
     image: '/WBR/IMG-20250405-WA0022.webp',
   },
   {
     id: 'wbr-5',
-    title: 'WBR Global Business Forum Award',
-    subtitle: 'International business excellence recognition by WBR Corp UK Limited',
+    title: 'Global Business Excellence Awards Ceremony',
+    subtitle: 'Award recognition for BN Group at the Global Business Excellence Conclave & Awards 2025',
     image: '/WBR/IMG-20250405-WA0024.webp',
   },
   {
     id: 'wbr-6',
-    title: 'Westminster Hall Commemorative Presentation',
-    subtitle: 'MD Anubhav Agarwal at the historic Westminster Hall, Parliament of UK',
+    title: 'Business Excellence Commemorative Moment',
+    subtitle: 'A memorable moment during the Global Business Excellence Conclave & Awards 2025',
     image: '/WBR/IMG-20250405-WA0025.webp',
   },
   {
     id: 'wbr-7',
-    title: 'WBR Asian UK Excellence Forum',
-    subtitle: 'Executive delegation receiving international manufacturing accolade',
+    title: 'Global Business Excellence Conclave Highlight',
+    subtitle: 'Leadership and delegation at the Global Business Excellence Conclave & Awards 2025',
     image: '/WBR/IMG-20250405-WA0026.webp',
   },
   {
     id: 'wbr-8',
-    title: 'Global Business Leadership Keynote',
-    subtitle: 'WBR Corp UK honors BN Group for cross-border expansion & excellence',
+    title: 'Business Leadership Keynote Session',
+    subtitle: 'BN Group leadership at the Global Business Excellence Conclave & Awards 2025',
     image: '/WBR/IMG-20250405-WA0027.webp',
   },
   {
     id: 'wbr-9',
-    title: 'WBR Award Gala Executive Council',
-    subtitle: 'Group leadership at the WBR Global Business Gala in London',
+    title: 'Global Business Excellence Awards Executive Council',
+    subtitle: 'Group leadership at the Global Business Excellence Conclave & Awards 2025',
     image: '/WBR/IMG-20250405-WA0028.webp',
   },
   {
     id: 'wbr-10',
-    title: 'WBR Official Certificate Citation',
-    subtitle: 'Citation of Excellence for Significant Industrial Contribution',
+    title: 'Official Recognition at the Awards',
+    subtitle: 'Recognition snapshot from the Global Business Excellence Conclave & Awards 2025',
     image: '/WBR/IMG-20250405-WA0029.webp',
   },
   {
     id: 'wbr-11',
-    title: 'WBR UK Parliament Delegation Group',
-    subtitle: 'Commemorative photo of delegates at the House of Commons, London',
+    title: 'Delegation Group Photo',
+    subtitle: 'BN Group delegation at the Global Business Excellence Conclave & Awards 2025',
     image: '/WBR/IMG-20250405-WA0030.webp',
   },
 ];
@@ -299,15 +299,6 @@ export default function MediaPage() {
   const [lightboxState, setLightboxState] = useState({ isOpen: false, list: [], index: 0 });
   const [mediaFilter, setMediaFilter] = useState('all');
 
-  const scrollToSection = (id) => {
-    const el = document.getElementById(id);
-    if (el) {
-      const yOffset = -90;
-      const y = el.getBoundingClientRect().top + window.pageYOffset + yOffset;
-      window.scrollTo({ top: y, behavior: 'smooth' });
-    }
-  };
-
   const openLightbox = (list, index) => {
     setLightboxState({ isOpen: true, list, index });
   };
@@ -350,15 +341,15 @@ export default function MediaPage() {
   });
 
   return (
-    <div className="w-full bg-slate-50 text-slate-800 font-['Manrope'] pb-16">
+    <div className="w-full bg-slate-50 text-slate-800 font-['Noto_Sans','Krub',sans-serif] pb-16">
       
       {/* 1. Hero Header Banner */}
       <section className="relative w-full bg-gradient-to-br from-[#1c1813] via-[#2a2219] to-[#120f0c] text-white pt-12 sm:pt-16 md:pt-20 pb-12 sm:pb-16 px-4 sm:px-8 md:px-16 border-b-2 border-[#D6B46A]/40 shadow-2xl">
         <div className="w-full max-w-7xl mx-auto text-center">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold font-['Cinzel','Raleway',serif] gold-gradient-text">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold font-['Google_Sans','Montserrat',sans-serif] gold-gradient-text">
             Media & Achievements
           </h1>
-          <p className="text-stone-300 text-sm sm:text-base md:text-lg mt-4 max-w-3xl mx-auto leading-relaxed font-['Manrope']">
+          <p className="text-stone-300 text-sm sm:text-base md:text-lg mt-4 max-w-3xl mx-auto leading-relaxed font-['Noto_Sans','Krub',sans-serif]">
             A comprehensive showcase of our global honors, leadership award ceremonies, World Business Records recognitions, and national press coverage.
           </p>
         </div>
@@ -370,13 +361,13 @@ export default function MediaPage() {
         <section id="group-awards" className="scroll-mt-28">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 pb-4 border-b border-[#D6B46A]/30 gap-4">
             <div>
-              <div className="text-xs font-bold text-[#A8863D] uppercase tracking-widest font-['Manrope'] mb-1">
+              <div className="text-xs font-bold text-[#A8863D] uppercase tracking-widest font-['Noto_Sans','Krub',sans-serif] mb-1">
                 Section 01
               </div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-['Cinzel','Georgia',serif] text-slate-900">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-['Google_Sans','Montserrat',sans-serif] text-slate-900">
                 Group Awards & Trophies
               </h2>
-              <p className="text-sm text-slate-600 font-['Manrope'] mt-1">
+              <p className="text-sm text-slate-600 font-['Noto_Sans','Krub',sans-serif] mt-1">
                 Official certificates, excellence honors, and prestigious corporate trophies.
               </p>
             </div>
@@ -390,6 +381,9 @@ export default function MediaPage() {
               <div
                 key={item.id}
                 onClick={() => openLightbox(groupAwards, idx)}
+                onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') openLightbox(groupAwards, idx); }}
+                role="button"
+                tabIndex={0}
                 className="group bg-white rounded-2xl border border-[#D6B46A]/30 shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden cursor-pointer flex flex-col transform hover:-translate-y-1 hover:border-[#D6B46A]"
               >
                 <div className="relative w-full h-60 bg-stone-50 overflow-hidden flex items-center justify-center p-4">
@@ -405,7 +399,7 @@ export default function MediaPage() {
                 </div>
                 <div className="p-4 flex-1 flex flex-col justify-between border-t border-stone-100 bg-white">
                   <div>
-                    <h3 className="font-bold text-slate-900 text-base font-['Cinzel','Georgia',serif] group-hover:text-[#A8863D] transition-colors line-clamp-1">
+                    <h3 className="font-bold text-slate-900 text-base font-['Google_Sans','Montserrat',sans-serif] group-hover:text-[#A8863D] transition-colors line-clamp-1">
                       {item.title}
                     </h3>
                     <p className="text-xs text-slate-600 mt-1 line-clamp-2 leading-relaxed">
@@ -426,13 +420,13 @@ export default function MediaPage() {
         <section id="team-awards" className="scroll-mt-28">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 pb-4 border-b border-[#D6B46A]/30 gap-4">
             <div>
-              <div className="text-xs font-bold text-[#A8863D] uppercase tracking-widest font-['Manrope'] mb-1">
+              <div className="text-xs font-bold text-[#A8863D] uppercase tracking-widest font-['Noto_Sans','Krub',sans-serif] mb-1">
                 Section 02
               </div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-['Cinzel','Georgia',serif] text-slate-900">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-['Google_Sans','Montserrat',sans-serif] text-slate-900">
                 Leadership & Teams Receiving Awards
               </h2>
-              <p className="text-sm text-slate-600 font-['Manrope'] mt-1">
+              <p className="text-sm text-slate-600 font-['Noto_Sans','Krub',sans-serif] mt-1">
                 Capturing moments of pride as AAG executives and team members accept accolades on national stages.
               </p>
             </div>
@@ -446,6 +440,9 @@ export default function MediaPage() {
               <div
                 key={item.id}
                 onClick={() => openLightbox(teamAwards, idx)}
+                onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') openLightbox(teamAwards, idx); }}
+                role="button"
+                tabIndex={0}
                 className="group bg-white rounded-2xl border border-[#D6B46A]/30 shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden cursor-pointer flex flex-col transform hover:-translate-y-1 hover:border-[#D6B46A]"
               >
                 <div className="relative w-full h-64 bg-stone-900 overflow-hidden flex items-center justify-center">
@@ -465,7 +462,7 @@ export default function MediaPage() {
                 </div>
                 <div className="p-5 flex-1 flex flex-col justify-between bg-white">
                   <div>
-                    <h3 className="font-bold text-slate-900 text-base font-['Cinzel','Georgia',serif] group-hover:text-[#A8863D] transition-colors">
+                    <h3 className="font-bold text-slate-900 text-base font-['Google_Sans','Montserrat',sans-serif] group-hover:text-[#A8863D] transition-colors">
                       {item.title}
                     </h3>
                     <p className="text-xs text-slate-600 mt-1.5 leading-relaxed">
@@ -482,18 +479,18 @@ export default function MediaPage() {
           </div>
         </section>
 
-        {/* 4. SECTION 3: WBR Global Awards & Recognition */}
+        {/* 4. SECTION 3: Global Business Excellence Conclave & Awards 2025 */}
         <section id="wbr-awards" className="scroll-mt-28">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 pb-4 border-b border-[#D6B46A]/30 gap-4">
             <div>
-              <div className="text-xs font-bold text-[#A8863D] uppercase tracking-widest font-['Manrope'] mb-1">
+              <div className="text-xs font-bold text-[#A8863D] uppercase tracking-widest font-['Noto_Sans','Krub',sans-serif] mb-1">
                 Section 03
               </div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-['Cinzel','Georgia',serif] text-slate-900">
-                World Business Records (WBR) Recognition
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-['Google_Sans','Montserrat',sans-serif] text-slate-900">
+                Global Business Excellence Conclave & Awards 2025
               </h2>
-              <p className="text-sm text-slate-600 font-['Manrope'] mt-1">
-                Highlights from World Business Records & Global Business Forum award galas in London, UK.
+              <p className="text-sm text-slate-600 font-['Noto_Sans','Krub',sans-serif] mt-1">
+                Highlights from the Global Business Excellence Conclave & Awards 2025 recognition ceremony and leadership gathering.
               </p>
             </div>
             <span className="text-xs font-bold text-[#A8863D] bg-[#A8863D]/10 px-3 py-1.5 rounded-full border border-[#D6B46A]/40 self-start md:self-auto">
@@ -534,6 +531,9 @@ export default function MediaPage() {
               <div
                 key={item.id}
                 onClick={() => openLightbox(wbrAwards, idx)}
+                onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') openLightbox(wbrAwards, idx); }}
+                role="button"
+                tabIndex={0}
                 className="group bg-white rounded-2xl border border-[#D6B46A]/30 shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden cursor-pointer flex flex-col transform hover:-translate-y-1 hover:border-[#D6B46A]"
               >
                 <div className="relative w-full h-60 bg-stone-900 overflow-hidden flex items-center justify-center">
@@ -547,13 +547,13 @@ export default function MediaPage() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
                   <div className="absolute bottom-3 left-3 right-3 text-white">
                     <span className="text-[10px] font-bold uppercase tracking-wider text-[#D6B46A] bg-black/70 px-2.5 py-1 rounded-md backdrop-blur-sm border border-[#D6B46A]/40">
-                      WBR London UK
+                      Global Business Excellence 2025
                     </span>
                   </div>
                 </div>
                 <div className="p-4 flex-1 flex flex-col justify-between bg-white">
                   <div>
-                    <h3 className="font-bold text-slate-900 text-sm font-['Cinzel','Georgia',serif] group-hover:text-[#A8863D] transition-colors">
+                    <h3 className="font-bold text-slate-900 text-sm font-['Google_Sans','Montserrat',sans-serif] group-hover:text-[#A8863D] transition-colors">
                       {item.title}
                     </h3>
                     <p className="text-xs text-slate-600 mt-1 line-clamp-2 leading-relaxed">
@@ -574,13 +574,13 @@ export default function MediaPage() {
         <section id="media-coverage" className="scroll-mt-28">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-6 pb-4 border-b border-[#D6B46A]/30 gap-4">
             <div>
-              <div className="text-xs font-bold text-[#A8863D] uppercase tracking-widest font-['Manrope'] mb-1">
+              <div className="text-xs font-bold text-[#A8863D] uppercase tracking-widest font-['Noto_Sans','Krub',sans-serif] mb-1">
                 Section 04
               </div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-['Cinzel','Georgia',serif] text-slate-900">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold font-['Google_Sans','Montserrat',sans-serif] text-slate-900">
                 Mainstream & FMCG Media Coverage
               </h2>
-              <p className="text-sm text-slate-600 font-['Manrope'] mt-1">
+              <p className="text-sm text-slate-600 font-['Noto_Sans','Krub',sans-serif] mt-1">
                 Features, press releases, and editorial spotlights across major national print and digital publications.
               </p>
             </div>
@@ -612,6 +612,9 @@ export default function MediaPage() {
               <div
                 key={item.id}
                 onClick={() => openLightbox(filteredMediaCoverage, idx)}
+                onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') openLightbox(filteredMediaCoverage, idx); }}
+                role="button"
+                tabIndex={0}
                 className="group bg-white rounded-2xl border border-[#D6B46A]/30 shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden cursor-pointer flex flex-col transform hover:-translate-y-1 hover:border-[#D6B46A]"
               >
                 <div className="relative w-full h-64 bg-stone-50 overflow-hidden flex items-center justify-center p-3">
@@ -627,7 +630,7 @@ export default function MediaPage() {
                 </div>
                 <div className="p-4 flex-1 flex flex-col justify-between bg-white border-t border-stone-100">
                   <div>
-                    <h3 className="font-bold text-slate-900 text-sm font-['Cinzel','Georgia',serif] group-hover:text-[#A8863D] transition-colors line-clamp-1">
+                    <h3 className="font-bold text-slate-900 text-sm font-['Google_Sans','Montserrat',sans-serif] group-hover:text-[#A8863D] transition-colors line-clamp-1">
                       {item.title}
                     </h3>
                     <p className="text-xs text-slate-600 mt-1 line-clamp-2 leading-relaxed">
@@ -651,10 +654,13 @@ export default function MediaPage() {
         <div
           className="fixed inset-0 z-50 bg-black/95 backdrop-blur-xl flex flex-col items-center justify-between p-4 sm:p-6 animate-in fade-in duration-200"
           onClick={closeLightbox}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Media preview"
         >
           {/* Top Bar */}
           <div className="w-full max-w-6xl flex items-center justify-between text-white z-10 py-2">
-            <span className="text-xs font-semibold text-[#D6B46A] tracking-wider font-['Manrope']">
+            <span className="text-xs font-semibold text-[#D6B46A] tracking-wider font-['Noto_Sans','Krub',sans-serif]">
               {lightboxState.index + 1} / {lightboxState.list.length}
             </span>
             <button
@@ -700,11 +706,11 @@ export default function MediaPage() {
             className="w-full max-w-3xl bg-[#1c1813]/90 border border-[#D6B46A]/40 rounded-2xl p-4 text-center text-white backdrop-blur-md mt-2 z-10"
             onClick={(e) => e.stopPropagation()}
           >
-            <h4 className="text-base sm:text-lg font-bold font-['Cinzel','Georgia',serif] gold-gradient-text">
+            <h4 className="text-base sm:text-lg font-bold font-['Google_Sans','Montserrat',sans-serif] gold-gradient-text">
               {lightboxState.list[lightboxState.index]?.title}
             </h4>
             {lightboxState.list[lightboxState.index]?.subtitle && (
-              <p className="text-xs sm:text-sm text-stone-300 mt-1 font-['Manrope']">
+              <p className="text-xs sm:text-sm text-stone-300 mt-1 font-['Noto_Sans','Krub',sans-serif]">
                 {lightboxState.list[lightboxState.index]?.subtitle}
               </p>
             )}

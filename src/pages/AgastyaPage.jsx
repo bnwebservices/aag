@@ -1,6 +1,98 @@
-import React from 'react';
+import { useState, useEffect, useRef } from 'react';
+import gsap from 'gsap';
+
+const kurnoolStats = [
+  { label: 'Industrial Land', value: 465, suffix: '+ Acres' },
+  { label: 'Solar Manufacturing', value: 12, suffix: ' GW' },
+  { label: 'Cell & Module Capacity', value: 5, suffix: ' GW' },
+  { label: 'IPP / Storage Target', value: 250, suffix: ' MWh' },
+];
 
 export default function AgastyaPage() {
+  const wavePathRef = useRef(null);
+  const glowPathRef = useRef(null);
+  const [revealed, setRevealed] = useState({ ecosystem: false, hub: false, roadmap: false });
+  const [animatedStats, setAnimatedStats] = useState([0, 0, 0, 0]);
+  const ecosystemRef = useRef(null);
+  const hubRef = useRef(null);
+  const roadmapRef = useRef(null);
+
+  useEffect(() => {
+    const scrollParent = ecosystemRef.current?.closest('.tablet-tight-content');
+    const handleScroll = () => {
+      const refs = [
+        { key: 'ecosystem', ref: ecosystemRef },
+        { key: 'hub', ref: hubRef },
+        { key: 'roadmap', ref: roadmapRef },
+      ];
+
+      refs.forEach(({ key, ref }) => {
+        if (!ref.current) return;
+        const rect = ref.current.getBoundingClientRect();
+        const viewportTop = scrollParent?.getBoundingClientRect().top ?? 0;
+        const viewportHeight = scrollParent?.clientHeight ?? window.innerHeight;
+        if (rect.top < viewportTop + viewportHeight * 0.82) {
+          setRevealed((prev) => ({ ...prev, [key]: true }));
+        }
+      });
+    };
+
+    handleScroll();
+    scrollParent?.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleScroll);
+    return () => {
+      scrollParent?.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    const waveEls = [wavePathRef.current, glowPathRef.current].filter(Boolean);
+    if (!waveEls.length) return;
+
+    waveEls.forEach((el, idx) => {
+      gsap.to(el, {
+        strokeDashoffset: idx === 0 ? -110 : -90,
+        duration: 4.7 + idx * 0.8,
+        repeat: -1,
+        ease: 'none',
+      });
+    });
+
+    return () => {
+      gsap.killTweensOf(waveEls);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!revealed.hub) return;
+
+    let rafId;
+    const duration = 1800;
+    const start = performance.now();
+    const targets = kurnoolStats.map((stat) => stat.value);
+
+    const tick = (now) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 4);
+
+      setAnimatedStats(
+        targets.map((target, index) => {
+          const rawValue = target * eased;
+          if (index === 0) return Math.round(rawValue);
+          return Number((rawValue).toFixed(1));
+        })
+      );
+
+      if (progress < 1) {
+        rafId = requestAnimationFrame(tick);
+      }
+    };
+
+    rafId = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(rafId);
+  }, [revealed.hub]);
+
   const financialProjections = [
     { year: 'FY 27-28^', revenue: '2,899.27', profit: '348.24' },
     { year: 'FY 28-29^', revenue: '3,782.85', profit: '853.00' },
@@ -78,16 +170,16 @@ export default function AgastyaPage() {
   ];
 
   return (
-    <div className="w-full bg-slate-50 text-slate-800 font-['Manrope'] pb-0">
+    <div className="w-full bg-slate-50 text-slate-800 font-['Noto_Sans','Krub',sans-serif] pb-0">
 
       {/* Hero Header Banner */}
       <section className="relative w-full bg-gradient-to-br from-[#1c1813] via-[#2a2219] to-[#120f0c] text-white pt-12 sm:pt-16 md:pt-16 pb-16 sm:pb-24 px-4 sm:px-8 md:px-16 border-b-2 border-[#D6B46A]/40 shadow-2xl">
         <div className="w-full max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
           <div className="max-w-3xl">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold font-['Cinzel','Raleway',serif] gold-gradient-text leading-tight">
-              Agastya Energy Group
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold font-['Google_Sans','Montserrat',sans-serif] gold-gradient-text leading-tight">
+              Agastya Energy Industries
             </h1>
-            <p className="text-stone-300 text-sm sm:text-base md:text-lg mt-4 leading-relaxed font-['Manrope']">
+            <p className="text-stone-300 text-sm sm:text-base md:text-lg mt-4 leading-relaxed font-['Noto_Sans','Krub',sans-serif]">
               Building a fully integrated renewable energy platform spanning the complete solar value chain—from silicon ingots & wafers to solar cells, modules, IPP generation, and battery energy storage.
             </p>
             <div className="mt-8 flex flex-wrap gap-4 items-center">
@@ -140,7 +232,7 @@ export default function AgastyaPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="bg-white rounded-3xl p-8 border border-[#D6B46A]/30 shadow-xl border-l-4 border-l-[#D6B46A]">
               <span className="text-xs font-bold uppercase tracking-widest text-[#A8863D]">Our Vision</span>
-              <h3 className="text-2xl font-bold font-['Cinzel','Raleway',serif] text-slate-900 mt-2">
+              <h3 className="text-2xl font-bold font-['Google_Sans','Montserrat',sans-serif] text-slate-900 mt-2">
                 To Empower India's Journey to Energy Security
               </h3>
               <p className="text-slate-600 text-sm mt-3 leading-relaxed">
@@ -150,7 +242,7 @@ export default function AgastyaPage() {
 
             <div className="bg-white rounded-3xl p-8 border border-[#D6B46A]/30 shadow-xl border-l-4 border-l-[#7a5b1e]">
               <span className="text-xs font-bold uppercase tracking-widest text-[#A8863D]">Our Mission</span>
-              <h3 className="text-2xl font-bold font-['Cinzel','Raleway',serif] text-slate-900 mt-2">
+              <h3 className="text-2xl font-bold font-['Google_Sans','Montserrat',sans-serif] text-slate-900 mt-2">
                 Powering India's Sustainable Future
               </h3>
               <p className="text-slate-600 text-sm mt-3 leading-relaxed">
@@ -163,10 +255,10 @@ export default function AgastyaPage() {
       </div>
 
       {/* Integrated Renewable Energy Ecosystem - EDGE TO EDGE FULL WINDOW WIDTH */}
-      <section className="w-full bg-white border-y-2 border-[#D6B46A]/40 py-12 sm:py-16 shadow-xl my-12">
+      <section ref={ecosystemRef} className={`w-full bg-white border-y-2 border-[#D6B46A]/40 py-12 sm:py-16 shadow-xl my-12 transition-all duration-700 ${revealed.ecosystem ? 'card-reveal is-visible' : 'card-reveal'}`}>
         <div className="w-full px-4 sm:px-8 md:px-12 lg:px-16">
           <div className="text-center mb-10">
-            <h2 className="text-3xl sm:text-4xl font-bold font-['Cinzel','Raleway',serif] gold-gradient-text">
+            <h2 className="text-3xl sm:text-4xl font-bold font-['Google_Sans','Montserrat',sans-serif] gold-gradient-text">
               Integrated Renewable Energy Ecosystem
             </h2>
             <p className="text-slate-600 text-xs sm:text-sm mt-2 max-w-2xl mx-auto">
@@ -177,11 +269,14 @@ export default function AgastyaPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {ecosystemPillars.map((pillar, idx) => (
-              <div key={idx} className="p-6 rounded-2xl bg-stone-50 border border-[#D6B46A]/20 hover:border-[#D6B46A] hover:bg-white transition-all shadow-xs">
-                <div className="w-12 h-12 rounded-2xl bg-[#D6B46A]/15 text-[#A8863D] flex items-center justify-center text-xl mb-4">
+              <div
+                key={idx}
+                className="group p-6 rounded-2xl bg-stone-50 border border-[#D6B46A]/20 hover:border-[#D6B46A] hover:bg-white transition-all duration-300 shadow-sm hover:-translate-y-1 hover:shadow-xl"
+              >
+                <div className="w-12 h-12 rounded-2xl bg-[#D6B46A]/15 text-[#A8863D] flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform duration-300">
                   <i className={`fas ${pillar.icon}`}></i>
                 </div>
-                <h4 className="text-lg font-bold text-slate-900 font-['Cinzel','Raleway',serif]">{pillar.title}</h4>
+                <h4 className="text-lg font-bold text-slate-900 font-['Google_Sans','Montserrat',sans-serif]">{pillar.title}</h4>
                 <p className="text-xs text-slate-600 mt-2 leading-relaxed">{pillar.desc}</p>
               </div>
             ))}
@@ -192,9 +287,9 @@ export default function AgastyaPage() {
       <div className="w-full px-4 sm:px-8 md:px-12 lg:px-16 space-y-16">
 
         {/* Kurnool AP Giga Hub & Layout Map */}
-        <section id="kurnool" className="w-full">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl sm:text-4xl font-bold font-['Cinzel','Raleway',serif] gold-gradient-text">
+        <section ref={hubRef} id="kurnool" className={`w-full transition-all duration-700 ${revealed.hub ? 'card-reveal is-visible' : 'card-reveal'}`}>
+          <div className="text-center mb-8">
+            <h2 className="text-3xl sm:text-4xl font-bold font-['Google_Sans','Montserrat',sans-serif] gold-gradient-text">
               Orvakal Industrial Area Kurnool, Andhra Pradesh
             </h2>
             <p className="text-slate-600 text-xs sm:text-sm mt-2 max-w-2xl mx-auto">
@@ -203,49 +298,60 @@ export default function AgastyaPage() {
             <div className="mt-3 mx-auto h-[2px] w-20 bg-gradient-to-r from-transparent via-[#D6B46A] to-transparent" />
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            {kurnoolStats.map((stat, index) => (
+              <div key={stat.label} className="rounded-2xl border border-[#D6B46A]/25 bg-white p-4 shadow-sm hover:shadow-md transition-all duration-300">
+                <div className="text-xl sm:text-2xl font-black font-['Google_Sans','Montserrat',sans-serif] text-[#7a5b1e]">
+                  {index === 0 ? `${animatedStats[index]}${stat.suffix}` : `${animatedStats[index]}${stat.suffix}`}
+                </div>
+                <p className="mt-1 text-[10px] sm:text-xs uppercase tracking-[0.14em] text-slate-500 font-semibold">{stat.label}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-7 items-stretch">
             {/* Infographic Layout Map */}
-            <div className="rounded-3xl overflow-hidden border border-[#D6B46A]/30 shadow-xl bg-white p-3">
+            <div className="rounded-3xl overflow-hidden border border-[#D6B46A]/30 shadow-xl bg-white p-3 h-full">
               <img
                 src="/Agastya/kg4ica1xnihwamommjvy.webp"
                 alt="Orvakal Industrial Area Layout Map Kurnool AP"
-                className="w-full h-auto object-contain rounded-2xl"
+                className="w-full h-full object-contain rounded-2xl"
               />
             </div>
 
             {/* Land Allocations & Subsidies */}
-            <div className="space-y-4">
-              <div className="bg-white rounded-2xl p-5 border border-[#D6B46A]/25 shadow-md border-l-4 border-l-[#D6B46A]">
-                <div className="flex justify-between items-start">
+            <div className="grid grid-cols-1 gap-4 h-full">
+              <div className="group bg-white rounded-3xl p-5 border border-[#D6B46A]/25 shadow-md border-l-4 border-l-[#D6B46A] hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex flex-col justify-between h-full">
+                <div className="flex justify-between items-start gap-3">
                   <div>
-                    <span className="text-[10px] font-bold text-[#A8863D] uppercase">AGEL Parcel</span>
-                    <h4 className="text-lg font-bold text-slate-900">156.96 Acres</h4>
+                    <span className="text-[10px] font-bold text-[#A8863D] uppercase tracking-[0.18em]">AGEL Parcel</span>
+                    <h4 className="text-lg font-bold text-slate-900 mt-1">156.96 Acres</h4>
                   </div>
-                  <span className="px-3 py-1 bg-amber-50 text-[#7a5b1e] text-xs font-bold rounded-full">12 GW Ingot & Wafer</span>
+                  <span className="px-3 py-1 bg-amber-50 text-[#7a5b1e] text-[10px] font-bold rounded-full whitespace-nowrap">12 GW Ingot & Wafer</span>
                 </div>
-                <p className="text-xs text-slate-600 mt-2">Dedicated land parcel for high-purity silicon ingot and wafer manufacturing facility.</p>
+                <p className="text-xs text-slate-600 mt-3 leading-relaxed">Dedicated land parcel for high-purity silicon ingot and wafer manufacturing facility.</p>
               </div>
 
-              <div className="bg-white rounded-2xl p-5 border border-[#D6B46A]/25 shadow-md border-l-4 border-l-[#A8863D]">
-                <div className="flex justify-between items-start">
+              <div className="group bg-white rounded-3xl p-5 border border-[#D6B46A]/25 shadow-md border-l-4 border-l-[#A8863D] hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex flex-col justify-between h-full">
+                <div className="flex justify-between items-start gap-3">
                   <div>
-                    <span className="text-[10px] font-bold text-[#A8863D] uppercase">AEIPL Parcel</span>
-                    <h4 className="text-lg font-bold text-slate-900">111.66 Acres</h4>
+                    <span className="text-[10px] font-bold text-[#A8863D] uppercase tracking-[0.18em]">AEIPL Parcel</span>
+                    <h4 className="text-lg font-bold text-slate-900 mt-1">111.66 Acres</h4>
                   </div>
-                  <span className="px-3 py-1 bg-amber-50 text-[#7a5b1e] text-xs font-bold rounded-full">5 GW Solar Cell & Module</span>
+                  <span className="px-3 py-1 bg-amber-50 text-[#7a5b1e] text-[10px] font-bold rounded-full whitespace-nowrap">5 GW Solar Cell & Module</span>
                 </div>
-                <p className="text-xs text-slate-600 mt-2">Allocated vide G.O. MS No. 128 dated 27.07.2025 under AP Industrial Policy 4.0 2024-29 with capital incentive of 69.41% of FCI including subsidy of ₹2,410.65 Crore.</p>
+                <p className="text-xs text-slate-600 mt-3 leading-relaxed">Allocated under AP Industrial Policy 4.0 2024-29 with capital incentive of 69.41% of FCI including subsidy of ₹2,410.65 Crore.</p>
               </div>
 
-              <div className="bg-white rounded-2xl p-5 border border-[#D6B46A]/25 shadow-md border-l-4 border-l-[#7a5b1e]">
-                <div className="flex justify-between items-start">
+              <div className="group bg-white rounded-3xl p-5 border border-[#D6B46A]/25 shadow-md border-l-4 border-l-[#7a5b1e] hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex flex-col justify-between h-full">
+                <div className="flex justify-between items-start gap-3">
                   <div>
-                    <span className="text-[10px] font-bold text-[#A8863D] uppercase">Indichip & Grydonn</span>
-                    <h4 className="text-lg font-bold text-slate-900">197.65 Acres Combined</h4>
+                    <span className="text-[10px] font-bold text-[#A8863D] uppercase tracking-[0.18em]">Indichip & Grydonn</span>
+                    <h4 className="text-lg font-bold text-slate-900 mt-1">197.65 Acres Combined</h4>
                   </div>
-                  <span className="px-3 py-1 bg-amber-50 text-[#7a5b1e] text-xs font-bold rounded-full">SiC Semiconductor & Solar</span>
+                  <span className="px-3 py-1 bg-amber-50 text-[#7a5b1e] text-[10px] font-bold rounded-full whitespace-nowrap">SiC Semiconductor & Solar</span>
                 </div>
-                <p className="text-xs text-slate-600 mt-2">Indichip (150 Acres for SiC Semiconductor) and Grydonn (47.65 Acres for 3 GW Solar Cell & Module).</p>
+                <p className="text-xs text-slate-600 mt-3 leading-relaxed">Indichip (150 Acres for SiC Semiconductor) and Grydonn (47.65 Acres for 3 GW Solar Cell & Module).</p>
               </div>
             </div>
           </div>
@@ -255,7 +361,7 @@ export default function AgastyaPage() {
         <section id="projects" className="w-full bg-white rounded-3xl p-6 sm:p-10 border border-[#D6B46A]/30 shadow-xl">
           <div className="text-center mb-8">
             <span className="text-xs font-bold uppercase tracking-widest text-[#A8863D]">Project Portfolio</span>
-            <h2 className="text-2xl sm:text-3xl font-bold font-['Cinzel','Raleway',serif] text-slate-900 mt-1">
+            <h2 className="text-2xl sm:text-3xl font-bold font-['Google_Sans','Montserrat',sans-serif] text-slate-900 mt-1">
               Manufacturing & IPP Project Pipeline
             </h2>
           </div>
@@ -264,13 +370,13 @@ export default function AgastyaPage() {
             <table className="w-full text-left border-collapse">
               <thead>
                 <tr className="border-b-2 border-[#D6B46A]/30 bg-stone-50 text-slate-900 text-xs sm:text-sm font-bold">
-                  <th className="py-3.5 px-4 font-['Cinzel']">Category</th>
-                  <th className="py-3.5 px-4 font-['Cinzel']">Project Description</th>
-                  <th className="py-3.5 px-4 font-['Cinzel']">Location</th>
-                  <th className="py-3.5 px-4 font-['Cinzel']">Project Cost</th>
-                  <th className="py-3.5 px-4 font-['Cinzel']">Debt</th>
-                  <th className="py-3.5 px-4 font-['Cinzel']">CoD Date</th>
-                  <th className="py-3.5 px-4 font-['Cinzel']">Land</th>
+                  <th className="py-3.5 px-4 font-['Google_Sans','Montserrat',sans-serif]">Category</th>
+                  <th className="py-3.5 px-4 font-['Google_Sans','Montserrat',sans-serif]">Project Description</th>
+                  <th className="py-3.5 px-4 font-['Google_Sans','Montserrat',sans-serif]">Location</th>
+                  <th className="py-3.5 px-4 font-['Google_Sans','Montserrat',sans-serif]">Project Cost</th>
+                  <th className="py-3.5 px-4 font-['Google_Sans','Montserrat',sans-serif]">Debt</th>
+                  <th className="py-3.5 px-4 font-['Google_Sans','Montserrat',sans-serif]">CoD Date</th>
+                  <th className="py-3.5 px-4 font-['Google_Sans','Montserrat',sans-serif]">Land</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 text-xs sm:text-sm">
@@ -301,7 +407,7 @@ export default function AgastyaPage() {
         <div className="w-full px-4 sm:px-8 md:px-12 lg:px-16">
           <div className="text-center mb-8">
             <span className="text-xs font-bold uppercase tracking-widest text-[#A8863D]">Financial Projections</span>
-            <h2 className="text-2xl sm:text-3xl font-bold font-['Cinzel','Raleway',serif] text-slate-900 mt-1">
+            <h2 className="text-2xl sm:text-3xl font-bold font-['Google_Sans','Montserrat',sans-serif] text-slate-900 mt-1">
               Projected Revenue & Operating Profit (FY28 – FY31)
             </h2>
           </div>
@@ -312,9 +418,9 @@ export default function AgastyaPage() {
               <table className="w-full text-left border-collapse">
                 <thead>
                   <tr className="border-b-2 border-[#D6B46A]/30 bg-stone-100 text-slate-900 text-xs sm:text-sm font-bold">
-                    <th className="py-3.5 px-4 font-['Cinzel']">Financial Year</th>
-                    <th className="py-3.5 px-4 font-['Cinzel']">Revenue Projected (₹ in Cr)</th>
-                    <th className="py-3.5 px-4 font-['Cinzel']">Operating Profit (₹ in Cr)</th>
+                    <th className="py-3.5 px-4 font-['Google_Sans','Montserrat',sans-serif]">Financial Year</th>
+                    <th className="py-3.5 px-4 font-['Google_Sans','Montserrat',sans-serif]">Revenue Projected (₹ in Cr)</th>
+                    <th className="py-3.5 px-4 font-['Google_Sans','Montserrat',sans-serif]">Operating Profit (₹ in Cr)</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100 text-xs sm:text-sm">
@@ -341,40 +447,144 @@ export default function AgastyaPage() {
         </div>
       </section>
 
-      <div className="w-full px-4 sm:px-8 md:px-12 lg:px-16 space-y-16">
+      {/* Future Road Map Timeline - full width like leadership milestone section */}
+      <section ref={roadmapRef} className={`w-full bg-gradient-to-b from-white via-stone-50/30 to-white border-t-2 border-[#D6B46A]/40 py-12 sm:py-16 shadow-xl mt-12 mb-0 transition-all duration-700 ${revealed.roadmap ? 'card-reveal is-visible' : 'card-reveal'}`}>
+        <div className="w-full px-0 sm:px-0 md:px-0 lg:px-0">
+          <div className="max-w-[1600px] mx-auto px-4 sm:px-8 md:px-12 lg:px-16">
+            <div className="text-center mb-12">
+              <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#A8863D]">Growth Strategy</span>
+              <h2 className="text-3xl sm:text-4xl font-bold font-['Google_Sans','Montserrat',sans-serif] gold-gradient-text mt-1">
+                2026–2030 Growth Roadmap
+              </h2>
+              <p className="text-slate-500 text-xs sm:text-sm mt-2 max-w-xl mx-auto">
+                Strategic execution timeline to becoming a Top 5 integrated solar company in India.
+              </p>
+              <div className="mt-4 mx-auto h-[2px] w-20 bg-gradient-to-r from-transparent via-[#D6B46A] to-transparent" />
+            </div>
 
-        {/* Future Road Map Timeline */}
-        <section className="w-full mb-6">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl sm:text-4xl font-bold font-['Cinzel','Raleway',serif] gold-gradient-text">
-              2026–2030 Growth Roadmap
-            </h2>
-            <p className="text-slate-600 text-xs sm:text-sm mt-2 max-w-xl mx-auto">
-              Strategic execution timeline to becoming a Top 5 integrated solar company in India.
-            </p>
-            <div className="mt-3 mx-auto h-[2px] w-20 bg-gradient-to-r from-transparent via-[#D6B46A] to-transparent" />
+            {/* Desktop / Tablet: Horizontal Wave Timeline */}
+            <div className="hidden md:block relative w-full" style={{ height: '360px' }}>
+              <svg
+                className="absolute inset-0 w-full h-full"
+                viewBox="0 0 1000 360"
+                fill="none"
+                preserveAspectRatio="xMidYMid meet"
+              >
+                <path
+                  ref={glowPathRef}
+                  className="wave-timeline-path"
+                  d={(() => {
+                    const count = roadmapSteps.length;
+                    const spacing = 900 / (count - 1);
+                    return roadmapSteps.map((_, i) => {
+                      const x = 50 + i * spacing;
+                      const y = i % 2 === 0 ? 140 : 220;
+                      if (i === 0) return `M ${x} ${y}`;
+                      const prevX = 50 + (i - 1) * spacing;
+                      const prevY = (i - 1) % 2 === 0 ? 140 : 220;
+                      const cx = (prevX + x) / 2;
+                      return `C ${cx} ${prevY} ${cx} ${y} ${x} ${y}`;
+                    }).join(' ');
+                  })()}
+                  stroke="#D6B46A"
+                  strokeWidth="8"
+                  strokeLinecap="round"
+                  opacity="0.12"
+                  strokeDasharray="16 18"
+                />
+                <path
+                  ref={wavePathRef}
+                  className="wave-timeline-path"
+                  d={(() => {
+                    const count = roadmapSteps.length;
+                    const spacing = 900 / (count - 1);
+                    return roadmapSteps.map((_, i) => {
+                      const x = 50 + i * spacing;
+                      const y = i % 2 === 0 ? 140 : 220;
+                      if (i === 0) return `M ${x} ${y}`;
+                      const prevX = 50 + (i - 1) * spacing;
+                      const prevY = (i - 1) % 2 === 0 ? 140 : 220;
+                      const cx = (prevX + x) / 2;
+                      return `C ${cx} ${prevY} ${cx} ${y} ${x} ${y}`;
+                    }).join(' ');
+                  })()}
+                  stroke="url(#waveGold)"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  strokeDasharray="18 20"
+                />
+                <defs>
+                  <linearGradient id="waveGold" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="#7a5b1e" />
+                    <stop offset="50%" stopColor="#D6B46A" />
+                    <stop offset="100%" stopColor="#A8863D" />
+                  </linearGradient>
+                </defs>
+              </svg>
+
+              {roadmapSteps.map((step, idx) => {
+                const count = roadmapSteps.length;
+                const pct = (50 + idx * (900 / (count - 1))) / 10;
+                const isUp = idx % 2 === 0;
+                const dotTopPct = isUp ? '35.5%' : '57%';
+                return (
+                  <div
+                    key={idx}
+                    className="absolute group"
+                    style={{ left: `${pct}%`, top: dotTopPct, transform: 'translate(-50%, -50%)' }}
+                  >
+                    <div
+                      className="wave-timeline-dot w-7 h-7 rounded-full bg-gradient-to-br from-[#7a5b1e] via-[#D6B46A] to-[#A8863D] border-[3px] border-white shadow-lg group-hover:scale-125 transition-transform cursor-default z-10 relative"
+                    >
+                      <span className="absolute inset-0 flex items-center justify-center text-white text-[9px] font-bold">
+                        {String(idx + 1).padStart(2, '0')}
+                      </span>
+                    </div>
+                    <div
+                      className="absolute left-1/2 -translate-x-1/2 w-[1.5px] bg-[#D6B46A]/40"
+                      style={{ height: '16px', top: isUp ? '-16px' : '28px' }}
+                    />
+                    <div
+                      className="absolute left-1/2 -translate-x-1/2 text-center"
+                      style={{
+                        width: 'max(120px, 10vw)',
+                        top: isUp ? 'auto' : '48px',
+                        bottom: isUp ? '48px' : 'auto',
+                      }}
+                    >
+                      <span className="inline-block px-2 py-0.5 rounded-full bg-[#D6B46A]/15 border border-[#D6B46A]/30 text-[#7a5b1e] text-[10px] font-bold mb-1">
+                        {step.year}
+                      </span>
+                      <h4 className="text-[11px] font-bold text-slate-900 font-['Google_Sans','Montserrat',sans-serif] leading-tight group-hover:text-[#7a5b1e] transition-colors">
+                        {step.title}
+                      </h4>
+                      <p className="text-[9px] text-slate-500 mt-0.5 leading-snug hidden xl:block">{step.desc}</p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Mobile: Compact Zigzag Timeline */}
+            <div className="md:hidden space-y-6">
+              {roadmapSteps.map((step, idx) => (
+                <div key={idx} className={`flex items-start gap-3 ${idx % 2 !== 0 ? 'flex-row-reverse text-right' : ''}`}>
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-[#7a5b1e] to-[#D6B46A] border-[3px] border-white shadow-md flex items-center justify-center mt-1">
+                    <span className="text-white text-[9px] font-bold">{String(idx + 1).padStart(2, '0')}</span>
+                  </div>
+                  <div className="flex-1">
+                    <span className="inline-block px-2 py-0.5 rounded-full bg-[#D6B46A]/15 border border-[#D6B46A]/30 text-[#7a5b1e] text-[10px] font-bold mb-1">
+                      {step.year}
+                    </span>
+                    <h4 className="text-sm font-bold text-slate-900 font-['Google_Sans','Montserrat',sans-serif] leading-tight">{step.title}</h4>
+                    <p className="text-[11px] text-slate-500 mt-0.5 leading-relaxed">{step.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {roadmapSteps.map((step, idx) => (
-              <div key={idx} className="bg-white rounded-3xl p-6 border border-[#D6B46A]/30 shadow-md relative overflow-hidden flex flex-col justify-between hover:shadow-xl transition-all">
-                <div className="absolute top-0 right-0 w-16 h-16 bg-[#D6B46A]/10 rounded-bl-3xl flex items-center justify-center text-[#A8863D] font-bold text-xs">
-                  0{idx + 1}
-                </div>
-                <div>
-                  <span className="text-xs font-bold text-[#A8863D] tracking-wider uppercase font-['Manrope']">{step.year}</span>
-                  <h3 className="text-lg font-bold text-slate-900 font-['Cinzel','Raleway',serif] mt-2">{step.title}</h3>
-                  <p className="text-xs text-slate-600 mt-2 leading-relaxed">{step.desc}</p>
-                </div>
-                <div className="mt-4 pt-3 border-t border-slate-100 text-[10px] text-slate-400 font-semibold uppercase">
-                  Agastya Milestone
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-      </div>
+        </div>
+      </section>
     </div>
   );
 }

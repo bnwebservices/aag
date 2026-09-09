@@ -1,14 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 function BankLogoItem({ bank }) {
   const primaryUrl = bank.logo ? encodeURI(bank.logo) : '';
   const [imgSrc, setImgSrc] = useState(primaryUrl);
   const [hasError, setHasError] = useState(false);
-
-  React.useEffect(() => {
-    setImgSrc(bank.logo ? encodeURI(bank.logo) : '');
-    setHasError(false);
-  }, [bank.logo]);
 
   const handleError = () => {
     if (imgSrc === encodeURI(bank.logo) && bank.fallbackLogo) {
@@ -186,16 +181,16 @@ export default function InvestorsPage() {
   ];
 
   return (
-    <div className="w-full bg-slate-50 text-slate-800 font-['Manrope'] pb-0">
+    <div className="w-full bg-slate-50 text-slate-800 font-['Noto_Sans','Krub',sans-serif] pb-0">
       
       {/* Hero Header Banner */}
-      <section className="relative w-full bg-gradient-to-br from-[#1c1813] via-[#2a2219] to-[#120f0c] text-white pt-8 sm:pt-12 md:pt-14 pb-16 sm:pb-24 px-4 sm:px-8 md:px-16 border-b-2 border-[#D6B46A]/40 shadow-2xl">
+      <section className="relative w-full bg-gradient-to-br from-[#1c1813] via-[#2a2219] to-[#120f0c] text-white pt-12 sm:pt-16 md:pt-20 pb-16 sm:pb-24 px-4 sm:px-8 md:px-16 border-b-2 border-[#D6B46A]/40 shadow-2xl">
         <div className="w-full max-w-7xl mx-auto text-center">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold font-['Cinzel','Raleway',serif] gold-gradient-text">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold font-['Google_Sans','Montserrat',sans-serif] gold-gradient-text">
             Our Investors & Banking Partners
           </h1>
-          <p className="text-stone-300 text-sm sm:text-base md:text-lg mt-4 max-w-3xl mx-auto leading-relaxed font-['Manrope']">
-            Supported by global institutional investors, leading Indian public & private banks, and credit rating "A" governance frameworks.
+          <p className="text-stone-300 text-sm sm:text-base md:text-lg mt-4 max-w-3xl mx-auto leading-relaxed font-['Noto_Sans','Krub',sans-serif]">
+            Supported by global institutional investors and leading Indian public & private banks.
           </p>
         </div>
       </section>
@@ -204,7 +199,7 @@ export default function InvestorsPage() {
       <div className="w-full px-4 sm:px-8 md:px-12 lg:px-16 my-12">
         <section className="w-full max-w-7xl mx-auto">
           <div className="text-center mb-10">
-            <h2 className="text-3xl sm:text-4xl font-bold font-['Cinzel','Raleway',serif] gold-gradient-text">
+            <h2 className="text-3xl sm:text-4xl font-bold font-['Google_Sans','Montserrat',sans-serif] gold-gradient-text">
               Institutional Equity Investors
             </h2>
             <p className="text-slate-600 text-xs sm:text-sm mt-2 max-w-xl mx-auto">
@@ -227,7 +222,7 @@ export default function InvestorsPage() {
                       />
                     </div>
                   )}
-                  <h3 className="text-lg font-bold text-slate-900 font-['Cinzel','Raleway',serif] mt-1 group-hover:text-[#7a5b1e] transition-colors">{inv.name}</h3>
+                  <h3 className="text-lg font-bold text-slate-900 font-['Google_Sans','Montserrat',sans-serif] mt-1 group-hover:text-[#7a5b1e] transition-colors">{inv.name}</h3>
                   <p className="text-xs text-slate-600 mt-1">{inv.role}</p>
                 </div>
                 <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-[#7a5b1e] font-semibold">
@@ -244,7 +239,7 @@ export default function InvestorsPage() {
       <section className="w-full bg-gradient-to-b from-stone-50 via-white to-stone-50 border-y-2 border-[#D6B46A]/40 py-12 sm:py-16 shadow-xl my-12 overflow-hidden">
         <div className="w-full text-center mb-8 px-4">
           <span className="text-xs font-bold uppercase tracking-widest text-[#A8863D]">Robust Banking Relationships</span>
-          <h2 className="text-3xl sm:text-4xl font-bold font-['Cinzel','Raleway',serif] text-slate-900 mt-1">
+          <h2 className="text-3xl sm:text-4xl font-bold font-['Google_Sans','Montserrat',sans-serif] text-slate-900 mt-1">
             Our Premier Banking Partners
           </h2>
           <p className="text-slate-600 text-xs sm:text-sm mt-2 max-w-xl mx-auto">
@@ -272,7 +267,7 @@ export default function InvestorsPage() {
       <div className="w-full px-4 sm:px-8 md:px-12 lg:px-16 my-12">
         <section className="w-full max-w-7xl mx-auto">
           <div className="text-center mb-10">
-            <h2 className="text-3xl sm:text-4xl font-bold font-['Cinzel','Raleway',serif] gold-gradient-text">
+            <h2 className="text-3xl sm:text-4xl font-bold font-['Google_Sans','Montserrat',sans-serif] gold-gradient-text">
               Trade Receivable Discounting Platforms
             </h2>
             <p className="text-slate-600 text-xs sm:text-sm mt-2 max-w-xl mx-auto">
@@ -299,7 +294,7 @@ export default function InvestorsPage() {
                       className="max-h-16 sm:max-h-20 max-w-[85%] object-contain group-hover:scale-105 transition-transform"
                     />
                   </div>
-                  <h3 className="text-lg font-bold text-slate-900 font-['Cinzel','Raleway',serif] group-hover:text-[#7a5b1e] transition-colors">{tred.name}</h3>
+                  <h3 className="text-lg font-bold text-slate-900 font-['Google_Sans','Montserrat',sans-serif] group-hover:text-[#7a5b1e] transition-colors">{tred.name}</h3>
                   <p className="text-xs text-slate-600 mt-2 leading-relaxed">{tred.desc}</p>
                 </div>
                 <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-[#7a5b1e] font-semibold">

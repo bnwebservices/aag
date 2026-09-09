@@ -1,4 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
+
+const financialData = [
+  { year: 'FY 24-25', revNum: 9227.87, revStr: '9,227.87', profitNum: 252.41, profitStr: '252.41' },
+  { year: 'FY 25-26', revNum: 11821.86, revStr: '11,821.86', profitNum: 389.26, profitStr: '389.26' },
+  { year: 'FY 26-27^', revNum: 13053.84, revStr: '13,053.84', profitNum: 432.39, profitStr: '432.39' },
+  { year: 'FY 27-28^', revNum: 16483.64, revStr: '16,483.64', profitNum: 585.36, profitStr: '585.36' },
+  { year: 'FY 28-29^', revNum: 20109.26, revStr: '20,109.26', profitNum: 752.09, profitStr: '752.09' },
+];
 
 export default function BnAgrochemPage() {
   const [pvmVisible, setPvmVisible] = useState([false, false, false]);
@@ -12,14 +20,6 @@ export default function BnAgrochemPage() {
   // Active expanded section state (hover or click)
   const [expandedSectionId, setExpandedSectionId] = useState(null);
   const [pinnedSectionId, setPinnedSectionId] = useState(null);
-
-  const financialData = [
-    { year: 'FY 24-25', revNum: 9227.87, revStr: '9,227.87', profitNum: 252.41, profitStr: '252.41' },
-    { year: 'FY 25-26', revNum: 11821.86, revStr: '11,821.86', profitNum: 389.26, profitStr: '389.26' },
-    { year: 'FY 26-27^', revNum: 13053.84, revStr: '13,053.84', profitNum: 432.39, profitStr: '432.39' },
-    { year: 'FY 27-28^', revNum: 16483.64, revStr: '16,483.64', profitNum: 585.36, profitStr: '585.36' },
-    { year: 'FY 28-29^', revNum: 20109.26, revStr: '20,109.26', profitNum: 752.09, profitStr: '752.09' },
-  ];
 
   const [animatedFin, setAnimatedFin] = useState(
     financialData.map(() => ({ rev: '0.00', profit: '0.00' }))
@@ -101,7 +101,7 @@ export default function BnAgrochemPage() {
 
     animId = requestAnimationFrame(animate);
     return () => {
-      if (animId) cancelAnimationFrame(animate);
+      if (animId) cancelAnimationFrame(animId);
     };
   }, [finVisible]);
 
@@ -288,16 +288,16 @@ export default function BnAgrochemPage() {
   ];
 
   return (
-    <div className="w-full bg-slate-50 text-slate-800 font-['Manrope'] pb-0">
+    <div className="w-full bg-slate-50 text-slate-800 font-['Noto_Sans','Krub',sans-serif] pb-0">
       
       {/* Hero Header Banner */}
       <section className="relative w-full bg-gradient-to-br from-[#1c1813] via-[#2a2219] to-[#120f0c] text-white pt-12 sm:pt-16 md:pt-16 pb-16 sm:pb-24 px-4 sm:px-8 md:px-16 border-b-2 border-[#D6B46A]/40 shadow-2xl">
         <div className="w-full max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
           <div className="max-w-3xl">
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold font-['Cinzel','Raleway',serif] gold-gradient-text leading-tight">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold font-['Google_Sans','Montserrat',sans-serif] gold-gradient-text leading-tight">
               BN Agrochem Limited
             </h1>
-            <p className="text-stone-300 text-sm sm:text-base md:text-lg mt-4 leading-relaxed font-['Manrope']">
+            <p className="text-stone-300 text-sm sm:text-base md:text-lg mt-4 leading-relaxed font-['Noto_Sans','Krub',sans-serif]">
               Transforming natural oils into high-value ingredients through science, innovation, and responsible practices across edible oils, FMCG, and specialty oleo-chemicals.
             </p>
             <div className="mt-8 flex flex-wrap gap-4 items-center">
@@ -354,7 +354,7 @@ export default function BnAgrochemPage() {
         {/* Vision, Mission & Purpose Cards */}
         <section className="w-full">
           <div className="text-center mb-10">
-            <h2 className="text-3xl sm:text-4xl font-bold font-['Cinzel','Raleway',serif] gold-gradient-text">
+            <h2 className="text-3xl sm:text-4xl font-bold font-['Google_Sans','Montserrat',sans-serif] gold-gradient-text">
               Purpose, Vision & Mission
             </h2>
             <p className="text-slate-600 text-xs sm:text-sm mt-2 max-w-xl mx-auto">
@@ -376,7 +376,7 @@ export default function BnAgrochemPage() {
               <div className="w-12 h-12 rounded-2xl bg-[#D6B46A]/15 text-[#A8863D] flex items-center justify-center mb-5 text-xl">
                 <i className="fas fa-bullseye"></i>
               </div>
-              <h3 className="text-xl font-bold font-['Cinzel','Raleway',serif] text-slate-900 mb-3">Our Purpose</h3>
+              <h3 className="text-xl font-bold font-['Google_Sans','Montserrat',sans-serif] text-slate-900 mb-3">Our Purpose</h3>
               <p className="text-slate-600 text-sm leading-relaxed">
                 To move beyond traditional edible oil refining and create real value through science and innovation at the intersection of agriculture, chemistry, and sustainability—transforming plant-based oils into high-purity derivatives.
               </p>
@@ -394,7 +394,7 @@ export default function BnAgrochemPage() {
               <div className="w-12 h-12 rounded-2xl bg-[#D6B46A]/15 text-[#A8863D] flex items-center justify-center mb-5 text-xl">
                 <i className="fas fa-eye"></i>
               </div>
-              <h3 className="text-xl font-bold font-['Cinzel','Raleway',serif] text-slate-900 mb-3">Our Vision</h3>
+              <h3 className="text-xl font-bold font-['Google_Sans','Montserrat',sans-serif] text-slate-900 mb-3">Our Vision</h3>
               <p className="text-slate-600 text-sm leading-relaxed">
                 To become India's most trusted and future-focused company for plant-based oil derivatives, delivering high-purity, sustainable solutions that improve everyday life and support global industries.
               </p>
@@ -412,7 +412,7 @@ export default function BnAgrochemPage() {
               <div className="w-12 h-12 rounded-2xl bg-[#D6B46A]/15 text-[#A8863D] flex items-center justify-center mb-5 text-xl">
                 <i className="fas fa-rocket"></i>
               </div>
-              <h3 className="text-xl font-bold font-['Cinzel','Raleway',serif] text-slate-900 mb-3">Our Mission</h3>
+              <h3 className="text-xl font-bold font-['Google_Sans','Montserrat',sans-serif] text-slate-900 mb-3">Our Mission</h3>
               <ul className="text-slate-600 text-xs sm:text-sm space-y-2.5">
                 <li className="flex items-start gap-2">
                   <i className="fas fa-check-circle text-[#A8863D] mt-0.5 text-xs"></i>
@@ -439,7 +439,7 @@ export default function BnAgrochemPage() {
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-6">
             <div>
               <span className="text-xs font-bold uppercase tracking-widest text-[#A8863D]">Financial Performance</span>
-              <h2 className="text-2xl sm:text-3xl font-bold font-['Cinzel','Raleway',serif] text-slate-900 mt-1">
+              <h2 className="text-2xl sm:text-3xl font-bold font-['Google_Sans','Montserrat',sans-serif] text-slate-900 mt-1">
                 Revenue & Operating Profit Growth
               </h2>
             </div>
@@ -466,9 +466,9 @@ export default function BnAgrochemPage() {
               <table className="w-full text-left border-collapse">
                 <thead>
                   <tr className="border-b-2 border-[#D6B46A]/30 bg-stone-100 text-slate-900 text-xs sm:text-sm font-bold">
-                    <th className="py-3 px-4 font-['Cinzel']">Financial Year</th>
-                    <th className="py-3 px-4 font-['Cinzel']">Revenue (₹ in Cr)</th>
-                    <th className="py-3 px-4 font-['Cinzel']">Operating Profit (₹ in Cr)</th>
+                    <th className="py-3 px-4 font-['Google_Sans','Montserrat',sans-serif]">Financial Year</th>
+                    <th className="py-3 px-4 font-['Google_Sans','Montserrat',sans-serif]">Revenue (₹ in Cr)</th>
+                    <th className="py-3 px-4 font-['Google_Sans','Montserrat',sans-serif]">Operating Profit (₹ in Cr)</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100 text-xs sm:text-sm">
@@ -507,7 +507,7 @@ export default function BnAgrochemPage() {
         {/* Global Footprint & Distribution Reach */}
         <section className="w-full">
           <div className="text-center mb-10">
-            <h2 className="text-3xl sm:text-4xl font-bold font-['Cinzel','Raleway',serif] gold-gradient-text">
+            <h2 className="text-3xl sm:text-4xl font-bold font-['Google_Sans','Montserrat',sans-serif] gold-gradient-text">
               Global Footprint & Distribution Network
             </h2>
             <p className="text-slate-600 text-xs sm:text-sm mt-2 max-w-xl mx-auto">
@@ -532,7 +532,7 @@ export default function BnAgrochemPage() {
               {/* Section 1: Corporate Offices in India (Golden Background Sub-Container) */}
               <div className="bg-gradient-to-br from-[#D6B46A]/12 via-amber-50/60 to-[#D6B46A]/5 rounded-2xl p-4 sm:p-5 border border-[#D6B46A]/35 shadow-sm hover:border-[#D6B46A]/60 hover:shadow-md transition-all duration-300">
                 <div className="flex items-center justify-between pb-2.5 mb-3 border-b border-[#D6B46A]/25">
-                  <h4 className="text-base sm:text-lg font-bold text-slate-900 font-['Cinzel','Raleway',serif] flex items-center gap-2">
+                  <h4 className="text-base sm:text-lg font-bold text-slate-900 font-['Google_Sans','Montserrat',sans-serif] flex items-center gap-2">
                     <span className="text-[#A8863D]">01.</span> Corporate Offices in India
                   </h4>
                   <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#D6B46A]/20 text-[#7a5b1e] border border-[#D6B46A]/40">
@@ -569,7 +569,7 @@ export default function BnAgrochemPage() {
               {/* Section 2: International Offices (Golden Background Sub-Container) */}
               <div className="bg-gradient-to-br from-amber-50/70 via-[#D6B46A]/10 to-stone-50 rounded-2xl p-4 sm:p-5 border border-[#D6B46A]/35 shadow-sm hover:border-[#D6B46A]/60 hover:shadow-md transition-all duration-300">
                 <div className="flex items-center justify-between pb-2.5 mb-3 border-b border-[#D6B46A]/25">
-                  <h4 className="text-base sm:text-lg font-bold text-slate-900 font-['Cinzel','Raleway',serif] flex items-center gap-2">
+                  <h4 className="text-base sm:text-lg font-bold text-slate-900 font-['Google_Sans','Montserrat',sans-serif] flex items-center gap-2">
                     <span className="text-[#A8863D]">02.</span> International Offices
                   </h4>
                   <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-[#D6B46A]/20 text-[#7a5b1e] border border-[#D6B46A]/40">
@@ -606,7 +606,7 @@ export default function BnAgrochemPage() {
               {/* Section 3: Distribution Network (Golden Background Sub-Container) */}
               <div className="bg-gradient-to-br from-[#D6B46A]/15 via-amber-50/50 to-[#D6B46A]/10 rounded-2xl p-4 sm:p-5 border border-[#D6B46A]/35 shadow-sm hover:border-[#D6B46A]/60 hover:shadow-md transition-all duration-300">
                 <div className="flex items-center justify-between pb-2.5 mb-3 border-b border-[#D6B46A]/25">
-                  <h4 className="text-base sm:text-lg font-bold text-slate-900 font-['Cinzel','Raleway',serif] flex items-center gap-2">
+                  <h4 className="text-base sm:text-lg font-bold text-slate-900 font-['Google_Sans','Montserrat',sans-serif] flex items-center gap-2">
                     <span className="text-[#A8863D]">03.</span> Distribution Network
                   </h4>
                   <span className="text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-100/70 text-emerald-900 border border-emerald-300">
@@ -641,7 +641,7 @@ export default function BnAgrochemPage() {
         {/* Manufacturing Facilities */}
         <section id="facilities" className="w-full">
           <div className="text-center mb-10">
-            <h2 className="text-3xl sm:text-4xl font-bold font-['Cinzel','Raleway',serif] gold-gradient-text">
+            <h2 className="text-3xl sm:text-4xl font-bold font-['Google_Sans','Montserrat',sans-serif] gold-gradient-text">
               Manufacturing Infrastructure
             </h2>
             <p className="text-slate-600 text-xs sm:text-sm mt-2 max-w-xl mx-auto">
@@ -657,7 +657,7 @@ export default function BnAgrochemPage() {
                   <span className="px-3 py-1 rounded-full bg-[#D6B46A]/15 text-[#A8863D] text-[10px] font-bold uppercase tracking-wider">
                     {fac.badge}
                   </span>
-                  <h3 className="text-xl font-bold text-slate-900 font-['Cinzel','Raleway',serif] mt-3">
+                  <h3 className="text-xl font-bold text-slate-900 font-['Google_Sans','Montserrat',sans-serif] mt-3">
                     {fac.title}
                   </h3>
                   <p className="text-xs font-bold text-[#7a5b1e] mt-1">{fac.capacity}</p>
@@ -679,7 +679,7 @@ export default function BnAgrochemPage() {
         <div className="w-full px-3 sm:px-6 md:px-8 lg:px-10 max-w-none">
           
           <div className="text-center mb-10">
-            <h2 className="text-3xl sm:text-4xl font-bold font-['Cinzel','Raleway',serif] gold-gradient-text">
+            <h2 className="text-3xl sm:text-4xl font-bold font-['Google_Sans','Montserrat',sans-serif] gold-gradient-text">
               Product Portfolio Range
             </h2>
             <p className="text-slate-600 text-xs sm:text-sm mt-2 max-w-xl mx-auto">
@@ -731,7 +731,7 @@ export default function BnAgrochemPage() {
                           </span>
                         </div>
 
-                        <h3 className="text-xl sm:text-2xl md:text-3xl font-bold font-['Cinzel','Raleway',serif] text-slate-900 mt-1">
+                        <h3 className="text-xl sm:text-2xl md:text-3xl font-bold font-['Google_Sans','Montserrat',sans-serif] text-slate-900 mt-1">
                           {catSection.title}
                         </h3>
                         <p className="text-xs text-slate-600 mt-1 max-w-3xl leading-relaxed hidden sm:block">
@@ -793,7 +793,7 @@ export default function BnAgrochemPage() {
                               </div>
 
                               {/* Title & Description */}
-                              <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-[#7a5b1e] transition-colors leading-tight font-['Cinzel','Raleway',serif]">
+                              <h4 className="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-[#7a5b1e] transition-colors leading-tight font-['Google_Sans','Montserrat',sans-serif]">
                                 {item.name}
                               </h4>
                               <p className="text-[11px] text-slate-500 mt-1 line-clamp-2 leading-relaxed">
@@ -824,6 +824,9 @@ export default function BnAgrochemPage() {
         <div
           className="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-200"
           onClick={() => setModalProduct(null)}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Product preview"
         >
           <div
             className="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border-2 border-[#D6B46A]/50 relative"
@@ -831,6 +834,7 @@ export default function BnAgrochemPage() {
           >
             <button
               onClick={() => setModalProduct(null)}
+              aria-label="Close product preview"
               className="absolute top-4 right-4 w-9 h-9 rounded-full bg-stone-100 hover:bg-stone-200 text-slate-700 flex items-center justify-center transition-colors cursor-pointer"
             >
               <i className="fas fa-times text-sm"></i>
@@ -840,7 +844,7 @@ export default function BnAgrochemPage() {
               <span className={`px-3 py-1 rounded-full text-xs font-bold border mb-3 ${modalProduct.badgeClass}`}>
                 {modalProduct.variant} • {modalProduct.pack}
               </span>
-              <h3 className="text-xl font-bold font-['Cinzel','Raleway',serif] text-slate-900 mb-4">
+              <h3 className="text-xl font-bold font-['Google_Sans','Montserrat',sans-serif] text-slate-900 mb-4">
                 {modalProduct.name}
               </h3>
 

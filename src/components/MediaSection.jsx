@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 const mediaData = [
   // Awards & Accolades
@@ -197,10 +197,10 @@ export default function MediaSection() {
 
         {/* Header */}
         <div className="text-center mb-8 sm:mb-12">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-['Cinzel','Raleway',serif] gold-gradient-text">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-['Google_Sans','Montserrat',sans-serif] gold-gradient-text">
             Media & Achievements
           </h2>
-          <p className="text-xs sm:text-sm text-slate-600 font-['Manrope'] mt-2 max-w-2xl mx-auto">
+          <p className="text-xs sm:text-sm text-slate-600 font-['Noto_Sans','Krub',sans-serif] mt-2 max-w-2xl mx-auto">
             Explore our press coverage, industry awards, and key media highlights representing our continuous commitment to industrial excellence.
           </p>
           <div className="mt-4 mx-auto h-[2px] w-28 rounded-full bg-gradient-to-r from-transparent via-[#D6B46A] to-transparent" />
@@ -214,7 +214,7 @@ export default function MediaSection() {
               <button
                 key={cat}
                 onClick={() => handleTabChange(cat)}
-                className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 font-['Manrope'] cursor-pointer ${isActive
+                className={`px-4 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all duration-300 font-['Noto_Sans','Krub',sans-serif] cursor-pointer ${isActive
                   ? 'bg-gradient-to-r from-[#7a5b1e] via-[#b89345] to-[#D6B46A] text-white shadow-md scale-105 border border-[#D6B46A]'
                   : 'bg-[#FCFAFA] text-slate-700 hover:text-[#A8863D] border border-[#D6B46A]/30 hover:border-[#D6B46A] hover:bg-white'
                   }`}
@@ -248,21 +248,21 @@ export default function MediaSection() {
               {/* Text Content */}
               <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between bg-white">
                 <div>
-                  <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-[#A8863D] font-['Manrope']">
+                  <span className="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-[#A8863D] font-['Noto_Sans','Krub',sans-serif]">
                     {item.category}
                   </span>
-                  <h3 className="text-sm sm:text-base font-bold text-slate-900 mt-1 font-['Cinzel','Raleway',serif] group-hover:text-[#A8863D] transition-colors line-clamp-2">
+                  <h3 className="text-sm sm:text-base font-bold text-slate-900 mt-1 font-['Google_Sans','Montserrat',sans-serif] group-hover:text-[#A8863D] transition-colors line-clamp-2">
                     {item.title}
                   </h3>
-                  <p className="text-xs text-slate-600 font-['Manrope'] mt-1.5 line-clamp-2 leading-relaxed">
+                  <p className="text-xs text-slate-600 font-['Noto_Sans','Krub',sans-serif] mt-1.5 line-clamp-2 leading-relaxed">
                     {item.subtitle}
                   </p>
                 </div>
                 <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
-                  <span className="text-xs font-semibold text-[#A8863D] font-['Manrope'] group-hover:underline flex items-center gap-1">
+                  <span className="text-xs font-semibold text-[#A8863D] font-['Noto_Sans','Krub',sans-serif] group-hover:underline flex items-center gap-1">
                     View Feature <i className="fas fa-arrow-right text-[10px]"></i>
                   </span>
-                  <span className="text-[10px] text-slate-400 font-['Manrope']">AAG Media</span>
+                  <span className="text-[10px] text-slate-400 font-['Noto_Sans','Krub',sans-serif]">AAG Media</span>
                 </div>
               </div>
             </div>
@@ -274,7 +274,7 @@ export default function MediaSection() {
           <div className="mt-8 sm:mt-10 text-center">
             <button
               onClick={() => setShowAll((prev) => !prev)}
-              className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 rounded-full bg-gradient-to-r from-[#7a5b1e] via-[#b89345] to-[#D6B46A] text-white font-semibold text-xs sm:text-sm font-['Manrope'] shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 cursor-pointer border border-[#D6B46A]"
+              className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 rounded-full bg-gradient-to-r from-[#7a5b1e] via-[#b89345] to-[#D6B46A] text-white font-semibold text-xs sm:text-sm font-['Noto_Sans','Krub',sans-serif] shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 cursor-pointer border border-[#D6B46A]"
             >
               <span>{showAll ? 'Show Less' : 'Show More'}</span>
               <i className={`fas ${showAll ? 'fa-chevron-up' : 'fa-chevron-down'} text-xs`}></i>
