@@ -1094,10 +1094,14 @@ function OurJourneySection({ scrollContainerRef, isMobile, navigateTo, onPortfol
       id: '01',
       title: 'FMCG &\nOleo-Chemicals',
       link: 'bn-agrochem',
-      backHeadline: 'Legacy\nconsumer and\nindustrial\ningredient\nplatform',
+      backHeadline: 'Legacy consumer and industrial ingredient platform',
       backBullets: [
         'Edible Oils',
-        'Specialty fats\n& Oleochemicals',
+        'Specialty fats & Oleochemicals',
+      ],
+      logos: [
+        { name: 'BN Agrochem', src: '/logos/BN-Agrochem-Limited-Logo.png' },
+        { name: 'Epitome', src: '/logos/epitome.png' },
       ],
       expandedMetrics: [
         { value: '₹11,822 crore', label: 'current turnover' },
@@ -1115,25 +1119,37 @@ function OurJourneySection({ scrollContainerRef, isMobile, navigateTo, onPortfol
       id: '02',
       title: 'Energy Transition',
       link: 'agastya',
-      backHeadline: 'Complete Solar\nManufacturing\nValue Chain',
-      backBullets: [],
+      backHeadline: 'Complete Solar Manufacturing Value Chain',
+      backBullets: [
+        'Ingot & Wafer to Solar Cells',
+        'High-Efficiency PV Modules',
+      ],
+      logos: [
+        { name: 'Agastya', src: '/logos/Final-AGASTYA-Logo_ctc-1-removebg-preview.png' },
+      ],
     },
     {
       id: '03',
       title: 'New Age\nInfra',
       link: 'about',
-      backHeadline: 'Future - facing hard infra opportunities',
+      backHeadline: 'Future-facing hard infra opportunities',
       backBullets: [
-        'semi-conductors',
+        'Semi-conductors',
         'Data centers',
+      ],
+      logos: [
+        { name: 'Indichip', src: '/logos/Indichip.png' },
       ],
     },
     {
       id: '04',
       title: 'Integrated\nInfra',
       link: 'home',
-      backHeadline: 'Integrated\ninfrastructure\nplatform for\nupcoming\nexpansion',
-      backBullets: [],
+      backHeadline: 'Integrated infrastructure platform for upcoming expansion',
+      backBullets: [
+        'Industrial Asset Base',
+        'Synergistic Ecosystem',
+      ],
     },
   ];
 
@@ -1711,9 +1727,6 @@ function OurJourneySection({ scrollContainerRef, isMobile, navigateTo, onPortfol
                   {sectorNames[activeSectorIdx]}
                 </span>
               </h2>
-
-              {/* Constant Gold Accent Underline */}
-              <div className="mt-3 mx-auto h-[2.5px] w-36 rounded-full bg-gradient-to-r from-transparent via-[#D6B46A] to-transparent" />
             </div>
           </div>
 
@@ -1895,15 +1908,18 @@ function OurJourneySection({ scrollContainerRef, isMobile, navigateTo, onPortfol
                         {/* Mobile Front Face */}
                         <div
                           style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
-                          className="absolute inset-0 rounded-3xl bg-gradient-to-b from-white via-[#FCFAFA] to-[#F8F5EE] border border-[#D6B46A]/35 shadow-lg p-6 flex flex-col justify-between overflow-hidden"
+                          className="absolute inset-0 rounded-3xl bg-gradient-to-b from-white via-[#FCFAFA] to-[#F8F5EE] border border-[#D6B46A]/45 shadow-[0_12px_32px_rgba(214,180,106,0.18)] p-6 flex flex-col justify-between overflow-hidden"
                         >
+                          <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-transparent via-[#D6B46A] to-transparent opacity-80" />
                           <div className="flex items-center justify-between">
-                            <span className="text-3xl font-black text-[#A8863D]/80 font-['Google_Sans','Montserrat',sans-serif]">{card.id}</span>
-                            <div className="w-2.5 h-2.5 rounded-full bg-[#D6B46A]" />
+                            <span className="text-3xl font-black text-[#A8863D] font-['Google_Sans','Montserrat',sans-serif] tracking-tight">{card.id}</span>
+                            <div className="w-2.5 h-2.5 rounded-full bg-gradient-to-br from-[#7a5b1e] via-[#D6B46A] to-[#F4E7C5] shadow-[0_0_8px_rgba(214,180,106,0.6)]" />
                           </div>
                           <div className="my-auto py-4">
-                            <h3 className="text-2xl font-bold text-slate-900 font-['Google_Sans','Montserrat',sans-serif] leading-snug whitespace-pre-line">{card.title}</h3>
-                            <div className="w-12 h-[2.5px] rounded-full bg-gradient-to-r from-[#D6B46A] via-[#CFB377] to-transparent mt-4" />
+                            <h3 className="text-2xl font-bold font-['Google_Sans','Montserrat',sans-serif] gold-gradient-text leading-snug whitespace-pre-line tracking-tight drop-shadow-[0_1px_2px_rgba(214,180,106,0.25)]">
+                              {card.title}
+                            </h3>
+                            <div className="w-14 h-[3px] rounded-full bg-gradient-to-r from-[#7a5b1e] via-[#D6B46A] to-[#F4E7C5] mt-4 shadow-sm" />
                           </div>
                           <p className="text-[11px] text-[#A8863D] font-bold uppercase tracking-wider">Tap to view details</p>
                         </div>
@@ -1911,26 +1927,49 @@ function OurJourneySection({ scrollContainerRef, isMobile, navigateTo, onPortfol
                         {/* Mobile Back Face */}
                         <div
                           style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
-                          className="absolute inset-0 rounded-3xl bg-gradient-to-b from-[#FFFDF9] via-[#FCFAFA] to-[#F5EFE4] border-2 border-[#D6B46A]/50 shadow-xl p-6 flex flex-col justify-between overflow-hidden"
+                          className="absolute inset-0 rounded-3xl bg-gradient-to-b from-[#FFFDF9] via-[#FCFAFA] to-[#F5EFE4] border-2 border-[#D6B46A]/50 shadow-xl p-5 sm:p-6 flex flex-col justify-between overflow-hidden"
                         >
-                          <div className="flex items-center justify-between">
-                            <span className="text-2xl font-black text-[#A8863D]/70 font-['Google_Sans','Montserrat',sans-serif]">{card.id}</span>
-                            <div className="w-2.5 h-2.5 rounded-full bg-[#D6B46A]" />
+                          <div className="flex items-center justify-between pb-2 border-b border-slate-200/60 flex-shrink-0">
+                            <span className="text-2xl font-black text-[#A8863D]/80 font-['Google_Sans','Montserrat',sans-serif]">{card.id}</span>
                           </div>
-                          <div className="my-auto py-2">
-                            <h4 className="text-base font-bold text-slate-900 leading-snug font-['Google_Sans','Montserrat',sans-serif] whitespace-pre-line mb-3">{card.backHeadline}</h4>
+                          <div className="flex-1 flex flex-col justify-start pt-3 pb-2">
+                            <h4 className="text-[15px] sm:text-base font-extrabold text-slate-900 leading-snug font-['Google_Sans','Montserrat',sans-serif] mb-2.5 min-h-[44px] sm:min-h-[48px] flex items-start">
+                              {card.backHeadline}
+                            </h4>
                             {card.backBullets && card.backBullets.length > 0 && (
-                              <ul className="space-y-2 mt-2">
+                              <div className="space-y-2">
                                 {card.backBullets.map((bullet, bIdx) => (
-                                  <li key={bIdx} className="flex items-start gap-2 text-xs font-semibold text-slate-800 font-['Noto_Sans','Krub',sans-serif]">
-                                    <span className="text-[#A8863D] text-sm leading-none font-black mt-0.5">▪</span>
-                                    <span className="whitespace-pre-line">{bullet}</span>
-                                  </li>
+                                  <div key={bIdx} className="flex items-center gap-2 p-2 rounded-xl bg-white/90 border border-slate-200/80 shadow-[0_1px_3px_rgba(0,0,0,0.02)] min-h-[34px]">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-[#A8863D] flex-shrink-0" />
+                                    <span className="text-xs font-semibold text-slate-800 leading-snug font-['Noto_Sans','Krub',sans-serif]">{bullet}</span>
+                                  </div>
                                 ))}
-                              </ul>
+                              </div>
                             )}
                           </div>
-                          <p className="text-[11px] text-[#A8863D] font-bold uppercase tracking-wider">Tap to flip back</p>
+                          {card.logos && card.logos.length > 0 ? (
+                            <div className="h-[74px] pt-2 border-t border-slate-200/60 flex flex-col justify-between flex-shrink-0">
+                              <span className="text-[9px] font-bold uppercase tracking-wider text-slate-400 block text-center">
+                                {card.logos.length > 1 ? 'Key Operating Entities' : 'Key Operating Entity'}
+                              </span>
+                              <div className={`w-full h-9 flex items-center ${card.logos.length > 1 ? 'justify-around px-2' : 'justify-center'}`}>
+                                {card.logos.map((logo, lIdx) => (
+                                  <img
+                                    key={lIdx}
+                                    src={logo.src}
+                                    alt={logo.name}
+                                    className={`${
+                                      card.id === '03'
+                                        ? 'h-8 sm:h-9 max-w-[130px]'
+                                        : 'h-6 sm:h-7 max-w-[95px]'
+                                    } object-contain`}
+                                  />
+                                ))}
+                              </div>
+                            </div>
+                          ) : (
+                            <div className="h-[74px] flex-shrink-0" />
+                          )}
                         </div>
                       </div>
                     </div>
@@ -2047,29 +2086,32 @@ function OurJourneySection({ scrollContainerRef, isMobile, navigateTo, onPortfol
                               backfaceVisibility: 'hidden',
                               WebkitBackfaceVisibility: 'hidden',
                             }}
-                            className="absolute inset-0 rounded-3xl bg-gradient-to-b from-white via-[#FCFAFA] to-[#F8F5EE] border border-[#D6B46A]/35 shadow-[0_14px_36px_rgba(214,180,106,0.14)] p-6 sm:p-7 flex flex-col justify-between overflow-hidden"
+                            className="absolute inset-0 rounded-3xl bg-gradient-to-b from-white via-[#FCFAFA] to-[#F8F5EE] border border-[#D6B46A]/45 shadow-[0_14px_36px_rgba(214,180,106,0.18)] p-6 sm:p-7 flex flex-col justify-between overflow-hidden"
                           >
                             {/* Top ambient gold light shimmer */}
-                            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-transparent via-[#D6B46A] to-transparent opacity-60" />
+                            <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-transparent via-[#D6B46A] to-transparent opacity-80" />
 
                             {/* Top Index */}
                             <div className="flex items-center justify-between">
-                              <span className="text-3xl sm:text-4xl font-black text-[#A8863D]/80 font-['Google_Sans','Montserrat',sans-serif] tracking-tight">
+                              <span className="text-3xl sm:text-4xl font-black text-[#A8863D] font-['Google_Sans','Montserrat',sans-serif] tracking-tight">
                                 {card.id}
                               </span>
-                              <div className="w-2.5 h-2.5 rounded-full bg-[#D6B46A]" />
+                              <div className="w-3 h-3 rounded-full bg-gradient-to-br from-[#7a5b1e] via-[#D6B46A] to-[#F4E7C5] shadow-[0_0_8px_rgba(214,180,106,0.6)]" />
                             </div>
 
-                            {/* Center Main Heading Only */}
+                            {/* Center Main Heading in Rich Golden Color */}
                             <div className="my-auto py-4">
-                              <h3 className="text-2xl sm:text-3xl font-bold text-slate-900 font-['Google_Sans','Montserrat',sans-serif] leading-snug whitespace-pre-line tracking-tight">
+                              <h3 className="text-2xl sm:text-3xl lg:text-[32px] font-bold font-['Google_Sans','Montserrat',sans-serif] gold-gradient-text leading-tight whitespace-pre-line tracking-tight drop-shadow-[0_1px_3px_rgba(214,180,106,0.25)]">
                                 {card.title}
                               </h3>
-                              <div className="w-12 h-[2.5px] rounded-full bg-gradient-to-r from-[#D6B46A] via-[#CFB377] to-transparent mt-4" />
+                              <div className="w-16 h-[3px] rounded-full bg-gradient-to-r from-[#7a5b1e] via-[#D6B46A] to-[#F4E7C5] mt-4 shadow-sm" />
                             </div>
 
-                            {/* Minimal bottom spacing dot */}
-                            <div className="w-1.5 h-1.5 rounded-full bg-[#D6B46A]/40" />
+                            {/* Minimal bottom spacing indicator */}
+                            <div className="flex items-center gap-1.5">
+                              <div className="w-1.5 h-1.5 rounded-full bg-[#D6B46A]" />
+                              <div className="w-6 h-[1.5px] rounded-full bg-[#D6B46A]/40" />
+                            </div>
                           </div>
 
                           {/* ================= BACK FACE ================= */}
@@ -2096,12 +2138,11 @@ function OurJourneySection({ scrollContainerRef, isMobile, navigateTo, onPortfol
                                 opacity: innerContentOpacity,
                                 transition: 'opacity 0.15s ease',
                               }}
-                              className="flex items-center justify-between"
+                              className="flex items-center justify-between pb-2.5 border-b border-slate-200/60 flex-shrink-0"
                             >
-                              <span className="text-2xl sm:text-3xl font-black text-[#A8863D]/70 font-['Google_Sans','Montserrat',sans-serif]">
+                              <span className="text-2xl sm:text-3xl font-black text-[#A8863D]/80 font-['Google_Sans','Montserrat',sans-serif]">
                                 {card.id}
                               </span>
-                              <div className="w-2.5 h-2.5 rounded-full bg-[#D6B46A]" />
                             </div>
 
                             {/* Main Content Area (Normal unexpanded state) */}
@@ -2110,32 +2151,59 @@ function OurJourneySection({ scrollContainerRef, isMobile, navigateTo, onPortfol
                                 opacity: innerContentOpacity,
                                 transition: 'opacity 0.15s ease',
                               }}
-                              className="my-auto py-2 flex flex-col justify-center"
+                              className="flex-1 flex flex-col justify-start pt-3.5 pb-2"
                             >
-                              <h4 className="text-base sm:text-lg md:text-[18px] font-bold text-slate-900 leading-snug font-['Google_Sans','Montserrat',sans-serif] whitespace-pre-line mb-3.5">
+                              <h4 className="text-base sm:text-[17px] md:text-[18px] font-extrabold text-slate-900 leading-snug font-['Google_Sans','Montserrat',sans-serif] tracking-tight mb-3 min-h-[50px] sm:min-h-[54px] flex items-start">
                                 {card.backHeadline}
                               </h4>
 
                               {card.backBullets && card.backBullets.length > 0 && (
-                                <ul className="space-y-2.5 mt-3">
+                                <div className="space-y-2.5">
                                   {card.backBullets.map((bullet, bIdx) => (
-                                    <li key={bIdx} className="flex items-start gap-2 text-xs sm:text-[14px] font-semibold text-slate-800 leading-relaxed font-['Noto_Sans','Krub',sans-serif]">
-                                      <span className="text-[#A8863D] text-sm leading-none font-black mt-0.5">▪</span>
-                                      <span className="whitespace-pre-line">{bullet}</span>
-                                    </li>
+                                    <div
+                                      key={bIdx}
+                                      className="flex items-center gap-2.5 p-2 px-2.5 rounded-xl bg-white/90 border border-slate-200/90 shadow-[0_2px_4px_rgba(0,0,0,0.02)] min-h-[38px]"
+                                    >
+                                      <span className="w-1.5 h-1.5 rounded-full bg-[#A8863D] flex-shrink-0" />
+                                      <span className="text-xs sm:text-[13px] font-semibold text-slate-800 leading-snug font-['Noto_Sans','Krub',sans-serif]">
+                                        {bullet}
+                                      </span>
+                                    </div>
                                   ))}
-                                </ul>
+                                </div>
                               )}
                             </div>
 
-                            {/* Minimal bottom spacing dot (Normal unexpanded state) */}
-                            <div
-                              style={{
-                                opacity: innerContentOpacity,
-                                transition: 'opacity 0.15s ease',
-                              }}
-                              className="w-1.5 h-1.5 rounded-full bg-[#D6B46A]/40"
-                            />
+                            {/* Bottom Section (Logos for Cards with logos - Fixed height for exact horizontal alignment across cards) */}
+                            {card.logos && card.logos.length > 0 ? (
+                              <div
+                                style={{
+                                  opacity: innerContentOpacity,
+                                  transition: 'opacity 0.15s ease',
+                                }}
+                                className="h-[88px] pt-2.5 border-t border-slate-200/60 flex flex-col justify-between flex-shrink-0"
+                              >
+                                <span className="text-[9.5px] font-bold uppercase tracking-wider text-slate-400 text-center block">
+                                  {card.logos.length > 1 ? 'Key Operating Entities' : 'Key Operating Entity'}
+                                </span>
+                                <div className={`w-full h-11 flex items-center ${card.logos.length > 1 ? 'justify-around px-2' : 'justify-center'}`}>
+                                  {card.logos.map((logo, lIdx) => (
+                                    <img
+                                      key={lIdx}
+                                      src={logo.src}
+                                      alt={logo.name}
+                                      className={`${
+                                        card.id === '03'
+                                          ? 'h-10 sm:h-11 max-w-[140px]'
+                                          : 'h-7 sm:h-8 max-w-[105px]'
+                                      } object-contain transition-transform hover:scale-105`}
+                                    />
+                                  ))}
+                                </div>
+                              </div>
+                            ) : (
+                              <div className="h-[88px] flex-shrink-0" />
+                            )}
 
                             {/* Expanded View for Card 1 (9 Animated Metrics on Left + 2 Animated Bar Charts on Right) */}
                             {idx === 0 && thisExp > 0.05 && (
