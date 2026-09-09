@@ -1712,7 +1712,7 @@ function OurJourneySection({ scrollContainerRef, isMobile, navigateTo, onPortfol
               className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none transition-all duration-300"
               style={{
                 opacity: isMobile ? 0 : expansionHeaderOpacity,
-                transform: isMobile ? 'none' : `translate3d(0, ${(1 - expansionHeaderOpacity) * 12}px, 0)`,
+                transform: isMobile ? 'none' : `translate3d(0, ${-22 + (1 - expansionHeaderOpacity) * 12}px, 0)`,
                 visibility: isMobile || expansionHeaderOpacity <= 0.001 ? 'hidden' : 'visible',
               }}
             >
@@ -1958,11 +1958,10 @@ function OurJourneySection({ scrollContainerRef, isMobile, navigateTo, onPortfol
                                     key={lIdx}
                                     src={logo.src}
                                     alt={logo.name}
-                                    className={`${
-                                      card.id === '03'
+                                    className={`${card.id === '03'
                                         ? 'h-8 sm:h-9 max-w-[130px]'
                                         : 'h-6 sm:h-7 max-w-[95px]'
-                                    } object-contain`}
+                                      } object-contain`}
                                   />
                                 ))}
                               </div>
@@ -2192,11 +2191,10 @@ function OurJourneySection({ scrollContainerRef, isMobile, navigateTo, onPortfol
                                       key={lIdx}
                                       src={logo.src}
                                       alt={logo.name}
-                                      className={`${
-                                        card.id === '03'
+                                      className={`${card.id === '03'
                                           ? 'h-10 sm:h-11 max-w-[140px]'
                                           : 'h-7 sm:h-8 max-w-[105px]'
-                                      } object-contain transition-transform hover:scale-105`}
+                                        } object-contain transition-transform hover:scale-105`}
                                     />
                                   ))}
                                 </div>
@@ -2253,8 +2251,8 @@ function OurJourneySection({ scrollContainerRef, isMobile, navigateTo, onPortfol
                                       <div className="grid grid-cols-5 gap-1 sm:gap-1.5 h-full items-end pb-0.5 relative z-10">
                                         {revenueChartData.map((bar, bIdx) => {
                                           const barHeightPct = Math.max(4, (bar.value / 22000) * 100 * animProgress);
-                                          const curDisplayVal = animProgress >= 1 
-                                            ? bar.display 
+                                          const curDisplayVal = animProgress >= 1
+                                            ? bar.display
                                             : (bar.value * animProgress).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                                           return (
                                             <div key={bIdx} className="flex flex-col items-center h-full justify-end">
@@ -2293,8 +2291,8 @@ function OurJourneySection({ scrollContainerRef, isMobile, navigateTo, onPortfol
                                       <div className="grid grid-cols-5 gap-1 sm:gap-1.5 h-full items-end pb-0.5 relative z-10">
                                         {profitChartData.map((bar, bIdx) => {
                                           const barHeightPct = Math.max(4, (bar.value / 820) * 100 * animProgress);
-                                          const curDisplayVal = animProgress >= 1 
-                                            ? bar.display 
+                                          const curDisplayVal = animProgress >= 1
+                                            ? bar.display
                                             : (bar.value * animProgress).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
                                           return (
                                             <div key={bIdx} className="flex flex-col items-center h-full justify-end">
