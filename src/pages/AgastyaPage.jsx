@@ -177,7 +177,7 @@ export default function AgastyaPage() {
         <div className="w-full max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
           <div className="max-w-3xl">
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold font-['Google_Sans','Montserrat',sans-serif] gold-gradient-text leading-tight">
-              Agastya Energy Industries
+              Agastya Energy Industries and infrastructure
             </h1>
             <p className="text-stone-300 text-sm sm:text-base md:text-lg mt-4 leading-relaxed font-['Noto_Sans','Krub',sans-serif]">
               Building a fully integrated renewable energy platform spanning the complete solar value chain—from silicon ingots & wafers to solar cells, modules, IPP generation, and battery energy storage.
